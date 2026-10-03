@@ -74,7 +74,7 @@ Design: style A ("selkeä") from the design brainstorm, applied to every page. T
   3. Marjaana: "yliopisto-opettaajana" → "yliopisto-opettajana"
   4. Marjaana: "(mm.DPNS)" → "(mm. DPNS)"
   5. Space added after the hyphen: "yksilö-ja" → "yksilö- ja" (Annemari, Jenita), "vuodeosasto-että" → "vuodeosasto- että", "kommunikointi-ja" → "kommunikointi- ja" (Jenita)
-  6. One spelling for everyone, "SPEAK OUT!®" and "LOUD Crowd®": Jenita "SPEAKOUT! ja Loud Crowd® menetelmäkoulutuksella" → "SPEAK OUT!® ja LOUD Crowd® -menetelmäkoulutuksella"; Riitta and Annemari "SPEAK OUT!-" → "SPEAK OUT!®-". The hyphen added before "menetelmäkoulutuksella" is an extra change, not yet confirmed by Nana. The spelling could not be checked against Parkinson Voice Project's site (blocked from this environment).
+  6. One spelling for everyone, "SPEAK OUT!®" and "LOUD Crowd®": Jenita "SPEAKOUT! ja Loud Crowd® menetelmäkoulutuksella" → "SPEAK OUT!® ja LOUD Crowd® -menetelmäkoulutuksella"; Riitta and Annemari "SPEAK OUT!-" → "SPEAK OUT!®-". The hyphen added before "menetelmäkoulutuksella" is an extra change; Nana confirmed it 2026-10-03. The spelling could not be checked against Parkinson Voice Project's site (blocked from this environment).
   7. Nana: "SanapsisPro sovellukseen" → "SanapsisPro-sovellukseen"
   - Working languages written the same way for everyone: "suomi ja englanti" → "suomi, englanti" (Marjaana, Ida, Nana).
 - New text: the link "← Terapeutit" at the end of each profile page.
@@ -95,7 +95,7 @@ Design only, no text changes. Matches the brainstorm mock-up design-ideas/a3b-va
 ## 8. Menu: "Tapahtumat ja toimintatavat" split in two (Nana, 2026-10-03)
 - "Tapahtumat ▾" is a drop-down with Ajankohtaista and Menneet tapahtumat. Those two pages show "Tapahtumat" above the title and only each other in the side menu.
 - "Arvot ja toimintatavat" is its own menu link to the same page as before (/toimintatavat-ja-arvot/). It no longer has a side menu or a section name above the title.
-- Order: Terapeutit, Palvelut ▾, Tapahtumat ▾, Arvot ja toimintatavat, På svenska ▾, In English ▾, Asiakaspalaute. Asiakaspalaute stays last as on the current site; the brainstorm mock-up had it before På svenska (not applied, Nana to decide).
+- Order: Terapeutit, Palvelut ▾, Tapahtumat ▾, Arvot ja toimintatavat, På svenska ▾, In English ▾, Asiakaspalaute. (Superseded: Asiakaspalaute was later moved before På svenska, see section 13.)
 - Page addresses are unchanged. Tested: the drop-down opens with Enter, Tab moves into it, Esc closes it; it also works in the phone menu.
 
 ## 9. Consistency sweep (Nana asked, 2026-10-03)
@@ -106,7 +106,7 @@ Design only, no text changes. Brought in line with the brainstorm thread's refer
 - One keyboard focus outline everywhere: dark grey #262626, 3px (was blue on some pages). In the dark footer the outline is white so it can be seen.
 - Menu: the current page or section is underlined in orange on every page; drop-down items and the side menu get a light peach background on hover.
 - Footer #474747 with white text on every page (already done in section 7).
-- NEW, NOT YET APPROVED BY NANA: buttons invert on hover like the service tiles (orange button turns white with orange text, white button turns orange). Easy to revert; the old rule is kept as a comment in assets/site.css.
+- Approved by Nana 2026-10-03: buttons invert on hover like the service tiles (orange button turns white with orange text, white button turns orange).
 
 ## 10. Uniform look, round 2 (Nana, 2026-10-03)
 Design only, no text changes.
@@ -123,3 +123,9 @@ Design only, no text changes.
 ## 12. Lower footer (Nana, 2026-10-03)
 - The footer is less tall: about 80px on a wide screen (was about 130px). The text is slightly smaller (.92rem). The social media buttons stay 44px so they are easy to tap.
 - Checked: every page has the dark grey footer. The only page without one is the old address /nanalehtinengmailcom, which immediately forwards to the homepage.
+
+## 13. Nana's answers (2026-10-03)
+- Button hover kept on all buttons, including the homepage's Terapeutit and email buttons.
+- Menu order: Terapeutit, Palvelut ▾, Tapahtumat ▾, Arvot ja toimintatavat, Asiakaspalaute, På svenska ▾, In English ▾.
+- Jenita's "LOUD Crowd® -menetelmäkoulutuksella" hyphen kept.
+- Saavutettavuusseloste: draft for Nana's review in site-plan/saavutettavuusseloste-luonnos.md. Not on the site yet.

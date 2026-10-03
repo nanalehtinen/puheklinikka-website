@@ -63,6 +63,7 @@ MENU = [
         ('Menneet tapahtumat', 'tapahtumia-aiemmilta-vuosilta'),
     ]),
     ('Arvot ja toimintatavat', 'toimintatavat-ja-arvot', None),
+    ('Asiakaspalaute', 'new-page-2', None),  # moved before På svenska (Nana, 2026-10-03)
     ('På svenska', None, [
         ('Introduktion', 'about-puheklinikka'),
         ('Våra tjänster', 'mit-puheterapia-on-1'),
@@ -71,7 +72,6 @@ MENU = [
         ('About Puheklinikka', 'about-puheklinikka-2'),
         ('Our services', 'our-services'),
     ]),
-    ('Asiakaspalaute', 'new-page-2', None),
 ]
 CUR = ' aria-current="page"'
 FOLDER_LANG = {'På svenska': 'sv', 'In English': 'en'}
