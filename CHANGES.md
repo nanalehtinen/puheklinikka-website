@@ -82,3 +82,12 @@ Design: style A ("selkeä") from the design brainstorm, applied to every page. T
 - The seven CV PDFs are no longer published (replaced by the profile pages).
 - Two large photo PNG files are now served as JPEG (same picture, smaller download).
 - Accessibility re-check after these changes: axe-core, all WCAG 2.0/2.1 A and AA rules, 21 pages at desktop and phone width: 0 violations, no broken links. One item axe could not decide (text on the light card background, #3a3a3a on #f6f2ee: 10.2:1, passes).
+
+## 7. More colour: variant A3 with A's header and hero (Nana, 2026-10-03)
+Design only, no text changes. Matches the brainstorm mock-up design-ideas/a3b-varikkaat-palvelut.html.
+- Header and hero unchanged from style A (4px orange line under the header, beige hero, photo with rounded corners).
+- Homepage service tiles: solid orange (#B4580F) with white text, centred. On hover and keyboard focus they turn white with orange text and an orange border; keyboard focus also shows a dark outline.
+- Office cards: white with an orange (#C46013) border; the town names are orange.
+- Buttons: #B4580F (white text 4.83:1).
+- Footer: dark grey #474747 with white text and links (9.3:1). The keyboard focus outline in the footer is white so it shows on the grey.
+- All colours are CSS variables at the top of assets/site.css, so the palette can still be changed in one place.
