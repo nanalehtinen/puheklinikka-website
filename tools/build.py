@@ -509,7 +509,9 @@ def build():
             body, PEOPLE[:] = style_a.terapeutit_body(body, log)
         elif slug == 'new-page-1':
             body = style_a.news_body(body, page_title, log)
-        crumb, _ = style_a.section_of(MENU, slug)
+        elif not home:
+            body = style_a.mark_section_breaks(body)
+        crumb = None  # section label above the title removed (Nana, 2026-10-03)
         page = render(slug, lang, tab_title, page_title, crumb, body, depth, home)
         if unicodedata.normalize('NFC', page) != page:
             LOG.append((slug, 'tech', 'some letters were stored in decomposed Unicode form (e.g. a + ¨); normalised to standard form, looks identical'))
@@ -528,7 +530,7 @@ def build():
         dest.write_text(page)
     for p in PEOPLE:
         ps = f'asiantuntijat/{p["slug"]}'
-        page = render(ps, 'fi', f'{p["name"]} — Puheklinikka', p['name'], 'Terapeutit',
+        page = render(ps, 'fi', f'{p["name"]} — Puheklinikka', p['name'], None,
                       style_a.profile_body(p, log), 2, False, sidebar=False)
         page = unicodedata.normalize('NFC', page)
         (OUT / ps).mkdir(parents=True, exist_ok=True)

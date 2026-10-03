@@ -254,3 +254,20 @@ def shell(*, lang, title, page_title, crumb, body, depth, rel, page_href, nav, s
 </body>
 </html>
 '''
+
+
+def mark_section_breaks(body):
+    """Thin grey line between sections (Nana, 2026-10-03): every top-level content heading after the
+    first gets class "sep", unless a horizontal rule already separates it."""
+    soup = BeautifulSoup(body, 'html.parser')
+    BLOCKS = ('hr', 'p', 'ul', 'ol', 'h2', 'h3', 'h4', 'figure', 'img', 'iframe')
+    # section level = the highest heading level used on the page (h2, else h3)
+    level = 'h2' if soup.find('h2') else 'h3'
+    for h in soup.find_all(level)[1:]:
+        if not h.get_text(strip=True):
+            continue
+        prev = h.find_previous(BLOCKS)
+        if prev is not None and prev.name == 'hr':
+            continue
+        h['class'] = h.get('class', []) + ['sep']
+    return str(soup)
