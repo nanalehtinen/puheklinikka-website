@@ -22,7 +22,7 @@ Not applied, and why:
 - The four unlinked info pages, the draft therapist page, the hidden chat box, the search icon.
 - All Squarespace forms (header, Terapeutit, LUKI-tutkimus, Koulutukset) are now the link toimisto@puheklinikka.net. The form questions and help texts are gone.
 
-## 3. New text I had to add (please approve or change)
+## 3. New text added for accessibility (approved by Nana 2026-10-03)
 Needed for accessibility (WCAG 2.1) or because something had no text before:
 - Skip link at the top for keyboard users: "Siirry sisältöön"
 - Phone menu button: "Valikko" (the old site used an icon labelled "Menu")
