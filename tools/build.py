@@ -57,11 +57,12 @@ MENU = [
         ('Koulutukset', 'koulutukset'),
         ('Sanapsis-sovellukset ja tuotteet', 'new-page'),
     ]),
-    ('Tapahtumat ja toimintatavat', None, [
-        ('Arvot ja toimintatavat', 'toimintatavat-ja-arvot'),
+    # Split in two (Nana, 2026-10-03)
+    ('Tapahtumat', None, [
         ('Ajankohtaista', 'new-page-1'),
         ('Menneet tapahtumat', 'tapahtumia-aiemmilta-vuosilta'),
     ]),
+    ('Arvot ja toimintatavat', 'toimintatavat-ja-arvot', None),
     ('På svenska', None, [
         ('Introduktion', 'about-puheklinikka'),
         ('Våra tjänster', 'mit-puheterapia-on-1'),

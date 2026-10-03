@@ -91,3 +91,9 @@ Design only, no text changes. Matches the brainstorm mock-up design-ideas/a3b-va
 - Buttons: #B4580F (white text 4.83:1).
 - Footer: dark grey #474747 with white text and links (9.3:1). The keyboard focus outline in the footer is white so it shows on the grey.
 - All colours are CSS variables at the top of assets/site.css, so the palette can still be changed in one place.
+
+## 8. Menu: "Tapahtumat ja toimintatavat" split in two (Nana, 2026-10-03)
+- "Tapahtumat ▾" is a drop-down with Ajankohtaista and Menneet tapahtumat. Those two pages show "Tapahtumat" above the title and only each other in the side menu.
+- "Arvot ja toimintatavat" is its own menu link to the same page as before (/toimintatavat-ja-arvot/). It no longer has a side menu or a section name above the title.
+- Order: Terapeutit, Palvelut ▾, Tapahtumat ▾, Arvot ja toimintatavat, På svenska ▾, In English ▾, Asiakaspalaute. Asiakaspalaute stays last as on the current site; the brainstorm mock-up had it before På svenska (not applied, Nana to decide).
+- Page addresses are unchanged. Tested: the drop-down opens with Enter, Tab moves into it, Esc closes it; it also works in the phone menu.
