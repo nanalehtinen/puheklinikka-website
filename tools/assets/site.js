@@ -8,7 +8,7 @@
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
-  var folders = document.querySelectorAll('.mainnav .folder');
+  var folders = document.querySelectorAll('#mainnav .folder');
   function closeAll(except) {
     folders.forEach(function (f) {
       if (f !== except) {
@@ -33,6 +33,6 @@
     });
   });
   document.addEventListener('click', function (e) {
-    if (!e.target.closest('.mainnav .folder')) closeAll();
+    if (!e.target.closest('#mainnav .folder')) closeAll();
   });
 })();

@@ -56,3 +56,18 @@ Automated tools find only part of the 49 criteria. Still to be checked by a pers
 - The Google feedback form and Google Maps are third-party; I cannot change their accessibility.
 - A real screen reader and keyboard run-through.
 - An accessibility statement (saavutettavuusseloste) page, if you want one. I have not written it.
+
+## 6. Style A and therapist pages (Nana, 2026-10-03)
+Design: style A ("selkeä") from the design brainstorm, applied to every page. Text is unchanged except where listed here.
+- Header: white with the orange logo and an orange line; the menu is on one line. "Etusivu" is no longer a menu item; the logo links to the homepage. "På svenska" and "In English" stay as drop-downs, because each has two pages (the sketch showed them as plain links).
+- Every page has a light title band. Pages inside Palvelut, Tapahtumat ja toimintatavat, På svenska and In English show that section's name above the title, and the section's pages as a side menu (a row of buttons on phones).
+- Headings inside the pages moved down one level, so each page has one main heading (better for screen readers). They look the same size as before relative to each other.
+- Footer: dark, with "Ota yhteyttä!", the email and the social media icons. The heading "Contact Us" is removed.
+- Homepage: rearranged as in the sketch. The first sentence is the main heading. "Tutustu asiantuntijoihimme täällä." is replaced by a "Terapeutit" button. "Osaamisalueitamme…" sits under the heading "Palvelut" with a link to each service page. "Käynti-ja postiosoite:" is a heading, with Turku and Helsinki side by side.
+- Ajankohtaista: each dated post is its own card. The second "Ajankohtaista" heading inside the page was removed because it repeated the page title.
+- Terapeutit: one card per therapist. The name and the photo link to the therapist's own page (photo, contact details, bio). The intro sentence "Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla" is kept, because tapping the photo now opens the profile.
+- New profile pages, e.g. /asiantuntijat/elina-uusi-hakala/. Elina's page has Nana's bio text word for word, with "tietoturvavastaavana" changed to "tietosuojavastaavana" (confirmed by Nana). The other six pages have photo and contact details only, until their bios arrive.
+- New text: the link "← Terapeutit" at the end of each profile page. Photos on the Terapeutit page have the therapist's name as their description, because they are links.
+- The seven CV PDFs are no longer published (replaced by the profile pages).
+- Two large photo PNG files are now served as JPEG (same picture, smaller download).
+- Accessibility re-check after these changes: axe-core, all WCAG 2.0/2.1 A and AA rules, 21 pages at desktop and phone width: 0 violations, no broken links. One item axe could not decide (text on the light card background, #3a3a3a on #f6f2ee: 10.2:1, passes).

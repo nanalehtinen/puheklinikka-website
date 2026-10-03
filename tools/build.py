@@ -9,6 +9,8 @@ Output: ../site (static files for GitHub Pages).
 import json, os, re, shutil, sys, html, unicodedata
 from pathlib import Path
 from bs4 import BeautifulSoup, NavigableString, Tag, Comment
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import style_a
 
 ROOT = Path(__file__).resolve().parent
 INV = Path('/mnt/project-files/site-inventory')
@@ -85,7 +87,6 @@ UI = {
 }
 # Alt texts for images that are links or carry text (decision: drafted, flagged).
 ALT = {
-    'Riitta.jpg': 'Riitta Saari (PDF)',
     'lookbook-thumb.jpg': 'Sanapsis',
     'screen.jpeg': 'Sanapsis+',
     'Kommunikaatiokurssi+syyskuu.png': 'Tule mukaan! Kommunikaatiokuntoutuskurssi Turun Caribiaan! Seuraava kurssi alkaa 7.9.2026. Mukaan mahtuu vielä! Coronaria ja Puheklinikka yhteistyössä.',
@@ -327,11 +328,23 @@ def simplify(htmltext):
     return htmltext
 
 # ---------------------------------------------------------------- images
+BIG_PNG_AS_JPEG = set()  # large photo-like PNGs without transparency are served as JPEG
+
 def web_name(local):
     # ASCII-only file names: safer for every server and browser
     n = unicodedata.normalize('NFKD', local).encode('ascii', 'ignore').decode()
     stem, ext = n.rsplit('.', 1)
-    return re.sub(r'[^A-Za-z0-9._-]+', '-', stem) + '.' + ext.lower()
+    ext = 'jpg' if local in BIG_PNG_AS_JPEG else ext.lower()
+    return re.sub(r'[^A-Za-z0-9._-]+', '-', stem) + '.' + ext
+
+def _scan_big_pngs():
+    from PIL import Image
+    for f in (INV / 'images').iterdir():
+        if f.suffix.lower() == '.png' and f.stat().st_size > 600_000:
+            im = Image.open(f)
+            if im.mode in ('RGB', 'P') and 'transparency' not in im.info:
+                BIG_PNG_AS_JPEG.add(f.name)
+_scan_big_pngs()
 
 def copy_assets():
     (OUT / 'images').mkdir(parents=True, exist_ok=True)
@@ -343,7 +356,7 @@ def copy_assets():
         if im.width > 1500 or src.stat().st_size > 600_000:
             # Same picture, smaller file (Squarespace also served max 1500 px wide)
             im.thumbnail((1500, 1500))
-            if src.suffix.lower() in ('.jpg', '.jpeg'):
+            if src.suffix.lower() in ('.jpg', '.jpeg') or local in BIG_PNG_AS_JPEG:
                 im.convert('RGB').save(dst, 'JPEG', quality=85, optimize=True, progressive=True)
             else:
                 im.save(dst, optimize=True)
@@ -354,6 +367,8 @@ def copy_assets():
     # PDFs keep their old /s/ addresses
     (OUT / 's').mkdir(exist_ok=True)
     for pdf in (INV / 'documents').glob('*.pdf'):
+        if pdf.name in style_a.CV_PDFS:
+            continue  # CVs replaced by profile pages (Nana, 2026-10-03)
         shutil.copy2(pdf, OUT / 's' / pdf.name)
     (OUT / 'assets' / 'fonts').mkdir(parents=True, exist_ok=True)
     for f in (ASSETS / 'fonts').iterdir():
@@ -449,6 +464,21 @@ def page_shell(slug, lang, title, page_title, body, depth):
 </html>
 '''
 
+PEOPLE = []
+style_a.SERVICE_TILES[:] = next(c for l, sl, c in MENU if l == 'Palvelut')
+
+def log(slug, kind, msg):
+    LOG.append((slug, kind, msg))
+
+def render(slug, lang, title, page_title, crumb, body, depth, home, sidebar=True):
+    side = style_a.sidebar_html(MENU, FOLDER_LANG, page_href, depth, slug) if sidebar else ''
+    if slug == 'asiantuntijat' or slug.startswith('asiantuntijat/'):
+        side = ''
+    return style_a.shell(lang=lang, title=title, page_title=page_title, crumb=crumb, body=body, depth=depth,
+                         rel=rel, page_href=page_href, nav=style_a.nav_html(MENU, FOLDER_LANG, page_href, depth, slug),
+                         sidebar=side, social=social_html(), ui=UI, office_email=OFFICE_EMAIL,
+                         logo=web_name('1474309468304_puheklinikka_logo_pieni.jpg'), home=home)
+
 def redirect_page(target_depth_from, target_slug):
     href = page_href(target_depth_from, target_slug)
     return f'''<!doctype html>
@@ -469,7 +499,16 @@ def build():
         page_title = soup.select_one('.page-title').get_text(strip=True)
         layout = soup.select_one('.main-content-wrapper .sqs-layout')
         body = simplify(convert_layout(layout, depth, slug))
-        page = page_shell(slug, lang, tab_title, page_title, body, depth)
+        body = style_a.demote_headings(body)
+        home = slug == ''
+        if home:
+            body = style_a.home_body(body, rel, page_href, log)
+        elif slug == 'asiantuntijat':
+            body, PEOPLE[:] = style_a.terapeutit_body(body, log)
+        elif slug == 'new-page-1':
+            body = style_a.news_body(body, page_title, log)
+        crumb, _ = style_a.section_of(MENU, slug)
+        page = render(slug, lang, tab_title, page_title, crumb, body, depth, home)
         if unicodedata.normalize('NFC', page) != page:
             LOG.append((slug, 'tech', 'some letters were stored in decomposed Unicode form (e.g. a + ¨); normalised to standard form, looks identical'))
             page = unicodedata.normalize('NFC', page)
@@ -485,6 +524,13 @@ def build():
         dest = OUT / slug / 'index.html' if slug else OUT / 'index.html'
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(page)
+    for p in PEOPLE:
+        ps = f'asiantuntijat/{p["slug"]}'
+        page = render(ps, 'fi', f'{p["name"]} — Puheklinikka', p['name'], 'Terapeutit',
+                      style_a.profile_body(p, log), 2, False, sidebar=False)
+        page = unicodedata.normalize('NFC', page)
+        (OUT / ps).mkdir(parents=True, exist_ok=True)
+        (OUT / ps / 'index.html').write_text(page)
     for old, target in REDIRECTS.items():
         (OUT / old).mkdir(parents=True, exist_ok=True)
         (OUT / old / 'index.html').write_text(redirect_page(1, target))
@@ -497,6 +543,10 @@ def build():
     copy_assets()
     (OUT / '.nojekyll').write_text('')
     # CNAME (www.puheklinikka.net) is added only at the domain switch-over step, with Nana's approval
+    log('', 'layout', 'Style A for the whole site (Nana, 2026-10-03): white header with the orange logo, menu on one line, light title band with the section name, section menu as a sidebar, dark footer')
+    log('', 'drop', 'menu item "Etusivu" removed; the logo links to the homepage')
+    log('', 'drop', 'footer heading "Contact Us" removed')
+    log('', 'drop', f'CV PDFs no longer published: {", ".join(sorted(style_a.CV_PDFS))}')
     write_changes()
     for w in WARN:
         print('WARN', w)
