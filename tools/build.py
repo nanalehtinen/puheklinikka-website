@@ -105,6 +105,7 @@ EDITS = [
     ('new-page-1', 'korvaavata tahosta', 'korvaavasta tahosta', 1),           # B1
     ('our-services', '4–6 sessions', '3–5 sessions', 1),                      # B3
     ('mit-puheterapia-on-1', 'FPA:s, stadens, kommunens eller', 'FPA:s, välfärdsområdets eller', 1),  # B4
+    ('new-page', '<p>ehtävien lisäksi', '<p>Tehtävien lisäksi', 1),             # Nana 2026-10-03
 ]
 # Broken /yhteystiedot links -> Terapeutit (B2). Count checked per page.
 YHTEYS_EXPECTED = {'': 1, 'about-puheklinikka': 1, 'about-puheklinikka-2': 1,

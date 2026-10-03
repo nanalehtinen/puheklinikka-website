@@ -12,6 +12,7 @@ The full machine list of every change is in CHANGES-generated.md. Screenshots of
 | Ajankohtaista | korvaavata tahosta | korvaavasta tahosta |
 | Our services (EN) | 4–6 sessions | 3–5 sessions |
 | Våra tjänster (SV) | FPA:s, stadens, kommunens eller | FPA:s, välfärdsområdets eller |
+| Sanapsis-sovellukset ja tuotteet | ehtävien lisäksi | Tehtävien lisäksi |
 | Etusivu, Introduktion, About, Ryhmämuotoinen kuntoutus, Menneet tapahtumat | links to /yhteystiedot (broken) | links to Terapeutit; link text unchanged |
 
 Not applied, and why:
