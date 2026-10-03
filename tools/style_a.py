@@ -12,15 +12,55 @@ from bs4 import BeautifulSoup
 
 CUR = ' aria-current="page"'
 
-# Therapist bios: Nana's text, word for word. Only Elina's has been provided so far.
+# Therapist bios: Nana's text (sent 2026-10-03), word for word, as HTML blocks.
+# Only whitespace is normalised (line breaks inside a paragraph, double spaces).
+# One approved edit: Elina "tietoturvavastaavana" -> "tietosuojavastaavana" (Nana confirmed).
+# Empty "Asiakasryhmät:" lines are kept in EMPTY_FIELDS and not shown until Nana fills them in.
 BIOS = {
     'Elina Uusi-Hakala': [
-        'Elina työskentelee aikuisten ja koululaisten kanssa. Aikuisneurologisen puheterapian lisäksi hän tarjoaa ohjausta ja terapiaa sitkeiden äännevirheiden kanssa kamppaileville, pureutuu puheen sujuvuuden haasteisiin, sekä työskentelee valikoivan puhumattomuuden kanssa.',
-        'Elina on valmistunut puheterapeutiksi Turun yliopistosta tutkien lopputyössään vakiintuneen dysartrian intensiivisen kuntoutuksen vaikuttavuutta. Täydennyskoulutuksessaan hän on perehtynyt laaja-alaisesti kielellisiin ja motorisiin kommunikointivaikeuksiin sekä lukivaikeuksien ja nielemishäiriöiden diagnosointiin ja hoitoon. Hän on kouluttautunut muun muassa OPT for TBI-, OPT-, OPT 2- ja DPNS-menetelmien käyttöön.',
-        # Nana's draft said "tietoturvavastaavana"; Nana confirmed tietosuoja (2026-10-03)
-        'Asiakastyön ohella Elina toimii Puheklinikan tietosuojavastaavana ja hoitaa Puheklinikan yleisiä asioita. Ota rohkeasti yhteyttä!',
+        '<p>Elina työskentelee aikuisten ja koululaisten kanssa. Aikuisneurologisen puheterapian lisäksi hän tarjoaa ohjausta ja terapiaa sitkeiden äännevirheiden kanssa kamppaileville, pureutuu puheen sujuvuuden haasteisiin, sekä työskentelee valikoivan puhumattomuuden kanssa.</p>',
+        '<p>Elina on valmistunut puheterapeutiksi Turun yliopistosta tutkien lopputyössään vakiintuneen dysartrian intensiivisen kuntoutuksen vaikuttavuutta. Täydennyskoulutuksessaan hän on perehtynyt laaja-alaisesti kielellisiin ja motorisiin kommunikointivaikeuksiin sekä lukivaikeuksien ja nielemishäiriöiden diagnosointiin ja hoitoon. Hän on kouluttautunut muun muassa OPT for TBI-, OPT-, OPT 2- ja DPNS-menetelmien käyttöön.</p>',
+        '<p>Asiakastyön ohella Elina toimii Puheklinikan tietosuojavastaavana ja hoitaa Puheklinikan yleisiä asioita. Ota rohkeasti yhteyttä!</p>',
+        '<p class="langs">Työskentelykielet: suomi, englanti.</p>',
+    ],
+    'Annemari Hongell': [
+        '<p>Annemari työskentelee aikuisneurologisten asiakkaiden kanssa toteuttaen yksilö-ja ryhmämuotoista terapiaa. Aikuisneurologisen puheterapian lisäksi hän tarjoaa ohjausta, terapiaa ja koulutusta äänihäiriöihin ja äänen oireiluun liittyvissä asioissa sekä ratkoo nielemiseen ja syömiseen liittyviä pulmia. Puheterapiatyön ohella Annemari tarjoaa tukipalveluita kuntoutujien läheisille kognitiivisen lyhytterapian muodossa.</p>',
+        '<p>Annemari on valmistunut puheterapeutiksi Åbo Akademista. Lopputyössään hän kokosi ruotsinkielistä normiaineistoa Nopean sarjallisen nimeämisen testiin. Täydennyskoulutuksessaan Annemari on perehtynyt kielellisten ja motoristen kommunikointivaikeuksien sekä nielemistoimintojen kuntoutukseen. Hän on kouluttautunut muun muassa SCA™-, BCA-, OPT-, LSVT LOUD®-, SPEAK OUT!-, LOUD Crowd®- ja DPNS-menetelmien käyttöön sekä suun ja kasvojen alueen kinesioteippaukseen. Annemari on koulutukseltaan myös kognitiivinen lyhytterapeutti ja hyödyntää tätä osaamista sekä kuntoutujien että läheisten kanssa.</p>',
+        '<p class="langs">Työskentelykielet: suomi, ruotsi, englanti.</p>',
+    ],
+    'Riitta Saari': [
+        '<p>Riitta työskentelee aikuisneurologisten asiakkaiden kanssa ja toteuttaa sekä yksilö- että ryhmämuotoista puheterapiaa. Riitalta löytyy osaamista myös äänihäiriöden osalta. Hän tarjoaa ohjausta ja kuntoutusta toiminnallisten äänihäiriöiden kanssa kamppaileville henkilöille, ja toteuttaa ääniterapiaa, jossa tuetaan transsukupuolisia henkilöitä löytämään ääni ja puhetapa, jotka tuntuvat omilta ja vastaavat koettua sukupuoli-identiteettiä.</p>',
+        '<p>Riitta on valmistunut puheterapeutiksi Turun yliopistosta. Lopputyössään hän tutki terveiden aikuisten suoriutumista kuullun erottelua mittaavista tehtävistä. Täydennyskoulutuksissaan Riitta on perehtynyt kommunikoinnin kuntoutukseen ja tukemiseen sekä laaja-alaisesti ääniterapiaan. Hän on kouluttautunut muun muassa SPEAK OUT!- ja LOUD Crowd® -menetelmien käyttöön ja toimii työterveyshuollon asiantuntijapuheterapeuttina.</p>',
+        '<p class="langs">Työskentelykielet: suomi, englanti.</p>',
+    ],
+    'Jenita Mattsson': [
+        '<p>Jenitalta löytyy osaamista aikuisneurologisesta puheterapiasta sekä vuodeosasto-että avoterapiapuolelta. Jenita toteuttaa pääsääntöisesti yksilö-ja ryhmäterapiaa kokonaisvaltaisella työskentelyotteella läheisten ohjausta unohtamatta.</p>',
+        '<p>Jenita on valmistunut puheterapeutiksi Turun yliopistosta. Lopputyössään hän tutki terveiden aikuisten suoriutumista kahdessa kehitteillä olevassa toistamistehtävässä. Täydennyskoulutuksessaan Jenita on perehtynyt kommunikointi-ja nielemisvaikeuksien kuntouttamiseen mm. SPEAKOUT! ja Loud Crowd® menetelmäkoulutuksella. Asiakastyön ohella Jenita toimii yliopisto-opettajana Turun yliopiston logopedian ja psykologian laitoksella ja kouluttaa tulevia puheterapeutteja.</p>',
+        '<p class="langs">Työskentelykieli: suomi.</p>',
+    ],
+    'Marjaana Raukola-Lindblom': [
+        '<p>Marjaanalla on laaja-alaisesti kokemusta aikuisten neurologisten ja neuropsykiatristen puheen, kielen ja vuorovaikutuksen häiriöiden kuntoutuksesta ja hän on perehtynyt erityisesti tapaturmaisten aivovammojen kuntoutukseen.</p>',
+        '<p>Marjaana on valmistunut puheterapeutiksi Helsingin yliopistosta ja pätevöitynyt aikuisten neurologisperäisten kommunikaatiohäiriöiden erikoispuheterapeutiksi (FL) painottaen tapaturmassa syntyneiden aivovammojen jälkitiloja ja niiden kuntoutusta. Hän on tutkinut aivovammojen jälkitiloja myös väitöskirjassaan. Täydennyskoulutuksessaan Marjaana on perehtynyt on nielemishäiriöiden kuntoutusmenetelmiin (mm.DPNS), sosiaalisen vuorovaikutuksen kuntoutukseen ja ryhmämuotoiseen puheterapiaan. Marjaana on perehtynyt myös kognitiiviseen lyhytterapiaan ja eläinavusteiseen kuntoutukseen. Puheterapeutin työn ohella Marjaana työskentelee yliopisto-opettaajana sekä tutkimus- ja kehitystyössä Turun yliopistossa.</p>',
+        '<p>Lisätietoja Marjaanasta löydät sivustolta <a href="https://www.skillful.fi">www.skillful.fi</a>.</p>',
+        '<p class="langs">Työskentelykielet: suomi ja englanti.</p>',
+    ],
+    'Ida Luotonen': [
+        '<p>Ida työskentelee Puheklinikalla itsenäisenä ammatinharjoittajana (Puheterapiapalvelut Ida Luotonen). Ida on perehtynyt erityisesti muistisairauksiin liittyviin kielellis-kognitiivisiin haasteisiin ja työskentelee asiakkaiden kanssa kokonaisvaltaisella työskentelyotteella.</p>',
+        '<p>Ida on valmistunut puheterapeutiksi Turun yliopistosta. Hän tutki lopputyössään Alzheimerin tautia sairastavien henkilöiden kielellisiä taitoja. Täydennyskoulutuksissaan Ida on perehtynyt erityisesti muistisairauksien ja aivoverenkiertohäiriöiden aiheuttamiin kielellis-kommunikatiivisiin oireisiin, joita hän tutkii myös väitöskirjassaan. Lisäksi hän on perehtynyt kognitiivisen lyhytterapian menetelmiin.</p>',
+        '<p class="langs">Työskentelykielet: suomi ja englanti.</p>',
+    ],
+    'Nana Lehtinen': [
+        '<p>Nana on toiminut Puheklinikalla yrittäjänä sen perustamisesta alkaen ja edelleen hänen tehtäviinsä kuuluvat Puheklinikan toiminnan kehittäminen, terapiatyöskentelyn ohjaaminen ja hallinnollisten asioiden koordinointi.</p>',
+        '<p>Lisäksi Nana kehittää Puheklinikalla suunniteltuja ja rakennettuja Sanapsis-perheen puheterapiasovelluksia. Sanapsis-perheeseen kuuluu kolme sovellusta:</p>',
+        '<ul><li>SanapsisPro, kolmikielinen ammattisovellus, joka on suunnattu puheterapeuttien ammattikäyttöön (suomi, ruotsi ja englanti).</li>'
+        '<li>SanapsisLite, joka tarjoaa pienen kurkistuksen SanapsisPro sovellukseen</li>'
+        '<li>Sanapsis+, joka on suunniteltu kuntoutujien itsenäisen, sanatasoisen kotiharjoittelun tueksi. Harjoitusten lisäksi Sanapsis+ tarjoaa vinkkejä ja ideoita kotona toteutettavaan puheen ja kielellisten toimintojen aktivointiin.</li></ul>',
+        '<p>Nana on valmistunut puheterapeutiksi Oulun yliopistosta ja lopputyössään hän tutki puhutun suomen kielen muuntumista vieraan kielen vaikutuksen alaisena. Täydennyskoulutuksessaan Nana on perehtynyt aikuisneurologiseen puheterapiaan ja kaksikielisyyteen laaja-alaisesti. Väitöskirjassaan Nana tutki terveiden kaksikielisten henkilöiden sanasujuvuustehtävissä suoriutumista suomeksi ja englanniksi.</p>',
+        '<p class="langs">Työskentelykielet: suomi ja englanti.</p>',
     ],
 }
+# "Asiakasryhmät:" was empty for these six in Nana's text; not shown until filled in
+EMPTY_FIELDS = {n: ['Asiakasryhmät:'] for n in BIOS if n != 'Nana Lehtinen'}
 # CV PDFs replaced by profile pages (Nana, 2026-10-03): no longer published
 CV_PDFS = {'Riitta-Saari.pdf', 'Elina-yynp.pdf', 'Nana-w2xz.pdf', 'Jenita.pdf',
            'Annemari-2023.pdf', 'Ida.pdf', 'Marjaana.pdf'}
@@ -157,9 +197,10 @@ def terapeutit_body(body, log):
 def profile_body(p, log):
     bio = BIOS.get(p['name'])
     img = re.sub(r' alt="[^"]*"', ' alt=""', p['img']).replace('src="../', 'src="../../')
-    bio_html = ''.join(f'<p>{html.escape(x)}</p>' for x in bio) if bio else ''
+    bio_html = ''.join(bio) if bio else ''
     if bio:
-        log(f'asiantuntijat/{p["slug"]}', 'text', f'new profile page with Nana\'s bio text for {p["name"]} ("tietoturvavastaavana" → "tietosuojavastaavana", confirmed by Nana)')
+        extra = ' ("tietoturvavastaavana" → "tietosuojavastaavana", confirmed by Nana)' if 'Elina' in p['name'] else ''
+        log(f'asiantuntijat/{p["slug"]}', 'text', f'new profile page with Nana\'s bio text for {p["name"]}, word for word{extra}')
     else:
         log(f'asiantuntijat/{p["slug"]}', 'layout', f'new profile page for {p["name"]}: photo and contact details only; bio text not yet provided')
     details = p['details'].replace('href="../', 'href="../../')
