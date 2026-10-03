@@ -186,12 +186,11 @@ def terapeutit_body(body, log):
         raise SystemExit(f'TERAPEUTIT: expected 7 people, found {len(people)}')
     cards = ''
     for p in people:
-        img = re.sub(r' alt="[^"]*"', f' alt="{html.escape(p["name"], quote=True)}"', p['img'])
-        cards += (f'<li class="person"><a class="photo" href="{p["slug"]}/">{img}</a>'
-                  f'<div class="txt"><h3><a href="{p["slug"]}/">{p["name"]}</a></h3><p>{p["details"]}</p></div></li>')
+        img = re.sub(r' alt="[^"]*"', ' alt=""', p['img'])  # whole card is clickable via the name link
+        cards += (f'<li class="person">{img}'
+                  f'<div class="txt"><h3><a class="card-link" href="{p["slug"]}/">{p["name"]}</a></h3><p>{p["details"]}</p></div></li>')
     tail = body[body.rfind('<hr>'):]
-    log('asiantuntijat', 'layout', 'Therapists shown as cards (style A). Each name and photo links to the therapist\'s own page instead of a CV PDF (Nana, option 2)')
-    log('asiantuntijat', 'alt', 'therapist photos: alt text = the therapist\'s name (the photo is a link to the profile)')
+    log('asiantuntijat', 'layout', 'Therapists shown as cards (style A). The whole card opens the therapist\'s own page instead of a CV PDF (Nana, option 2); the name is the link, email and other links in the card stay separate')
     return f'<h2>Asiantuntijat</h2>{intro.group(1)}<ul class="people">{cards}</ul>{tail}', people
 
 def profile_body(p, log):
