@@ -119,3 +119,7 @@ Design only, no text changes.
 ## 11. Orange title band (Nana, 2026-10-03)
 - Every inner page's title band is now logo orange (#C46013) with a white page title. The homepage hero stays beige.
 - Contrast: white on #C46013 is 4.18:1, which meets WCAG AA only for large text. The page title is 33.6px (25.6px on phones), so it qualifies. No normal-size text is placed in the band.
+
+## 12. Lower footer (Nana, 2026-10-03)
+- The footer is less tall: about 80px on a wide screen (was about 130px). The text is slightly smaller (.92rem). The social media buttons stay 44px so they are easy to tap.
+- Checked: every page has the dark grey footer. The only page without one is the old address /nanalehtinengmailcom, which immediately forwards to the homepage.
