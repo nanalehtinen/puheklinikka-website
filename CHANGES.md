@@ -65,10 +65,18 @@ Design: style A ("selkeä") from the design brainstorm, applied to every page. T
 - Footer: dark, with "Ota yhteyttä!", the email and the social media icons. The heading "Contact Us" is removed.
 - Homepage: rearranged as in the sketch. The first sentence is the main heading. "Tutustu asiantuntijoihimme täällä." is replaced by a "Terapeutit" button. "Osaamisalueitamme…" sits under the heading "Palvelut" with a link to each service page. "Käynti-ja postiosoite:" is a heading, with Turku and Helsinki side by side.
 - Ajankohtaista: each dated post is its own card. The second "Ajankohtaista" heading inside the page was removed because it repeated the page title.
-- Terapeutit: one card per therapist. The whole card opens the therapist's own page (Nana, 2026-10-03); for screen readers the name is the link. Email and other links in the card stay separate and clickable. The intro sentence "Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla" is kept, because tapping the photo opens the profile.
+- Terapeutit: one card per therapist. The whole card opens the therapist's own page (Nana, 2026-10-03); for screen readers the name is the link. Email and other links in the card stay separate and clickable. The intro sentence "Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla." is now "Saat lisätietoja napauttamalla." (Nana's wording, 2026-10-03).
 - New profile pages, e.g. /asiantuntijat/elina-uusi-hakala/. All seven bios are Nana's text word for word (only line breaks and double spaces tidied). One approved edit: Elina "tietoturvavastaavana" → "tietosuojavastaavana". Each page ends with the working languages line ("Työskentelykielet: …").
 - Not shown yet: the empty "Asiakasryhmät:" lines (six bios), until Nana fills them in.
-- Possible typos in the new bios, NOT changed (waiting for Nana): Riitta "äänihäiriöden" (äänihäiriöiden?); Marjaana "perehtynyt on nielemishäiriöiden" (extra "on"?), "yliopisto-opettaajana" (opettajana?), "(mm.DPNS)" (missing space); Jenita and Annemari "yksilö-ja", Jenita "vuodeosasto-että", "kommunikointi-ja" (missing space before ja/että?); Jenita "SPEAKOUT!" vs "SPEAK OUT!" in the other bios; Nana "SanapsisPro sovellukseen" (SanapsisPro-sovellukseen?); working languages written both "suomi, englanti" and "suomi ja englanti".
+- Bio fixes approved by Nana (2026-10-03), changed in the bios:
+  1. Riitta: "äänihäiriöden" → "äänihäiriöiden"
+  2. Marjaana: "perehtynyt on nielemishäiriöiden" → "perehtynyt nielemishäiriöiden" (extra "on" removed)
+  3. Marjaana: "yliopisto-opettaajana" → "yliopisto-opettajana"
+  4. Marjaana: "(mm.DPNS)" → "(mm. DPNS)"
+  5. Space added after the hyphen: "yksilö-ja" → "yksilö- ja" (Annemari, Jenita), "vuodeosasto-että" → "vuodeosasto- että", "kommunikointi-ja" → "kommunikointi- ja" (Jenita)
+  6. One spelling for everyone, "SPEAK OUT!®" and "LOUD Crowd®": Jenita "SPEAKOUT! ja Loud Crowd® menetelmäkoulutuksella" → "SPEAK OUT!® ja LOUD Crowd® -menetelmäkoulutuksella"; Riitta and Annemari "SPEAK OUT!-" → "SPEAK OUT!®-". The hyphen added before "menetelmäkoulutuksella" is an extra change, not yet confirmed by Nana. The spelling could not be checked against Parkinson Voice Project's site (blocked from this environment).
+  7. Nana: "SanapsisPro sovellukseen" → "SanapsisPro-sovellukseen"
+  - Working languages written the same way for everyone: "suomi ja englanti" → "suomi, englanti" (Marjaana, Ida, Nana).
 - New text: the link "← Terapeutit" at the end of each profile page.
 - The seven CV PDFs are no longer published (replaced by the profile pages).
 - Two large photo PNG files are now served as JPEG (same picture, smaller download).
