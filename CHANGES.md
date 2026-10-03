@@ -65,7 +65,7 @@ Design: style A ("selkeä") from the design brainstorm, applied to every page. T
 - Footer: dark, with "Ota yhteyttä!", the email and the social media icons. The heading "Contact Us" is removed.
 - Homepage: rearranged as in the sketch. The first sentence is the main heading. "Tutustu asiantuntijoihimme täällä." is replaced by a "Terapeutit" button. "Osaamisalueitamme…" sits under the heading "Palvelut" with a link to each service page. "Käynti-ja postiosoite:" is a heading, with Turku and Helsinki side by side.
 - Ajankohtaista: each dated post is its own card. The second "Ajankohtaista" heading inside the page was removed because it repeated the page title.
-- Terapeutit: one card per therapist. The whole card opens the therapist's own page (Nana, 2026-10-03); for screen readers the name is the link. Email and other links in the card stay separate and clickable. The intro sentence "Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla." is now "Saat lisätietoja napauttamalla" (Nana's wording, 2026-10-03, used exactly as given, without a full stop; ask Nana before adding one).
+- Terapeutit: one card per therapist. The whole card opens the therapist's own page (Nana, 2026-10-03); for screen readers the name is the link. Email and other links in the card stay separate and clickable. The intro sentence "Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla." is now "Saat lisätietoja napauttamalla." (Nana's wording, 2026-10-03). Punctuation addition: the full stop at the end is added; Nana's text had none.
 - New profile pages, e.g. /asiantuntijat/elina-uusi-hakala/. All seven bios are Nana's text word for word (only line breaks and double spaces tidied). One approved edit: Elina "tietoturvavastaavana" → "tietosuojavastaavana". Each page ends with the working languages line ("Työskentelykielet: …").
 - Not shown yet: the empty "Asiakasryhmät:" lines (six bios), until Nana fills them in.
 - Bio fixes approved by Nana (2026-10-03), changed in the bios:
@@ -78,6 +78,7 @@ Design: style A ("selkeä") from the design brainstorm, applied to every page. T
   7. Nana: "SanapsisPro sovellukseen" → "SanapsisPro-sovellukseen"
   - Working languages written the same way for everyone: "suomi ja englanti" → "suomi, englanti" (Marjaana, Ida, Nana).
 - New text: the link "← Terapeutit" at the end of each profile page.
+- Homepage service tiles: the text is centred horizontally and vertically (Nana, 2026-10-03).
 - The seven CV PDFs are no longer published (replaced by the profile pages).
 - Two large photo PNG files are now served as JPEG (same picture, smaller download).
 - Accessibility re-check after these changes: axe-core, all WCAG 2.0/2.1 A and AA rules, 21 pages at desktop and phone width: 0 violations, no broken links. One item axe could not decide (text on the light card background, #3a3a3a on #f6f2ee: 10.2:1, passes).
