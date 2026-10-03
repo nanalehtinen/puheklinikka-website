@@ -114,4 +114,8 @@ Design only, no text changes.
 - Ajankohtaista: the posts are no longer separate cards; a thin grey line (#474747, same as the footer) separates them.
 - Pages with several sections: a thin grey line (#474747) now separates the sections. The build adds it above every top-level heading after the first, except where the page already had a dividing line there. Existing dividing lines are now the same grey.
 - The section name above page titles (e.g. "Palvelut", "Tapahtumat", "Terapeutit") is removed on every page. The side menu still shows which section you are in.
-- The title band stays beige; an orange title band is still open with Nana.
+- (Superseded below) The title band stayed beige at this point.
+
+## 11. Orange title band (Nana, 2026-10-03)
+- Every inner page's title band is now logo orange (#C46013) with a white page title. The homepage hero stays beige.
+- Contrast: white on #C46013 is 4.18:1, which meets WCAG AA only for large text. The page title is 33.6px (25.6px on phones), so it qualifies. No normal-size text is placed in the band.

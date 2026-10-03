@@ -48,10 +48,10 @@ nav.main .sub a:hover,nav.main .sub a:focus{background:var(--peach);color:var(--
 nav.main .folder.open .sub{display:block}
 
 /* title band and layout */
-.band{background:var(--soft)}
+.band{background:var(--ob)}  /* orange title band on inner pages (Nana, 2026-10-03); white h1 is 4.18:1, AA for large text only, so keep normal-size text out of the band */
 .band .wrap{padding-top:40px;padding-bottom:40px}
 .crumb{font-size:.85rem;font-weight:600;color:var(--o-beige);margin:0 0 .3em}
-.band h1{font-size:2.1rem;line-height:1.25;font-weight:600;color:var(--h);margin:0}
+.band h1{font-size:2.1rem;line-height:1.25;font-weight:600;color:#fff;margin:0}
 .layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:56px;padding-top:48px;padding-bottom:64px}
 .layout.single{grid-template-columns:minmax(0,1fr)}
 main:focus{outline:none}
