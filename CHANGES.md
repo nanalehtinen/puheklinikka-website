@@ -97,3 +97,13 @@ Design only, no text changes. Matches the brainstorm mock-up design-ideas/a3b-va
 - "Arvot ja toimintatavat" is its own menu link to the same page as before (/toimintatavat-ja-arvot/). It no longer has a side menu or a section name above the title.
 - Order: Terapeutit, Palvelut ▾, Tapahtumat ▾, Arvot ja toimintatavat, På svenska ▾, In English ▾, Asiakaspalaute. Asiakaspalaute stays last as on the current site; the brainstorm mock-up had it before På svenska (not applied, Nana to decide).
 - Page addresses are unchanged. Tested: the drop-down opens with Enter, Tab moves into it, Esc closes it; it also works in the phone menu.
+
+## 9. Consistency sweep (Nana asked, 2026-10-03)
+Design only, no text changes. Brought in line with the brainstorm thread's reference stylesheet design-ideas/shared/style-a3.css.
+- Orange text, links and the current menu item use #B4580F on every page (was #A34E0E on inner pages). Lines and borders use the logo orange #C46013.
+- Exception, for contrast: the small section name above page titles (e.g. "Tapahtumat") stays #A34E0E, because #B4580F on the beige band is only about 4.4:1 and WCAG AA needs 4.5:1. This differs from style-a3.css.
+- One card style: white, 2px orange border, rounded corners. Applies to therapist cards, news cards on Ajankohtaista, the contact box on profile pages and the office cards. Therapist names on cards are orange; the card turns light peach on hover.
+- One keyboard focus outline everywhere: dark grey #262626, 3px (was blue on some pages). In the dark footer the outline is white so it can be seen.
+- Menu: the current page or section is underlined in orange on every page; drop-down items and the side menu get a light peach background on hover.
+- Footer #474747 with white text on every page (already done in section 7).
+- NEW, NOT YET APPROVED BY NANA: buttons invert on hover like the service tiles (orange button turns white with orange text, white button turns orange). Easy to revert; the old rule is kept as a comment in assets/site.css.
