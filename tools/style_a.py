@@ -472,6 +472,13 @@ def ryhma_layout(body):
     # afasia intro stays above its two groups as before (heading, photo beside the two paragraphs)
     afasia = soup.find('h3', string='Ryhmämuotoinen kuntoutus henkilöille, joilla on afasia')
     assert afasia is not None
+    # its photo moves to the top of the page, on the right of the opening text (Nana, 2026-10-04)
+    photo = afasia.find_next_sibling('div')
+    assert is_block(photo, 'span-6'), photo
+    photo['class'] = [c if c != 'float-left' else 'float-right' for c in photo['class']]
+    first = soup.find('p')
+    assert first.get_text(strip=True).startswith('Ryhmämuotoinen puheterapia on tavoitelähtöistä'), first.get_text()[:40]
+    first.insert_before(photo.extract())
     # groups whose description block (span-8) comes first and the heading and notes after it
     for blk in soup.select('div.block.span-8'):
         labels = until_hr(blk.next_sibling)
