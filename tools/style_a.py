@@ -185,13 +185,14 @@ HOME_ACCESS = ('Puheterapia käynnistyy tyypillisesti lääkärin tai neurologin
                'Ota myös rohkeasti yhteyttä meihin. Neuvomme mielellämme puheterapiaan hakeutumisen eri vaiheissa. '
                'Tarjoamme palveluita myös itsemaksaville asiakkaille.')
 # Homepage "Palvelut" text, Nana's new wording word for word (2026-10-04); replaces the old "Osaamisalueitamme…" paragraph
-HOME_AREAS = (('Osaamisalueitamme ovat aikuisneurologiset puheen, kommunikoinnin ja nielemisen haasteet, jotka liittyvät esimerkiksi '
-               'aivoverenkiertohäiriöihin, aivovammoihin ja eteneviin neurologisiin sairauksiin, kuten Parkinsonin tautiin. '
-               'Olemme perehtyneet toiminnallisten äänihäiriöiden kuntoutukseen sekä trans- ja muunsukupuolisten ääniterapiaan. '
-               'Tarjoamme puheterapiaa puheen sujuvuuden haasteisiin ja valikoivaan puhumattomuuteen aikuisille, nuorille ja kouluikäisille. '
-               'Lisäksi toteutamme LUKI-tutkimuksia ja tarjoamme kuntoutujien läheisille tukea tilanteissa, joissa sairastuminen tai kuntoutuminen kuormittaa arkea. '
-               # last sentence revised (Nana, 2026-10-04)
-               'Alta löydät lisätietoa myös koulutusmahdollisuuksista osaamisalueisiimme liittyen sekä kehittämistämme sovelluksista ja tuotteista.'),)
+HOME_AREAS = (  # Nana's full new text, word for word, two paragraphs (2026-10-04)
+    'Osaamisalueitamme ovat aikuisneurologiset puheen, kommunikoinnin ja nielemisen haasteet, jotka liittyvät esimerkiksi '
+    'aivoverenkiertohäiriöihin, aivovammoihin ja eteneviin neurologisiin sairauksiin, kuten Parkinsonin tautiin. '
+    'Tarjoamme puheterapiaa puheen sujuvuuden haasteisiin ja valikoivaan puhumattomuuteen aikuisille, nuorille ja kouluikäisille. '
+    'Olemme perehtyneet toiminnallisten äänihäiriöiden kuntoutukseen sekä trans- ja muunsukupuolisten ääniterapiaan.',
+    'Toteutamme LUKI-tutkimuksia nuorille ja aikuisille. Lisäksi tarjoamme kuntoutujien läheisille tukea tilanteissa, joissa '
+    'sairastuminen tai kuntoutuminen kuormittaa arkea. Lisätietoa palveluistamme sekä koulutusmahdollisuuksista osaamisalueisiimme '
+    'liittyen ja puheterapian tueksi kehittämistämme sovelluksista ja tuotteista löydät alta.')
 
 # ---------------------------------------------------------------- therapists
 def parse_people(body):
