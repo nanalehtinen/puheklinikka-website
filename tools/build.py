@@ -110,6 +110,10 @@ EDITS = [
     ('new-page', '<p>ehtävien lisäksi', '<p>Tehtävien lisäksi', 1),
     ('ryhmmuotoinen-terapia', '>Lisätietoa vuoden 2026 ryhmistä<', '>Lataa esite<', 1),  # Nana 2026-10-04
     ('ryhmmuotoinen-terapia', 'kootaan parhailaan', 'kootaan parhaillaan', 2),  # typo, Nana 2026-10-04             # Nana 2026-10-03
+    ('new-page', '<h2>Sanapsis</h2>', '<h2>SanapsisPro</h2>', 1),  # Nana 2026-10-04
+    ('new-page', '<strong>Sanapsis</strong> on Puheklinikalla', '<strong>SanapsisPro</strong> on Puheklinikalla', 1),  # Nana 2026-10-04
+    ('new-page', '<img alt="Sanapsis" decoding="async" height="300" loading="lazy" src="../images/1615150163682_lookbook-thumb.jpg" width="400"/>',
+     '<img alt="SanapsisPro-sovelluksen päävalikko" decoding="async" height="750" loading="lazy" src="../images/sanapsispro-paavalikko.jpg" width="1024"/>', 1),  # Nana's new image 2026-10-04
     ('asiantuntijat', 'Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla.', 'Saat lisätietoja napauttamalla.', 1),  # Nana 2026-10-03; full stop added (flagged)
 ]
 # Broken /yhteystiedot links -> Terapeutit (B2). Count checked per page.
@@ -366,6 +370,9 @@ def copy_assets():
                 im.save(dst, optimize=True)
         else:
             shutil.copy2(src, dst)
+    # images Nana supplied for the new site
+    for f in (ASSETS / 'images').glob('*'):
+        shutil.copy2(f, OUT / 'images' / f.name)
     # favicon: the captured .ico is JPEG data; save a real PNG favicon
     Image.open(INV / 'images' / '1474309397440_favicon.ico').convert('RGB').resize((64, 64)).save(OUT / 'favicon.png')
     # PDFs keep their old /s/ addresses
