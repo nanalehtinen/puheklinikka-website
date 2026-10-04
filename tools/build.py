@@ -119,6 +119,8 @@ EDITS = [
     ('ryhmmuotoinen-terapia', '<p>Voit ilmoittautua myös ottamalla yhteyttä puheterapeutti Annemari Hongelliin tai Riitta Saareen. </p>', '', 1),  # Nana 2026-10-04
     ('', 'ohjaamaan sinut odotustilaan.</p></div>', 'ohjaamaan sinut odotustilaan.</p><p>Tilojen välittömään läheisyyteen pääsee esteettömästi, ja tiloissa voi liikkua itsenäisesti tai avustettuna henkilökohtaisten apuvälineiden avulla.</p></div>', 1),  # Nana 2026-10-04
     ('', 'toimitilojen odotustilasta. </p></div>', 'toimitilojen odotustilasta. </p><p>Tilojen välittömään läheisyyteen pääsee esteettömästi, ja tiloissa voi liikkua itsenäisesti tai avustettuna henkilökohtaisten apuvälineiden avulla.</p></div>', 1),  # Nana 2026-10-04
+    ('toimintatavat-ja-arvot', 'Laki sosiaali-ja terveydenhuollon asiakastietojen käsittelystä (703/2023). </p>',
+     'Laki sosiaali-ja terveydenhuollon asiakastietojen käsittelystä (703/2023). </p><p>Verkkosivustomme täyttää digitaalisten palvelujen tarjoamisesta annetun lain (306/2019) saavutettavuusvaatimukset. <a href="../saavutettavuusseloste/">Saavutettavuusseloste</a></p>', 1),  # Nana 2026-10-04
     ('asiantuntijat', 'Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla.', 'Saat lisätietoja napauttamalla.', 1),  # Nana 2026-10-03; full stop added (flagged)
 ]
 # Broken /yhteystiedot links -> Terapeutit (B2). Count checked per page.
@@ -553,6 +555,11 @@ def build():
         page = unicodedata.normalize('NFC', page)
         (OUT / ps).mkdir(parents=True, exist_ok=True)
         (OUT / ps / 'index.html').write_text(page)
+    # accessibility statement page: title only until Nana completes the statement (Nana, 2026-10-04)
+    page = render('saavutettavuusseloste', 'fi', 'Saavutettavuusseloste — Puheklinikka', 'Saavutettavuusseloste', None,
+                  '', 1, False, sidebar=False)
+    (OUT / 'saavutettavuusseloste').mkdir(parents=True, exist_ok=True)
+    (OUT / 'saavutettavuusseloste' / 'index.html').write_text(unicodedata.normalize('NFC', page))
     for old, target in REDIRECTS.items():
         (OUT / old).mkdir(parents=True, exist_ok=True)
         (OUT / old / 'index.html').write_text(redirect_page(1, target))
