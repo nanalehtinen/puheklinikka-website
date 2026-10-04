@@ -411,3 +411,50 @@ AIKUISNEURO = [
         'Toteutamme nielemisen arviointeja ja intensiivisiä DPNS-kuntoutusjaksoja myös laitoshoidossa oleville asiakkaille.',
     ]),
 ]
+
+
+def ryhma_layout(body):
+    """Ryhmämuotoinen kuntoutus (Nana, 2026-10-04): no button above the afasia section; the afasia text is the
+    intro for Piirtäjät and Puhujat, which are shown as two cards side by side; the other groups follow below
+    the dividing line. No group text changed."""
+    soup = BeautifulSoup(body, 'html.parser')
+    btns = soup.select('p.btn-wrap')
+    assert len(btns) == 2, len(btns)
+    btns[0].decompose()
+    intro = soup.find('h3', string='Ryhmämuotoinen kuntoutus henkilöille, joilla on afasia')
+    names = ['Piirtäjät, kommunikoinnin aktivointia ryhmässä', 'Puhujat, puheilmaisua ja keskustelutaitoja edistävä ryhmä']
+    heads = [soup.find('h3', string=n) for n in names]
+    assert intro and all(heads)
+    end = heads[1].find_next_sibling('hr')
+    assert end is not None
+    cards = soup.new_tag('div', attrs={'class': 'places groups'})
+    for i, h in enumerate(heads):
+        stop = heads[1] if i == 0 else end
+        parts, n = [], h.next_sibling
+        while n is not None and n is not stop:
+            parts.append(n)
+            n = n.next_sibling
+        card = soup.new_tag('div', attrs={'class': 'place'})
+        txt = soup.new_tag('div', attrs={'class': 'txt'})
+        card.append(txt)
+        h4 = soup.new_tag('h4')
+        h4.string = h.get_text()
+        txt.append(h4)
+        for x in parts:
+            x = x.extract()
+            if getattr(x, 'name', None) is None:
+                continue
+            if 'spacer' in (x.get('class') or []):
+                continue
+            if x.name == 'div' and 'block' in (x.get('class') or []):
+                for c in list(x.children):
+                    txt.append(c.extract())
+                continue
+            txt.append(x)
+        h.decompose()
+        cards.append(card)
+    end.insert_before(cards)
+    for sp in soup.select('div.spacer'):
+        if sp.find_next_sibling() is cards:
+            sp.decompose()
+    return str(soup)

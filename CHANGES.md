@@ -150,3 +150,9 @@ Design only, no text changes.
 - Homepage: new section "Miten puheterapiaan hakeudutaan?" below the service tiles and above the addresses, Nana's text word for word (2026-10-04). Read as a heading plus two paragraphs, split where Nana broke the line. As wide as the tiles.
 - Aikuisneurologiset häiriöt: the whole page text is replaced by Nana's new text, word for word (2026-10-04). Read as two subheadings ("Puheen ja kommunikoinnin haasteet", "Nielemistoimintojen arviointi ja kuntoutus") with three paragraphs each; each line break in Nana's message starts a new paragraph. The lone "*" at the end of the message was treated as a stray character. Both photos are kept, one per section.
   - No longer on this page (not in the new text): the old sections "Mitä puheterapia on?", "Miten puheterapiaan hakeudutaan?" (now on the homepage) and "Ryhmämuotoinen kuntoutus", including its "täältä" link to the Ryhmämuotoinen kuntoutus page.
+- Ryhmämuotoinen kuntoutus (Nana, 2026-10-04):
+  - The button "Lisätietoa ryhmämuotoisesta kuntoutuksesta" above the afasia section is removed.
+  - The bottom button "Lisätietoa vuoden 2026 ryhmistä" now says "Lataa esite" (same PDF).
+  - Intro: the heading "Ryhmämuotoinen kuntoutus henkilöille, joilla on afasia", its photo and its two paragraphs ("Puheklinikalla kokoontuu säännöllisesti kaksi afasian kuntoutusryhmää…" and "Ryhmät kokoontuvat 20 kertaa vuodessa…").
+  - Below it, two cards side by side (same style as the office cards on the homepage): Piirtäjät and Puhujat, each with its notes ("Syksyn 2026 ryhmää…", "Tervetuloa mukaan!") and its description. The group names are now card headings one level below the afasia heading. No text changed.
+  - Then the dividing line and the other groups as before.

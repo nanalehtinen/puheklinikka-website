@@ -107,7 +107,8 @@ EDITS = [
     ('new-page-1', 'korvaavata tahosta', 'korvaavasta tahosta', 1),           # B1
     ('our-services', '4–6 sessions', '3–5 sessions', 1),                      # B3
     ('mit-puheterapia-on-1', 'FPA:s, stadens, kommunens eller', 'FPA:s, välfärdsområdets eller', 1),  # B4
-    ('new-page', '<p>ehtävien lisäksi', '<p>Tehtävien lisäksi', 1),             # Nana 2026-10-03
+    ('new-page', '<p>ehtävien lisäksi', '<p>Tehtävien lisäksi', 1),
+    ('ryhmmuotoinen-terapia', '>Lisätietoa vuoden 2026 ryhmistä<', '>Lataa esite<', 1),  # Nana 2026-10-04             # Nana 2026-10-03
     ('asiantuntijat', 'Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla.', 'Saat lisätietoja napauttamalla.', 1),  # Nana 2026-10-03; full stop added (flagged)
 ]
 # Broken /yhteystiedot links -> Terapeutit (B2). Count checked per page.
@@ -513,6 +514,8 @@ def build():
             body = style_a.news_body(body, page_title, log)
         elif not home and slug != 'toimintatavat-ja-arvot':  # that page already has dividing lines between its sections
             body = style_a.mark_section_breaks(body)
+        if slug == 'ryhmmuotoinen-terapia':
+            body = style_a.ryhma_layout(body)
         crumb = None  # section label above the title removed (Nana, 2026-10-03)
         page = render(slug, lang, tab_title, page_title, crumb, body, depth, home)
         if unicodedata.normalize('NFC', page) != page:
