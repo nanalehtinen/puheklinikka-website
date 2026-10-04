@@ -315,7 +315,8 @@ def mark_section_breaks(body):
 
 def page_fixups(slug, body, log):
     """Layout changes Nana asked for on 2026-10-04."""
-    if slug not in ('toimintatavat-ja-arvot', 'about-puheklinikka', 'about-puheklinikka-2', 'our-services', 'mit-puheterapia-on-1', 'koulutukset'):
+    if slug not in ('toimintatavat-ja-arvot', 'about-puheklinikka', 'about-puheklinikka-2', 'our-services', 'mit-puheterapia-on-1', 'koulutukset',
+                    'mit-puheterapia-on'):
         return body
     soup = BeautifulSoup(body, 'html.parser')
     def h(text):
@@ -326,6 +327,14 @@ def page_fixups(slug, body, log):
         x = next((p for p in soup.find_all('p') if p.get_text(' ', strip=True).startswith(text)), None)
         assert x is not None, (slug, text)
         return x
+    if slug == 'mit-puheterapia-on':
+        # whole page text replaced by Nana's new text (2026-10-04); the two photos are kept, one per section
+        figs = [f.find_parent('div', class_='block') or f for f in soup.find_all('figure')]
+        assert len(figs) == 2, slug
+        (h1, ps1), (h2, ps2) = AIKUISNEURO
+        out = (f'<h3>{h1}</h3>{figs[0]}' + ''.join(f'<p>{p}</p>' for p in ps1) +
+               f'<h3>{h2}</h3>{figs[1]}' + ''.join(f'<p>{p}</p>' for p in ps2))
+        return out
     if slug == 'koulutukset':
         # toimisto email left over from the old contact form (Nana, 2026-10-04)
         e = soup.find_all('p', class_='email-link')
@@ -387,3 +396,18 @@ def side_labels_first(body):
             b.insert_before(g.extract())
             moved += 1
     return str(soup) if moved else body
+
+# Aikuisneurologiset häiriöt, Nana's new page text word for word (2026-10-04).
+# Short standalone lines read as subheadings; every other line break starts a new paragraph.
+AIKUISNEURO = [
+    ('Puheen ja kommunikoinnin haasteet', [
+        'Aikuisneurologinen puheterapia kohdistuu sairauden tai vamman aiheuttamiin puheen, kielen ja kommunikoinnin haasteisiin. Tyypillisiä häiriöitä ovat esimerkiksi afasia, laaja-alaiset kielellis-kognitiiviset vaikeudet sekä motoriset puhehäiriöt, kuten dysartria. Haasteita voi esiintyä myös puheen selkeydessä ja äänenkäytössä.',
+        'Puheterapia on tavoitteellista kuntoutusta, jonka tarkoituksena on vahvistaa asiakkaan valmiuksia ja mahdollisuuksia vastavuoroiseen ja merkitykselliseen kommunikointiin sekä sujuvaan arkeen. Asiakkaan läheisillä ja kommunikointiympäristöllä on usein tärkeä rooli kuntoutuksessa. Terapian tavoitteet laaditaan yhdessä asiakkaan ja tarvittaessa hänen läheistensä kanssa, ja työskentely perustuu aina asiakkaan yksilöllisiin tarpeisiin ja elämäntilanteeseen.',
+        'Puheterapia toteutuu oman puheterapeutin vastaanotolla toimitiloissamme, etäterapiana tai tarvittaessa kotikäyntinä. Terapiakäyntien määrä, tapaamisten pituus ja kuntoutuksen aikataulu määräytyvät kuntoutussuunnitelman ja maksusitoumuksen mukaisesti.',
+    ]),
+    ('Nielemistoimintojen arviointi ja kuntoutus', [
+        'Puheterapiaan voi kuulua myös nielemiseen ja syömiseen liittyvien vaikeuksien eli dysfagian arviointi ja kuntoutus. Nielemistoimintoja voidaan tukea eriasteisissa nielemisvaikeuksissa. Terapeuttimme ovat kouluttautuneet arvioimaan ja kuntouttamaan aikuisneurologisiin sairauksiin ja vammoihin liittyviä nielemisvaikeuksia muun muassa DPNS-menetelmällä (Deep Pharyngeal Neuromuscular Stimulation).',
+        'Nielemiskuntoutukseen kuuluu olennaisena osana asiakkaan ja hänen lähiympäristönsä ohjaus ja neuvonta. Kuntoutuksen aikana arvioidaan ja valitaan turvallisia ja tarkoituksenmukaisia toimintatapoja ruokailutilanteisiin. Puheterapeutti voi ohjata esimerkiksi ruoan koostumukseen, ruokailuasentoon ja apuvälineiden käyttöön liittyvissä kysymyksissä.',
+        'Toteutamme nielemisen arviointeja ja intensiivisiä DPNS-kuntoutusjaksoja myös laitoshoidossa oleville asiakkaille.',
+    ]),
+]
