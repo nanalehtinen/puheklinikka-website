@@ -158,3 +158,4 @@ Design only, no text changes.
   - Then the dividing line and the other groups as before.
   - Typo fixed (Nana confirmed): "kootaan parhailaan" → "kootaan parhaillaan" in the Parkinson and dysartria groups.
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
+- LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email that sat under the photo is still under it (whether to remove it is open with Nana).

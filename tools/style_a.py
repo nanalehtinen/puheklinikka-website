@@ -316,7 +316,7 @@ def mark_section_breaks(body):
 def page_fixups(slug, body, log):
     """Layout changes Nana asked for on 2026-10-04."""
     if slug not in ('toimintatavat-ja-arvot', 'about-puheklinikka', 'about-puheklinikka-2', 'our-services', 'mit-puheterapia-on-1', 'koulutukset',
-                    'mit-puheterapia-on', 'palvelut-lheisille'):
+                    'mit-puheterapia-on', 'palvelut-lheisille', 'lukitutkimus'):
         return body
     soup = BeautifulSoup(body, 'html.parser')
     def h(text):
@@ -342,6 +342,23 @@ def page_fixups(slug, body, log):
         block = figs[0].find_parent('div', class_='block')
         block['class'] = [c if c != 'float-left' else 'float-right' for c in block['class']]
         p_start('Jakso sisältää').insert_before(block.extract())
+    if slug == 'lukitutkimus':
+        # two columns made one; the photo moves to the bottom right next to "LUKI-tutkimus toteutetaan yhdellä…"
+        # (Nana, 2026-10-04). The toimisto email that sat under the photo stays under it (question open with Nana).
+        row = soup.find('div', class_='row')
+        left, right = row.find_all('div', class_='col', recursive=False)
+        block = soup.new_tag('div', attrs={'class': 'block float-right span-6'})
+        block.append(left.find('figure').extract())
+        email = left.find('p', class_='email-link')
+        if email:
+            block.append(email.extract())
+        head = left.find('h3').extract()
+        assert not left.get_text(strip=True)
+        left.decompose()
+        right.unwrap()
+        row.insert_before(head)
+        row.unwrap()
+        p_start('LUKI-tutkimus toteutetaan yhdellä').insert_before(block)
     if slug == 'koulutukset':
         # toimisto email left over from the old contact form (Nana, 2026-10-04)
         e = soup.find_all('p', class_='email-link')
