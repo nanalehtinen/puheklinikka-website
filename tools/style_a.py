@@ -155,6 +155,10 @@ def home_body(body, rel, page_href, log):
 <ul class="tiles">{tiles}</ul>
 </div></section>
 <section class="sec sec-tight"><div class="wrap">
+<h2>Miten puheterapiaan hakeudutaan?</h2>
+{''.join(f'<p class="areas">{x}</p>' for x in HOME_ACCESS)}
+</div></section>
+<section class="sec sec-tight"><div class="wrap">
 <h2>{addr_head.get_text(strip=True)}</h2>
 <div class="places">''' + ''.join(
         f'<div class="place">{f"<div class=map>{fr}</div>" if fr else ""}<div class="txt"><h3>{name}</h3>{txt}</div></div>'
@@ -168,6 +172,11 @@ def home_body(body, rel, page_href, log):
 
 SERVICE_TILES = []  # filled by build.py from MENU
 
+# Homepage section below the service tiles, Nana's text word for word (2026-10-04); split into two paragraphs where Nana broke the line
+HOME_ACCESS = ('Puheterapia käynnistyy tyypillisesti lääkärin tai neurologin lähetteellä ja toteutuu Kelan, hyvinvointialueen tai mahdollisesti '
+               'vakuutusyhtiön maksusitoumuksella tai palvelusetelillä. Mikäli koet, että tarvitset puheterapiaa, ota asia puheeksi lääkärisi kanssa.',
+               'Ota myös rohkeasti yhteyttä meihin. Neuvomme mielellämme puheterapiaan hakeutumisen eri vaiheissa. '
+               'Tarjoamme palveluita myös itsemaksaville asiakkaille.')
 # Homepage "Palvelut" text, Nana's new wording word for word (2026-10-04); replaces the old "Osaamisalueitamme…" paragraph
 HOME_AREAS = ('Osaamisalueitamme ovat aikuisneurologiset puheen, kommunikoinnin ja nielemisen haasteet, jotka liittyvät esimerkiksi '
               'aivoverenkiertohäiriöihin, aivovammoihin ja eteneviin neurologisiin sairauksiin, kuten Parkinsonin tautiin. '

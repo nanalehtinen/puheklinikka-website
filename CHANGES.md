@@ -147,3 +147,4 @@ Design only, no text changes.
 - Terapeutit: the grey line and the toimisto email under the cards are removed (left over from the old "send us a note" form). The footer email stays.
 - Koulutukset: the toimisto email left over from the old contact form is removed.
 - Koulutukset and Ryhmämuotoinen kuntoutus (NOT asked by Nana, flagged): on the old site, the section headings (and on Ryhmämuotoinen kuntoutus the short notes such as "Tervetuloa mukaan!") sat in a column to the left of the text. In the draft they had ended up below the text they belong to. They are now above it again. No text changed.
+- Homepage: new section "Miten puheterapiaan hakeudutaan?" below the service tiles and above the addresses, Nana's text word for word (2026-10-04). Read as a heading plus two paragraphs, split where Nana broke the line. As wide as the tiles.
