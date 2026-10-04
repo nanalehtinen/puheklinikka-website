@@ -55,8 +55,8 @@ MENU = [
         ('Puheen sujuvuuden häiriöt', 'puheen-sujuvuuden-hairiot'),
         ('Ryhmämuotoinen kuntoutus', 'ryhmmuotoinen-terapia'),
         ('Ääniterapia', 'niterapia'),
+        ('LUKI-tutkimus', 'lukitutkimus'),  # before Palvelut läheisille (Nana, 2026-10-04)
         ('Palvelut läheisille', 'palvelut-lheisille'),
-        ('LUKI-tutkimus', 'lukitutkimus'),
         ('Tutkimus ja konsultointi', 'arviot-ja-konsultointi'),
         ('Koulutukset', 'koulutukset'),
         ('Sanapsis-sovellukset ja tuotteet', 'new-page'),
