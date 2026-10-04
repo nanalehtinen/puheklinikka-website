@@ -156,3 +156,4 @@ Design only, no text changes.
   - Intro: the heading "Ryhmämuotoinen kuntoutus henkilöille, joilla on afasia", its photo and its two paragraphs ("Puheklinikalla kokoontuu säännöllisesti kaksi afasian kuntoutusryhmää…" and "Ryhmät kokoontuvat 20 kertaa vuodessa…").
   - Below it, two cards side by side (same style as the office cards on the homepage): Piirtäjät and Puhujat, each with its notes ("Syksyn 2026 ryhmää…", "Tervetuloa mukaan!") and its description. The group names are now card headings one level below the afasia heading. No text changed.
   - Then the dividing line and the other groups as before.
+  - Typo fixed (Nana confirmed): "kootaan parhailaan" → "kootaan parhaillaan" in the Parkinson and dysartria groups.
