@@ -49,6 +49,10 @@ MENU = [
     ('Terapeutit', 'asiantuntijat', None),
     ('Palvelut', None, [
         ('Aikuisneurologiset häiriöt', 'mit-puheterapia-on'),
+        # TRIAL (Nana, 2026-10-04): two new services, text to come from Nana. Revert: remove these two lines
+        # and their entries in NEW_PAGES.
+        ('Nielemishäiriöt', 'nielemishairiot'),
+        ('Puheen sujuvuuden häiriöt', 'puheen-sujuvuuden-hairiot'),
         ('Ryhmämuotoinen kuntoutus', 'ryhmmuotoinen-terapia'),
         ('Ääniterapia', 'niterapia'),
         ('Palvelut läheisille', 'palvelut-lheisille'),
@@ -73,6 +77,10 @@ MENU = [
         ('Our services', 'our-services'),
     ]),
 ]
+NEW_PAGES = {  # TRIAL (Nana, 2026-10-04): Palvelut pages with no text yet
+    'nielemishairiot': 'Nielemishäiriöt',
+    'puheen-sujuvuuden-hairiot': 'Puheen sujuvuuden häiriöt',
+}
 CUR = ' aria-current="page"'
 FOLDER_LANG = {'På svenska': 'sv', 'In English': 'en'}
 
@@ -583,6 +591,11 @@ def build():
         page = unicodedata.normalize('NFC', page)
         (OUT / ps).mkdir(parents=True, exist_ok=True)
         (OUT / ps / 'index.html').write_text(page)
+    # new pages with only a title until Nana supplies their text (must not go live empty at launch)
+    for ns, title in NEW_PAGES.items():
+        page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, '', 1, False)
+        (OUT / ns).mkdir(parents=True, exist_ok=True)
+        (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
     # accessibility statement page: title only until Nana completes the statement (Nana, 2026-10-04)
     page = render('saavutettavuusseloste', 'fi', 'Saavutettavuusseloste — Puheklinikka', 'Saavutettavuusseloste', None,
                   '', 1, False, sidebar=False)
