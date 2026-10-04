@@ -52,8 +52,8 @@ MENU = [
         ('Ryhmämuotoinen kuntoutus', 'ryhmmuotoinen-terapia'),  # swapped with Nielemishäiriöt (Nana, 2026-10-04)
         # TRIAL (Nana, 2026-10-04): two new services, text to come from Nana. Revert: remove these two lines
         # and their entries in NEW_PAGES.
-        ('Puheen sujuvuuden häiriöt', 'puheen-sujuvuuden-hairiot'),
         ('Nielemishäiriöt', 'nielemishairiot'),
+        ('Puheen sujuvuuden häiriöt', 'puheen-sujuvuuden-hairiot'),
         ('Ääniterapia', 'niterapia'),
         ('LUKI-tutkimus', 'lukitutkimus'),  # before Palvelut läheisille (Nana, 2026-10-04)
         ('Palvelut läheisille', 'palvelut-lheisille'),
