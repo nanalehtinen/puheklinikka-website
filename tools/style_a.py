@@ -180,7 +180,7 @@ def home_body(body, rel, page_href, log):
 SERVICE_TILES = []  # filled by build.py from MENU
 
 # Homepage section below the service tiles, Nana's text word for word (2026-10-04); split into two paragraphs where Nana broke the line
-HOME_ACCESS = ('Puheterapia käynnistyy tyypillisesti lääkärin tai neurologin lähetteellä ja toteutuu Kelan, hyvinvointialueen tai mahdollisesti '
+HOME_ACCESS = ('Puheterapia käynnistyy tyypillisesti lääkärin tai neurologin lähetteellä ja toteutuu Kelan, hyvinvointialueen tai '
                'vakuutusyhtiön maksusitoumuksella tai palvelusetelillä. Mikäli koet, että tarvitset puheterapiaa, ota asia puheeksi lääkärisi kanssa.',
                'Ota myös rohkeasti yhteyttä meihin. Neuvomme mielellämme puheterapiaan hakeutumisen eri vaiheissa. '
                'Tarjoamme palveluita myös itsemaksaville asiakkaille.')
