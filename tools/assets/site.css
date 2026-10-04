@@ -108,7 +108,8 @@ strong{font-weight:600}
 .sec h2{font-size:1.5rem;font-weight:600;color:var(--h);margin:0 0 24px}
 .sec>.wrap>p{max-width:52em;margin:0 0 28px}
 .sec>.wrap>p.areas{max-width:none}  /* as wide as the service tiles (Nana, 2026-10-04) */
-.tiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}  /* two rows of five (Nana, 2026-10-04) */
+@media (max-width:1100px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .tiles a{display:flex;align-items:center;justify-content:center;text-align:center;height:100%;min-height:96px;padding:22px 20px;border:2px solid var(--brand-t);border-radius:10px;color:#fff;text-decoration:none;font-weight:600;background:var(--brand-t);transition:background-color .15s,color .15s}
 .tiles a:hover,.tiles a:focus-visible{background:#fff;color:var(--brand-t)}
 .tiles a:focus-visible{outline:3px solid var(--h);outline-offset:3px}

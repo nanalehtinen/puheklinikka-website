@@ -113,7 +113,7 @@ def demote_headings(body):
 
 # ---------------------------------------------------------------- homepage
 LIGHT_ATTR = ' class="light"'
-LIGHT_TILES = 4  # = first row of four; upper row of homepage service tiles shown white (comparison, Nana 2026-10-04)
+LIGHT_TILES = 5  # = first row of five; upper row of homepage service tiles shown white (comparison, Nana 2026-10-04)
 
 
 def home_body(body, rel, page_href, log):
