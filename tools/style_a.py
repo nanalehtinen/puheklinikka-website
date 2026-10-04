@@ -479,4 +479,24 @@ def ryhma_layout(body):
     for sp in soup.select('div.spacer'):
         if sp.find_next_sibling() is cards:
             sp.decompose()
+    # afasia photo to the top right, beside the opening text, so "Puheklinikalla kokoontuu…" runs full width
+    # above the cards (Nana, 2026-10-04)
+    photo = intro.find_next_sibling('div')
+    assert photo is not None and 'span-6' in photo['class'], photo
+    photo['class'] = [c if c != 'float-left' else 'float-right' for c in photo['class']]
+    first = soup.find('p')
+    assert first.get_text(strip=True).startswith('Ryhmämuotoinen puheterapia on tavoitelähtöistä'), first.get_text()[:40]
+    first.insert_before(photo.extract())
+    # dysartria group in the same format as Jatkokurssi: heading, bold notes, then the text (Nana, 2026-10-04)
+    side = soup.select('div.block.span-4')
+    assert len(side) == 1 and side[0].find('h3', string=lambda t: t and t.startswith('Ryhmämuotoinen kuntoutus henkilöille, joilla on dysartria'))
+    side[0].unwrap()
+    # the other group headings orange like the Piirtäjät and Puhujat card headings (Nana, 2026-10-04)
+    titles = ('Jatkokurssi SpeakOut', 'Puheterapiaryhmä Parkinsonin', 'Ryhmämuotoinen kuntoutus henkilöille, joilla on dysartria',
+              'Tavoitelähtöiset kuntoutusryhmät')
+    done = 0
+    for h in soup.find_all('h3'):
+        if h.get_text(strip=True).startswith(titles):
+            h['class'] = ['group-title']; done += 1
+    assert done == 4, done
     return str(soup)

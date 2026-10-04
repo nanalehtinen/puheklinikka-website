@@ -157,6 +157,7 @@ Design only, no text changes.
   - Below it, two cards side by side (same style as the office cards on the homepage): Piirtäjät and Puhujat, each with its notes ("Syksyn 2026 ryhmää…", "Tervetuloa mukaan!") and its description. The group names are now card headings one level below the afasia heading. No text changed.
   - Then the dividing line and the other groups as before.
   - A later redo (heading-beside-text for every group, photo at the top) was tried and reverted the same day; Nana chose this cards version (2026-10-04).
+  - On top of the cards version (Nana, 2026-10-04): the afasia photo moved to the top right, beside "Ryhmämuotoinen puheterapia on tavoitelähtöistä…", so "Puheklinikalla kokoontuu…" runs full width above the cards; the headings Jatkokurssi, Parkinson, dysartria and Tavoitelähtöiset are orange like the card headings; the dysartria group now has the same format as Jatkokurssi (heading, bold notes, then the text; its narrow left column is gone). No text changed.
   - Typo fixed (Nana confirmed): "kootaan parhailaan" → "kootaan parhaillaan" in the Parkinson and dysartria groups.
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
