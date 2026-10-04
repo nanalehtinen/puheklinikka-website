@@ -505,10 +505,7 @@ def build():
         body = simplify(convert_layout(layout, depth, slug))
         body = style_a.demote_headings(body)
         body = style_a.page_fixups(slug, body, log)
-        if slug == 'ryhmmuotoinen-terapia':
-            body = style_a.ryhma_layout(body)  # has its own heading-beside-text layout and dividing lines
-        else:
-            body = style_a.side_labels_first(body)
+        body = style_a.side_labels_first(body)
         home = slug == ''
         if home:
             body = style_a.home_body(body, rel, page_href, log)
@@ -516,8 +513,10 @@ def build():
             body, PEOPLE[:] = style_a.terapeutit_body(body, log)
         elif slug == 'new-page-1':
             body = style_a.news_body(body, page_title, log)
-        elif not home and slug not in ('toimintatavat-ja-arvot', 'ryhmmuotoinen-terapia'):  # these already have dividing lines
+        elif not home and slug != 'toimintatavat-ja-arvot':  # that page already has dividing lines between its sections
             body = style_a.mark_section_breaks(body)
+        if slug == 'ryhmmuotoinen-terapia':
+            body = style_a.ryhma_layout(body)
         crumb = None  # section label above the title removed (Nana, 2026-10-03)
         page = render(slug, lang, tab_title, page_title, crumb, body, depth, home)
         if unicodedata.normalize('NFC', page) != page:

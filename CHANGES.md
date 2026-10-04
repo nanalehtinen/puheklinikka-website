@@ -153,9 +153,10 @@ Design only, no text changes.
 - Ryhmämuotoinen kuntoutus (Nana, 2026-10-04):
   - The button "Lisätietoa ryhmämuotoisesta kuntoutuksesta" above the afasia section is removed.
   - The bottom button "Lisätietoa vuoden 2026 ryhmistä" now says "Lataa esite" (same PDF).
-  - (Redone the same day at Nana's request; the Piirtäjät/Puhujat cards were dropped.) Every group now uses the arrangement the dysartria group had on the old site: the group heading and its short notes (e.g. "Vuoden 2026 ryhmää kootaan parhaillaan.", "Kysy lisää!") in a narrow column on the left, the description on the right. On phones the two stack.
-  - The afasia photo moved to the top of the page, on the right of the opening text "Ryhmämuotoinen puheterapia on tavoitelähtöistä…" (Nana, 2026-10-04).
-  - The afasia text (heading, two paragraphs) stays above as the intro to Piirtäjät and Puhujat, whose names are sub-headings under it. Grey lines separate all six groups (a line between Piirtäjät and Puhujat is new). No text changed.
+  - Intro: the heading "Ryhmämuotoinen kuntoutus henkilöille, joilla on afasia", its photo and its two paragraphs ("Puheklinikalla kokoontuu säännöllisesti kaksi afasian kuntoutusryhmää…" and "Ryhmät kokoontuvat 20 kertaa vuodessa…").
+  - Below it, two cards side by side (same style as the office cards on the homepage): Piirtäjät and Puhujat, each with its notes ("Syksyn 2026 ryhmää…", "Tervetuloa mukaan!") and its description. The group names are now card headings one level below the afasia heading. No text changed.
+  - Then the dividing line and the other groups as before.
+  - A later redo (heading-beside-text for every group, photo at the top) was tried and reverted the same day; Nana chose this cards version (2026-10-04).
   - Typo fixed (Nana confirmed): "kootaan parhailaan" → "kootaan parhaillaan" in the Parkinson and dysartria groups.
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).

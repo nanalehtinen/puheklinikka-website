@@ -436,67 +436,47 @@ AIKUISNEURO = [
 
 
 def ryhma_layout(body):
-    """Ryhmämuotoinen kuntoutus (Nana, 2026-10-04): every group gets the arrangement the dysartria group had on
-    the old site: heading and short notes in a narrow left column, the description beside it on the right.
-    The afasia text stays above as the intro to Piirtäjät and Puhujat, whose names become sub-headings (h4).
-    Grey lines separate the groups.
-    The button above the afasia section is removed. No group text changed."""
+    """Ryhmämuotoinen kuntoutus (Nana, 2026-10-04): no button above the afasia section; the afasia text is the
+    intro for Piirtäjät and Puhujat, which are shown as two cards side by side; the other groups follow below
+    the dividing line. No group text changed."""
     soup = BeautifulSoup(body, 'html.parser')
     btns = soup.select('p.btn-wrap')
     assert len(btns) == 2, len(btns)
     btns[0].decompose()
-    for sp in soup.select('div.spacer'):
-        sp.decompose()
-    def cls(e):
-        return e.get('class') or [] if getattr(e, 'name', None) else []
-    def is_block(e, span):
-        return getattr(e, 'name', None) == 'div' and 'block' in cls(e) and span in cls(e)
-    def group(head_parts, body_parts):
-        g = soup.new_tag('div', attrs={'class': 'group'})
-        h = soup.new_tag('div', attrs={'class': 'group-head'})
-        b = soup.new_tag('div', attrs={'class': 'group-body'})
-        for x in head_parts:
-            h.append(x.extract())
-        for x in body_parts:
-            b.append(x.extract())
-        g.append(h); g.append(b)
-        return g
-    def until_hr(start):
-        out, n = [], start
-        while n is not None and getattr(n, 'name', None) != 'hr' and not is_block(n, 'span-8'):
-            if getattr(n, 'name', None):
-                out.append(n)
+    intro = soup.find('h3', string='Ryhmämuotoinen kuntoutus henkilöille, joilla on afasia')
+    names = ['Piirtäjät, kommunikoinnin aktivointia ryhmässä', 'Puhujat, puheilmaisua ja keskustelutaitoja edistävä ryhmä']
+    heads = [soup.find('h3', string=n) for n in names]
+    assert intro and all(heads)
+    end = heads[1].find_next_sibling('hr')
+    assert end is not None
+    cards = soup.new_tag('div', attrs={'class': 'places groups'})
+    for i, h in enumerate(heads):
+        stop = heads[1] if i == 0 else end
+        parts, n = [], h.next_sibling
+        while n is not None and n is not stop:
+            parts.append(n)
             n = n.next_sibling
-        return out
-    made = 0
-    # afasia intro stays above its two groups as before (heading, photo beside the two paragraphs)
-    afasia = soup.find('h3', string='Ryhmämuotoinen kuntoutus henkilöille, joilla on afasia')
-    assert afasia is not None
-    # its photo moves to the top of the page, on the right of the opening text (Nana, 2026-10-04)
-    photo = afasia.find_next_sibling('div')
-    assert is_block(photo, 'span-6'), photo
-    photo['class'] = [c if c != 'float-left' else 'float-right' for c in photo['class']]
-    first = soup.find('p')
-    assert first.get_text(strip=True).startswith('Ryhmämuotoinen puheterapia on tavoitelähtöistä'), first.get_text()[:40]
-    first.insert_before(photo.extract())
-    # groups whose description block (span-8) comes first and the heading and notes after it
-    for blk in soup.select('div.block.span-8'):
-        labels = until_hr(blk.next_sibling)
-        assert labels and labels[0].name == 'h3', [x.get_text()[:30] for x in labels]
-        if labels[0].get_text(strip=True) in ('Piirtäjät, kommunikoinnin aktivointia ryhmässä',
-                                              'Puhujat, puheilmaisua ja keskustelutaitoja edistävä ryhmä'):
-            labels[0].name = 'h4'
-        desc = list(c for c in blk.children if getattr(c, 'name', None))
-        prev = blk.find_previous_sibling()
-        if labels[0].name == 'h4' and prev is not None and 'group' in cls(prev):
-            prev.insert_after(soup.new_tag('hr'))  # grey line between Piirtäjät and Puhujat, like between the other groups
-        mark = soup.new_tag('span'); blk.insert_before(mark)
-        mark.replace_with(group(labels, desc)); blk.decompose(); made += 1
-    # the dysartria group: heading and notes in a span-4 block, description after it
-    for blk in soup.select('div.block.span-4'):
-        desc = until_hr(blk.next_sibling)
-        heads = [c for c in blk.children if getattr(c, 'name', None)]
-        mark = soup.new_tag('span'); blk.insert_before(mark)
-        mark.replace_with(group(heads, desc)); blk.decompose(); made += 1
-    assert made == 6, made
+        card = soup.new_tag('div', attrs={'class': 'place'})
+        txt = soup.new_tag('div', attrs={'class': 'txt'})
+        card.append(txt)
+        h4 = soup.new_tag('h4')
+        h4.string = h.get_text()
+        txt.append(h4)
+        for x in parts:
+            x = x.extract()
+            if getattr(x, 'name', None) is None:
+                continue
+            if 'spacer' in (x.get('class') or []):
+                continue
+            if x.name == 'div' and 'block' in (x.get('class') or []):
+                for c in list(x.children):
+                    txt.append(c.extract())
+                continue
+            txt.append(x)
+        h.decompose()
+        cards.append(card)
+    end.insert_before(cards)
+    for sp in soup.select('div.spacer'):
+        if sp.find_next_sibling() is cards:
+            sp.decompose()
     return str(soup)
