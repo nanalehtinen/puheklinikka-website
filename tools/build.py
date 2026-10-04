@@ -132,6 +132,7 @@ EDITS = [
     ('toimintatavat-ja-arvot', 'Laki sosiaali-ja terveydenhuollon asiakastietojen käsittelystä (703/2023). </p>',
      'Laki sosiaali-ja terveydenhuollon asiakastietojen käsittelystä (703/2023). </p><p>Verkkosivustomme täyttää digitaalisten palvelujen tarjoamisesta annetun lain (306/2019) saavutettavuusvaatimukset. <a href="../saavutettavuusseloste/">Saavutettavuusseloste</a></p>', 1),  # Nana 2026-10-04
     ('', 'Käynti-ja postiosoite', 'Käynti- ja postiosoite', 1),  # hyphen spacing fixed (Nana, 2026-10-04)
+    ('ryhmmuotoinen-terapia', '<p>Seuraava tapaaminen on 3.12.2026 klo 11-12.</p>', '<p><strong>Seuraava tapaaminen on 3.12.2026 klo 11-12.</strong></p>', 1),  # bold (Nana, 2026-10-04)
     ('asiantuntijat', 'Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla.', 'Saat lisätietoja napauttamalla.', 1),  # Nana 2026-10-03; full stop added (flagged)
 ]
 # Broken /yhteystiedot links -> Terapeutit (B2). Count checked per page.
