@@ -505,6 +505,33 @@ def redirect_page(target_depth_from, target_slug):
 </head><body><p><a href="{href}">Puheklinikka</a></p></body></html>
 '''
 
+# Headings form a clean outline on every page: H1 page title, then H2, H3 with no skipped levels
+# (WCAG 1.3.1 / 2.4.6; Nana, 2026-10-04). Section headings become H2 on every page. The CSS keeps their look.
+HEADING_MATCH = {  # headings one level lower than their neighbours on the old site, raised to match
+    'toimintatavat-ja-arvot': ['Ajanmukaisuus'],
+    'new-page': ['Nenälovimuki Flexi cup'],
+}
+
+def outline_headings(slug, page):
+    a = page.index('<main'); b = page.index('</main>')
+    main = page[a:b]
+    for text in HEADING_MATCH.get(slug, []):
+        m = re.search(r'<h4([^>]*)>(\s*' + re.escape(text) + r'[^<]*)</h4>', main)
+        assert m, (slug, text)
+        main = main[:m.start()] + f'<h3{m.group(1)}>{m.group(2)}</h3>' + main[m.end():]
+    stack = []  # (original level, new level)
+    out, pos = [], 0
+    for m in re.finditer(r'<h([1-6])([^>]*)>(.*?)</h\1>', main, re.S):
+        o = int(m.group(1))
+        while stack and stack[-1][0] >= o:
+            stack.pop()
+        n = 1 if o == 1 else (stack[-1][1] + 1 if stack else 2)
+        stack.append((o, n))
+        out.append(main[pos:m.start()] + f'<h{n}{m.group(2)}>{m.group(3)}</h{n}>')
+        pos = m.end()
+    out.append(main[pos:])
+    return page[:a] + ''.join(out) + page[b:]
+
 # ---------------------------------------------------------------- main
 def build():
     if OUT.exists():
@@ -545,6 +572,7 @@ def build():
                 sys.exit(f'EDIT FAILED on {slug or "/"}: "{old}" found {c}x, expected {n}')
             page = page.replace(old, new)
             LOG.append((slug, 'text', f'"{old}" → "{new}" ({c}×)'))
+        page = outline_headings(slug, page)
         dest = OUT / slug / 'index.html' if slug else OUT / 'index.html'
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(page)
