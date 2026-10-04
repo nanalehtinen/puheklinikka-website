@@ -195,7 +195,8 @@ DETAIL_EDITS = {
     'Nana Lehtinen': [('Hallinnolliset asiat 040 593 0015', 'Hallinnolliset asiat<br/>040 593 0015')],
     'Annemari Hongell': [('kognitiivinen lyhyterapia ', 'kognitiivinen lyhytterapeutti')],
     'Ida Luotonen': [('puheterapeutti (Turku) ', 'puheterapeutti (Turku) kognitiivinen lyhytterapeutti')],
-    'Marjaana Raukola-Lindblom': [('työnohjaaja <a ', 'työnohjaaja<br/><a ')],
+    'Marjaana Raukola-Lindblom': [('työnohjaaja <a ', 'työnohjaaja<br/>Lisätietoja: <a '),
+                                  ('>Skillfull Interaction</a>', '>Skillful interaction</a>')],
 }
 # Card order on the Terapeutit page (Nana, 2026-10-04)
 PEOPLE_ORDER = ['Elina Uusi-Hakala', 'Riitta Saari', 'Jenita Mattsson',
@@ -215,8 +216,10 @@ def terapeutit_body(body, log):
         img = re.sub(r'src="\.\./images/[^"]+"', f'src="../images/card-{p["slug"]}.jpg"', img)
         cards += (f'<li class="person">{img}'
                   f'<div class="txt"><h3><a class="card-link" href="{p["slug"]}/">{p["name"]}</a></h3><p>{p["details"]}</p></div></li>')
-    assert body.rfind('<hr>') > 0
+    # the line and toimisto email after the cards (left over from the old contact form) are removed (Nana, 2026-10-04)
     tail = body[body.rfind('<hr>'):]
+    assert 'email-link' in tail and tail.count('<p') == 1, tail
+    tail = ''
     log('asiantuntijat', 'layout', 'Therapists shown as cards (style A). The whole card opens the therapist\'s own page instead of a CV PDF (Nana, option 2); the name is the link, email and other links in the card stay separate')
     # heading "Asiantuntijat" removed: it repeats the page title (Nana, 2026-10-04)
     return f'{intro.group(1)}<ul class="people">{cards}</ul>{tail}', people
@@ -303,7 +306,7 @@ def mark_section_breaks(body):
 
 def page_fixups(slug, body, log):
     """Layout changes Nana asked for on 2026-10-04."""
-    if slug not in ('toimintatavat-ja-arvot', 'about-puheklinikka', 'about-puheklinikka-2', 'our-services', 'mit-puheterapia-on-1'):
+    if slug not in ('toimintatavat-ja-arvot', 'about-puheklinikka', 'about-puheklinikka-2', 'our-services', 'mit-puheterapia-on-1', 'koulutukset'):
         return body
     soup = BeautifulSoup(body, 'html.parser')
     def h(text):
@@ -314,7 +317,15 @@ def page_fixups(slug, body, log):
         x = next((p for p in soup.find_all('p') if p.get_text(' ', strip=True).startswith(text)), None)
         assert x is not None, (slug, text)
         return x
-    if slug == 'toimintatavat-ja-arvot':
+    if slug == 'koulutukset':
+        # toimisto email left over from the old contact form (Nana, 2026-10-04)
+        e = soup.find_all('p', class_='email-link')
+        assert len(e) == 1, slug
+        parent = e[0].parent
+        e[0].decompose()
+        if parent.name == 'div' and not parent.get_text(strip=True) and not parent.find(['img', 'iframe']):
+            parent.decompose()
+    elif slug == 'toimintatavat-ja-arvot':
         h('Arvot').decompose()  # repeats the page title
     elif slug in ('about-puheklinikka', 'about-puheklinikka-2'):
         figs = soup.find_all('figure')
@@ -341,3 +352,29 @@ def page_fixups(slug, body, log):
         assert not rest, ('mit-puheterapia-on-1 leftover', rest[:80])
         row.decompose()
     return str(soup)
+
+
+def side_labels_first(body):
+    """On the old site a wide text block (span-8/9) floated right and the section's heading and short
+    notes sat beside it on the left. In this layout the wide block is not floated, so those headings ended
+    up BELOW their text. Move them back above the text they belong to (reading order as on the old site's
+    screen, 2026-10-04)."""
+    if 'span-8 float' not in body and 'span-9 float' not in body and 'float-right span-8' not in body and 'float-right span-9' not in body:
+        return body
+    soup = BeautifulSoup(body, 'html.parser')
+    moved = 0
+    for b in soup.select('div.block.span-8, div.block.span-9'):
+        cls = b.get('class', [])
+        if 'float-right' not in cls and 'float-left' not in cls:
+            continue
+        group, n = [], b.find_next_sibling()
+        while n is not None and n.name != 'hr' and not (n.name == 'div' and 'block' in (n.get('class') or [])
+                                                        and n.get_text(strip=True)):
+            group.append(n)
+            n = n.find_next_sibling()
+        # drop empty trailing headings / spacers from the group (they stay where they are)
+        group = [g for g in group if g.get_text(strip=True)]
+        for g in group:
+            b.insert_before(g.extract())
+            moved += 1
+    return str(soup) if moved else body

@@ -138,10 +138,12 @@ Design only, no text changes.
   - Nana: the phone number starts on a new line.
   - Annemari: "kognitiivinen lyhyterapia" → "kognitiivinen lyhytterapeutti".
   - Ida: "kognitiivinen lyhytterapeutti" added after "puheterapeutti (Turku)".
-  - Marjaana: the "Skillfull Interaction" link starts on a new line. The "Lisätietoja:" wording is waiting for Nana.
+  - Marjaana: new line "Lisätietoja: Skillful interaction" (Nana's wording; was "Skillfull Interaction"). The link still points to https://www.vikingfilm.fi/marjaana_raukola/suomeksi.html (the address on the current site's card).
 - Terapeutit cards: the photos have rounded corners built into the image files. On the cards, the two top corners are now filled with the border orange so there is no white gap. The bottom corners are white. Profile pages use the original photos.
 - Headings removed because they repeated the page title: "Asiantuntijat" (Terapeutit) and "Arvot" (Arvot ja toimintatavat). Arvot ja toimintatavat keeps its existing dividing lines; no extra lines were added there.
 - In English / About Puheklinikka and På svenska / Introduktion: the photo is removed; the text now uses the full width.
 - In English / Our services: "How to access Speech Therapy?" now starts at the paragraph "In Finland…"; "What is Speech Therapy?" covers the first three paragraphs.
 - På svenska / Våra tjänster (NOT asked by Nana, same problem as the English page, flagged): "Vad är talterapi?" now sits above the first paragraph and "Hur söker man sig till talterapi?" above the second.
-- Waiting for Nana: which "toimisto" email at the bottom to remove.
+- Terapeutit: the grey line and the toimisto email under the cards are removed (left over from the old "send us a note" form). The footer email stays.
+- Koulutukset: the toimisto email left over from the old contact form is removed.
+- Koulutukset and Ryhmämuotoinen kuntoutus (NOT asked by Nana, flagged): on the old site, the section headings (and on Ryhmämuotoinen kuntoutus the short notes such as "Tervetuloa mukaan!") sat in a column to the left of the text. In the draft they had ended up below the text they belong to. They are now above it again. No text changed.

@@ -503,6 +503,7 @@ def build():
         body = simplify(convert_layout(layout, depth, slug))
         body = style_a.demote_headings(body)
         body = style_a.page_fixups(slug, body, log)
+        body = style_a.side_labels_first(body)
         home = slug == ''
         if home:
             body = style_a.home_body(body, rel, page_href, log)
