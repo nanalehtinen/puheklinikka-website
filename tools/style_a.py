@@ -487,6 +487,9 @@ def ryhma_layout(body):
     first = soup.find('p')
     assert first.get_text(strip=True).startswith('Ryhmämuotoinen puheterapia on tavoitelähtöistä'), first.get_text()[:40]
     first.insert_before(photo.extract())
+    # grey line above the afasia heading, like between the other groups (Nana, 2026-10-04)
+    assert intro.find_previous_sibling().name != 'hr'
+    intro.insert_before(soup.new_tag('hr'))
     # dysartria group in the same format as Jatkokurssi: heading, bold notes, then the text (Nana, 2026-10-04)
     side = soup.select('div.block.span-4')
     assert len(side) == 1 and side[0].find('h3', string=lambda t: t and t.startswith('Ryhmämuotoinen kuntoutus henkilöille, joilla on dysartria'))
