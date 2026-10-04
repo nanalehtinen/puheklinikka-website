@@ -125,6 +125,12 @@ strong{font-weight:600}
 /* group cards on Ryhmämuotoinen kuntoutus, same look as the office cards (Nana, 2026-10-04) */
 .content .places{clear:both;margin:0 0 1.2em}
 .groups .place h3{margin:0 0 .6em;font-size:1.15rem;line-height:1.3;color:var(--brand-t)}
+/* TRIAL (Nana, 2026-10-04): Piirtäjät and Puhujat without cards, side by side with a vertical line between,
+   dark headings. Revert: delete this block and the matching lines in the phone section. */
+.groups .place{background:none;border:0;border-radius:0;overflow:visible}
+.groups .place .txt{padding:0}
+.groups .place+.place{border-left:1px solid var(--dark);padding-left:32px}
+.groups .place h3{color:var(--h)}
 /* .content .group-title{color:var(--brand-t)}  orange group headings switched off: same dark grey as the rest of the site (Nana, 2026-10-04) */
 /* text and photo side by side, photo bottom level with the last line of text (Palvelut läheisille, Nana 2026-10-04) */
 .pair{display:grid;grid-template-columns:minmax(0,1fr) 45%;gap:32px;align-items:end;clear:both}
@@ -193,6 +199,7 @@ footer.site a{color:var(--foot-a)}
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tiles a{overflow-wrap:anywhere;hyphens:auto}
   .places{grid-template-columns:1fr}
+  .groups .place+.place{border-left:0;padding-left:0;border-top:1px solid var(--dark);padding-top:24px}  /* TRIAL: line goes horizontal on phones */
   .block.float-right,.block.float-left{float:none;width:auto;margin:0 0 1em}
   .row{display:block}
   .pair{grid-template-columns:1fr;gap:0}
