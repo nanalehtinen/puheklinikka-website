@@ -189,7 +189,8 @@ HOME_AREAS = ('Osaamisalueitamme ovat aikuisneurologiset puheen, kommunikoinnin 
               'aivoverenkiertohäiriöihin, aivovammoihin ja eteneviin neurologisiin sairauksiin, kuten Parkinsonin tautiin. '
               'Olemme perehtyneet toiminnallisten äänihäiriöiden kuntoutukseen sekä trans- ja muunsukupuolisten ääniterapiaan. '
               'Tarjoamme puheterapiaa puheen sujuvuuden haasteisiin ja valikoivaan puhumattomuuteen aikuisille, nuorille ja kouluikäisille. '
-              'Lisäksi toteutamme LUKI-tutkimuksia ja tarjoamme kuntoutujien läheisille tukea tilanteissa, joissa sairastuminen tai kuntoutuminen kuormittaa arkea.')
+              'Lisäksi toteutamme LUKI-tutkimuksia ja tarjoamme kuntoutujien läheisille tukea tilanteissa, joissa sairastuminen tai kuntoutuminen kuormittaa arkea. '
+              'Lisätietoa koulutusmahdollisuuksista osaamisalueisiimme liittyen sekä kehittämistämme sovelluksista ja tuotteista löydät alta.')  # last sentence added (Nana, 2026-10-04)
 
 # ---------------------------------------------------------------- therapists
 def parse_people(body):
