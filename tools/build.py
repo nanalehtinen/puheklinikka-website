@@ -117,6 +117,8 @@ EDITS = [
     ('ryhmmuotoinen-terapia', '<p>Tervetuloa mukaan! </p><p>Ilmoittaudu mukaan <a href="mailto:annemari.hongell@puheklinikka.net?subject=Ilmoittautuminen%20SpeakOut%20jatkokurssiin%20tapaamiseen">sähköpostitse</a> tai täyttämällä <a href="../asiantuntijat/" rel="noopener" target="_blank">yhteydenottolomake</a>. </p>',
      '<p>Ilmoittaudu sähköpostitse <a href="mailto:annemari.hongell@puheklinikka.net?subject=Ilmoittautuminen%20SpeakOut%20jatkokurssiin%20tapaamiseen">tästä</a>. Tervetuloa mukaan!</p>', 1),  # Nana 2026-10-04
     ('ryhmmuotoinen-terapia', '<p>Voit ilmoittautua myös ottamalla yhteyttä puheterapeutti Annemari Hongelliin tai Riitta Saareen. </p>', '', 1),  # Nana 2026-10-04
+    ('', 'ohjaamaan sinut odotustilaan.</p></div>', 'ohjaamaan sinut odotustilaan.</p><p>Tilojen välittömään läheisyyteen pääsee esteettömästi, ja tiloissa voi liikkua itsenäisesti tai avustettuna henkilökohtaisten apuvälineiden avulla.</p></div>', 1),  # Nana 2026-10-04
+    ('', 'toimitilojen odotustilasta. </p></div>', 'toimitilojen odotustilasta. </p><p>Tilojen välittömään läheisyyteen pääsee esteettömästi, ja tiloissa voi liikkua itsenäisesti tai avustettuna henkilökohtaisten apuvälineiden avulla.</p></div>', 1),  # Nana 2026-10-04
     ('asiantuntijat', 'Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla.', 'Saat lisätietoja napauttamalla.', 1),  # Nana 2026-10-03; full stop added (flagged)
 ]
 # Broken /yhteystiedot links -> Terapeutit (B2). Count checked per page.
