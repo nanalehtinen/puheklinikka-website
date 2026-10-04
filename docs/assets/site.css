@@ -120,6 +120,9 @@ strong{font-weight:600}
 .content .places{clear:both;margin:0 0 1.2em}
 .place h4{margin:0 0 .6em;font-size:1.15rem;line-height:1.3;color:var(--brand-t)}
 .content h3.group-title{color:var(--brand-t)}
+/* text and photo side by side, photo bottom level with the last line of text (Palvelut läheisille, Nana 2026-10-04) */
+.pair{display:grid;grid-template-columns:minmax(0,1fr) 45%;gap:32px;align-items:end;clear:both}
+.pair-text>:last-child,.pair figure{margin-bottom:0}
 
 /* news cards */
 .news{display:grid;gap:24px}
@@ -185,6 +188,8 @@ footer.site a{color:var(--foot-a)}
   .places{grid-template-columns:1fr}
   .block.float-right,.block.float-left{float:none;width:auto;margin:0 0 1em}
   .row{display:block}
+  .pair{grid-template-columns:1fr;gap:0}
+  .pair figure{margin-bottom:1.2em}
   .people{grid-template-columns:1fr}
   .profile{grid-template-columns:1fr;gap:24px}
 }

@@ -342,6 +342,19 @@ def page_fixups(slug, body, log):
         block = figs[0].find_parent('div', class_='block')
         block['class'] = [c if c != 'float-left' else 'float-right' for c in block['class']]
         p_start('Jakso sisältää').insert_before(block.extract())
+        # photo bottom lined up with the last line of text (Nana, 2026-10-04): the last paragraphs and the photo
+        # side by side, both aligned to the bottom
+        paras = [p_start(t) for t in ('Tuki on tarkoitettu', 'Jakso sisältää', 'Hinta:', 'Ota rohkeasti')]
+        pair = soup.new_tag('div', attrs={'class': 'pair'})
+        txt = soup.new_tag('div', attrs={'class': 'pair-text'})
+        img = soup.new_tag('div', attrs={'class': 'pair-img'})
+        paras[0].insert_before(pair)
+        for x in paras:
+            txt.append(x.extract())
+        img.append(block.find('figure').extract())
+        block.decompose()
+        pair.append(txt); pair.append(img)
+        assert pair.find_next_sibling() is None, slug
     if slug == 'lukitutkimus':
         # two columns made one; the photo moves to the bottom right next to "LUKI-tutkimus toteutetaan yhdellä…"
         # (Nana, 2026-10-04). The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
