@@ -112,6 +112,10 @@ def demote_headings(body):
     return body
 
 # ---------------------------------------------------------------- homepage
+LIGHT_ATTR = ' class="light"'
+LIGHT_TILES = 4  # upper row of homepage service tiles shown white (comparison, Nana 2026-10-04)
+
+
 def home_body(body, rel, page_href, log):
     s = BeautifulSoup(body, 'html.parser')
     img = s.find('figure')
@@ -141,7 +145,10 @@ def home_body(body, rel, page_href, log):
         frame = mp.find('iframe') if mp else None
         offices.append((h.get_text(strip=True), str(frame) if frame else '', txt))
     a = email.find('a')
-    tiles = ''.join(f'<li><a href="{page_href(0, sl)}">{lb}</a></li>' for lb, sl in SERVICE_TILES)
+    # Comparison for others to see (Nana, 2026-10-04): the upper row is white with the therapist cards' hover,
+    # the lower row stays orange. To switch back, set LIGHT_TILES = 0 (or 8 for all white).
+    tiles = ''.join(f'<li><a{LIGHT_ATTR if i < LIGHT_TILES else ""} href="{page_href(0, sl)}">{lb}</a></li>'
+                    for i, (lb, sl) in enumerate(SERVICE_TILES))
     out = f'''<div class="hero"><div class="wrap hero-grid"><div>
 <h1>{intro.get_text(strip=True)}</h1>
 {str(places)}
