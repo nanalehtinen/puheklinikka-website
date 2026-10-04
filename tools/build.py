@@ -502,6 +502,7 @@ def build():
         layout = soup.select_one('.main-content-wrapper .sqs-layout')
         body = simplify(convert_layout(layout, depth, slug))
         body = style_a.demote_headings(body)
+        body = style_a.page_fixups(slug, body, log)
         home = slug == ''
         if home:
             body = style_a.home_body(body, rel, page_href, log)
@@ -509,7 +510,7 @@ def build():
             body, PEOPLE[:] = style_a.terapeutit_body(body, log)
         elif slug == 'new-page-1':
             body = style_a.news_body(body, page_title, log)
-        elif not home:
+        elif not home and slug != 'toimintatavat-ja-arvot':  # that page already has dividing lines between its sections
             body = style_a.mark_section_breaks(body)
         crumb = None  # section label above the title removed (Nana, 2026-10-03)
         page = render(slug, lang, tab_title, page_title, crumb, body, depth, home)
@@ -545,6 +546,7 @@ def build():
         if c == 0 or (n is not None and c != n):
             sys.exit(f'YHTEYSTIEDOT CHECK FAILED on {s}: {c}')
     copy_assets()
+    make_card_photos()
     (OUT / '.nojekyll').write_text('')
     # CNAME (www.puheklinikka.net) is added only at the domain switch-over step, with Nana's approval
     log('', 'layout', 'Style A for the whole site (Nana, 2026-10-03): white header with the orange logo, menu on one line, light title band with the section name, section menu as a sidebar, dark footer')
@@ -555,6 +557,37 @@ def build():
     for w in WARN:
         print('WARN', w)
     print('built', len(PAGES), 'pages,', len(IMAGES_USED), 'images')
+
+def make_card_photos():
+    """Copies of the therapist photos for the Terapeutit cards. The photos have rounded corners baked
+    in (transparent or white); the two top corners are filled with the card's border orange so the photo
+    meets the border without white gaps (Nana, 2026-10-04). The bottom corners become white."""
+    from PIL import Image
+    orange, white = (0xc4, 0x60, 0x13), (255, 255, 255)
+    for p in PEOPLE:
+        src = re.search(r'src="\.\./images/([^"]+)"', p['img']).group(1)
+        im = Image.open(OUT / 'images' / src)
+        w, h = im.size
+        r = int(w * 0.09) + 2  # baked-in corner radius is about 7% of the width
+        if im.mode in ('RGBA', 'LA', 'P'):
+            im = im.convert('RGBA')
+            top = Image.new('RGB', (w, h), white)
+            top.paste(Image.new('RGB', (w, r), orange), (0, 0))
+            top.paste(im, (0, 0), im)
+            im = top
+        else:
+            # white corners: measure where the photo starts on the top row, then paint everything
+            # outside that quarter circle (1px inside, to cover the soft edge) orange
+            im = im.convert('RGB')
+            px = im.load()
+            white_ish = lambda c: min(c) > 235
+            R = next(x for x in range(w) if not white_ish(px[x, 0])) + 1
+            for y in range(R):
+                for x in range(R):
+                    if (R - x) ** 2 + (R - y) ** 2 > (R - 1) ** 2:
+                        px[x, y] = orange
+                        px[w - 1 - x, y] = orange
+        im.save(OUT / 'images' / f'card-{p["slug"]}.jpg', quality=85, optimize=True)
 
 def write_changes():
     lines = ['# Changes compared with the live Squarespace site', '',

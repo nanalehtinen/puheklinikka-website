@@ -129,3 +129,19 @@ Design only, no text changes.
 - Menu order: Terapeutit, Palvelut ▾, Tapahtumat ▾, Arvot ja toimintatavat, Asiakaspalaute, På svenska ▾, In English ▾.
 - Jenita's "LOUD Crowd® -menetelmäkoulutuksella" hyphen kept.
 - Saavutettavuusseloste: draft for Nana's review in site-plan/saavutettavuusseloste-luonnos.md. Not on the site yet.
+
+## 14. Nana's first preview tweaks (2026-10-04)
+- Homepage, under "Palvelut": the old "Osaamisalueitamme…" paragraph is replaced by Nana's new text, word for word. It is now as wide as the service tiles.
+- Terapeutit, card order: Elina, Riitta, Jenita / Annemari, Marjaana, Nana / Ida.
+- Terapeutit, contact details (cards and profile pages):
+  - Elina: "yleiset asiat, tietosuojavastaava" starts on a new line.
+  - Nana: the phone number starts on a new line.
+  - Annemari: "kognitiivinen lyhyterapia" → "kognitiivinen lyhytterapeutti".
+  - Ida: "kognitiivinen lyhytterapeutti" added after "puheterapeutti (Turku)".
+  - Marjaana: the "Skillfull Interaction" link starts on a new line. The "Lisätietoja:" wording is waiting for Nana.
+- Terapeutit cards: the photos have rounded corners built into the image files. On the cards, the two top corners are now filled with the border orange so there is no white gap. The bottom corners are white. Profile pages use the original photos.
+- Headings removed because they repeated the page title: "Asiantuntijat" (Terapeutit) and "Arvot" (Arvot ja toimintatavat). Arvot ja toimintatavat keeps its existing dividing lines; no extra lines were added there.
+- In English / About Puheklinikka and På svenska / Introduktion: the photo is removed; the text now uses the full width.
+- In English / Our services: "How to access Speech Therapy?" now starts at the paragraph "In Finland…"; "What is Speech Therapy?" covers the first three paragraphs.
+- På svenska / Våra tjänster (NOT asked by Nana, same problem as the English page, flagged): "Vad är talterapi?" now sits above the first paragraph and "Hur söker man sig till talterapi?" above the second.
+- Waiting for Nana: which "toimisto" email at the bottom to remove.

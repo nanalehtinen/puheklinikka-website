@@ -151,7 +151,7 @@ def home_body(body, rel, page_href, log):
 {str(img)}</div></div>
 <section class="sec"><div class="wrap">
 <h2>Palvelut</h2>
-{str(areas)}
+<p class="areas">{HOME_AREAS}</p>
 <ul class="tiles">{tiles}</ul>
 </div></section>
 <section class="sec sec-tight"><div class="wrap">
@@ -168,6 +168,13 @@ def home_body(body, rel, page_href, log):
 
 SERVICE_TILES = []  # filled by build.py from MENU
 
+# Homepage "Palvelut" text, Nana's new wording word for word (2026-10-04); replaces the old "Osaamisalueitamme…" paragraph
+HOME_AREAS = ('Osaamisalueitamme ovat aikuisneurologiset puheen, kommunikoinnin ja nielemisen haasteet, jotka liittyvät esimerkiksi '
+              'aivoverenkiertohäiriöihin, aivovammoihin ja eteneviin neurologisiin sairauksiin, kuten Parkinsonin tautiin. '
+              'Olemme perehtyneet toiminnallisten äänihäiriöiden kuntoutukseen sekä trans- ja muunsukupuolisten ääniterapiaan. '
+              'Tarjoamme puheterapiaa puheen sujuvuuden haasteisiin ja valikoivaan puhumattomuuteen aikuisille, nuorille ja kouluikäisille. '
+              'Lisäksi toteutamme LUKI-tutkimuksia ja tarjoamme kuntoutujien läheisille tukea tilanteissa, joissa sairastuminen tai kuntoutuminen kuormittaa arkea.')
+
 # ---------------------------------------------------------------- therapists
 def parse_people(body):
     pairs = re.findall(r'<figure class="img">(?:<a [^>]*>)?(<img [^>]*>)(?:</a>)?</figure>\s*<p>(.*?)</p>', body, re.S)
@@ -176,22 +183,43 @@ def parse_people(body):
         m = re.match(r'\s*<a [^>]*>(.*?)</a>\s*<br/>(.*)', txt, re.S)
         name = m.group(1).strip()
         details = re.sub(r'\s{2,}', ' ', m.group(2)).strip()
+        for old, new in DETAIL_EDITS.get(name, []):
+            assert details.count(old) == 1, (name, old)
+            details = details.replace(old, new)
         people.append({'name': name, 'img': img, 'details': details, 'slug': slugify(name)})
     return people
+
+# Contact details on the cards and profile pages (Nana, 2026-10-04)
+DETAIL_EDITS = {
+    'Elina Uusi-Hakala': [('(Helsinki ja Turku) yleiset asiat', '(Helsinki ja Turku)<br/>yleiset asiat')],
+    'Nana Lehtinen': [('Hallinnolliset asiat 040 593 0015', 'Hallinnolliset asiat<br/>040 593 0015')],
+    'Annemari Hongell': [('kognitiivinen lyhyterapia ', 'kognitiivinen lyhytterapeutti')],
+    'Ida Luotonen': [('puheterapeutti (Turku) ', 'puheterapeutti (Turku) kognitiivinen lyhytterapeutti')],
+    'Marjaana Raukola-Lindblom': [('työnohjaaja <a ', 'työnohjaaja<br/><a ')],
+}
+# Card order on the Terapeutit page (Nana, 2026-10-04)
+PEOPLE_ORDER = ['Elina Uusi-Hakala', 'Riitta Saari', 'Jenita Mattsson',
+                'Annemari Hongell', 'Marjaana Raukola-Lindblom', 'Nana Lehtinen', 'Ida Luotonen']
 
 def terapeutit_body(body, log):
     intro = re.search(r'<h2>Asiantuntijat</h2>(<p>.*?</p>)', body, re.S)
     people = parse_people(body)
     if len(people) != 7:
         raise SystemExit(f'TERAPEUTIT: expected 7 people, found {len(people)}')
+    assert sorted(PEOPLE_ORDER) == sorted(p['name'] for p in people)
+    people.sort(key=lambda p: PEOPLE_ORDER.index(p['name']))
     cards = ''
     for p in people:
         img = re.sub(r' alt="[^"]*"', ' alt=""', p['img'])  # whole card is clickable via the name link
+        # card copy of the photo with the top corners filled orange (Nana, 2026-10-04); made in build.py
+        img = re.sub(r'src="\.\./images/[^"]+"', f'src="../images/card-{p["slug"]}.jpg"', img)
         cards += (f'<li class="person">{img}'
                   f'<div class="txt"><h3><a class="card-link" href="{p["slug"]}/">{p["name"]}</a></h3><p>{p["details"]}</p></div></li>')
+    assert body.rfind('<hr>') > 0
     tail = body[body.rfind('<hr>'):]
     log('asiantuntijat', 'layout', 'Therapists shown as cards (style A). The whole card opens the therapist\'s own page instead of a CV PDF (Nana, option 2); the name is the link, email and other links in the card stay separate')
-    return f'<h2>Asiantuntijat</h2>{intro.group(1)}<ul class="people">{cards}</ul>{tail}', people
+    # heading "Asiantuntijat" removed: it repeats the page title (Nana, 2026-10-04)
+    return f'{intro.group(1)}<ul class="people">{cards}</ul>{tail}', people
 
 def profile_body(p, log):
     bio = BIOS.get(p['name'])
@@ -270,4 +298,46 @@ def mark_section_breaks(body):
         if prev is not None and prev.name == 'hr':
             continue
         h['class'] = h.get('class', []) + ['sep']
+    return str(soup)
+
+
+def page_fixups(slug, body, log):
+    """Layout changes Nana asked for on 2026-10-04."""
+    if slug not in ('toimintatavat-ja-arvot', 'about-puheklinikka', 'about-puheklinikka-2', 'our-services', 'mit-puheterapia-on-1'):
+        return body
+    soup = BeautifulSoup(body, 'html.parser')
+    def h(text):
+        x = soup.find(['h2', 'h3'], string=text)
+        assert x is not None, (slug, text)
+        return x
+    def p_start(text):
+        x = next((p for p in soup.find_all('p') if p.get_text(' ', strip=True).startswith(text)), None)
+        assert x is not None, (slug, text)
+        return x
+    if slug == 'toimintatavat-ja-arvot':
+        h('Arvot').decompose()  # repeats the page title
+    elif slug in ('about-puheklinikka', 'about-puheklinikka-2'):
+        figs = soup.find_all('figure')
+        assert len(figs) == 1, slug
+        col = figs[0].find_parent('div', class_='col')
+        (col or figs[0]).decompose()
+        row = soup.find('div', class_='row')
+        if row:
+            for c in row.find_all('div', class_='col', recursive=False):
+                c.unwrap()
+            row.unwrap()
+    elif slug == 'our-services':
+        p_start('In Finland').insert_before(h('How to access Speech Therapy?').extract())
+    elif slug == 'mit-puheterapia-on-1':
+        q1, q2 = h('Vad är talterapi?'), h('Hur söker man sig till talterapi?')
+        p1, p2 = p_start('Talterapi är medicinsk'), p_start('Till talterapi kommer')
+        fig = q1.find_parent('div', class_='col').find('figure')
+        row = q1.find_parent('div', class_='row')
+        block = soup.new_tag('div', attrs={'class': 'block float-left span-6'})
+        block.append(fig.extract())
+        for x in (q1.extract(), block, p1.extract(), q2.extract(), p2.extract()):
+            row.insert_before(x)
+        rest = row.get_text(strip=True)
+        assert not rest, ('mit-puheterapia-on-1 leftover', rest[:80])
+        row.decompose()
     return str(soup)
