@@ -438,7 +438,8 @@ AIKUISNEURO = [
 def ryhma_layout(body):
     """Ryhmämuotoinen kuntoutus (Nana, 2026-10-04): every group gets the arrangement the dysartria group had on
     the old site: heading and short notes in a narrow left column, the description beside it on the right.
-    The afasia heading introduces Piirtäjät and Puhujat, so their names become sub-headings (h4).
+    The afasia text stays above as the intro to Piirtäjät and Puhujat, whose names become sub-headings (h4).
+    Grey lines separate the groups.
     The button above the afasia section is removed. No group text changed."""
     soup = BeautifulSoup(body, 'html.parser')
     btns = soup.select('p.btn-wrap')
@@ -468,20 +469,9 @@ def ryhma_layout(body):
             n = n.next_sibling
         return out
     made = 0
-    # afasia intro: heading and photo on the left, its two paragraphs on the right
+    # afasia intro stays above its two groups as before (heading, photo beside the two paragraphs)
     afasia = soup.find('h3', string='Ryhmämuotoinen kuntoutus henkilöille, joilla on afasia')
-    photo = afasia.find_next_sibling('div')
-    assert is_block(photo, 'span-6'), photo
-    photo['class'] = ['photo']
-    paras = []
-    n = photo.next_sibling
-    while n is not None and not is_block(n, 'span-8'):
-        if getattr(n, 'name', None):
-            paras.append(n)
-        n = n.next_sibling
-    assert len(paras) == 2, paras
-    mark = soup.new_tag('span'); afasia.insert_before(mark)
-    mark.replace_with(group([afasia, photo], paras)); made += 1
+    assert afasia is not None
     # groups whose description block (span-8) comes first and the heading and notes after it
     for blk in soup.select('div.block.span-8'):
         labels = until_hr(blk.next_sibling)
@@ -490,6 +480,9 @@ def ryhma_layout(body):
                                               'Puhujat, puheilmaisua ja keskustelutaitoja edistävä ryhmä'):
             labels[0].name = 'h4'
         desc = list(c for c in blk.children if getattr(c, 'name', None))
+        prev = blk.find_previous_sibling()
+        if labels[0].name == 'h4' and prev is not None and 'group' in cls(prev):
+            prev.insert_after(soup.new_tag('hr'))  # grey line between Piirtäjät and Puhujat, like between the other groups
         mark = soup.new_tag('span'); blk.insert_before(mark)
         mark.replace_with(group(labels, desc)); blk.decompose(); made += 1
     # the dysartria group: heading and notes in a span-4 block, description after it
@@ -498,5 +491,5 @@ def ryhma_layout(body):
         heads = [c for c in blk.children if getattr(c, 'name', None)]
         mark = soup.new_tag('span'); blk.insert_before(mark)
         mark.replace_with(group(heads, desc)); blk.decompose(); made += 1
-    assert made == 7, made
+    assert made == 6, made
     return str(soup)
