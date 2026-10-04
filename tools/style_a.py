@@ -158,7 +158,7 @@ def home_body(body, rel, page_href, log):
 {str(img)}</div></div>
 <section class="sec"><div class="wrap">
 <h2>Palvelut</h2>
-<p class="areas">{HOME_AREAS}</p>
+{''.join(f'<p class="areas">{x}</p>' for x in HOME_AREAS)}
 <ul class="tiles">{tiles}</ul>
 </div></section>
 <section class="sec sec-tight"><div class="wrap">
@@ -185,12 +185,13 @@ HOME_ACCESS = ('Puheterapia käynnistyy tyypillisesti lääkärin tai neurologin
                'Ota myös rohkeasti yhteyttä meihin. Neuvomme mielellämme puheterapiaan hakeutumisen eri vaiheissa. '
                'Tarjoamme palveluita myös itsemaksaville asiakkaille.')
 # Homepage "Palvelut" text, Nana's new wording word for word (2026-10-04); replaces the old "Osaamisalueitamme…" paragraph
-HOME_AREAS = ('Osaamisalueitamme ovat aikuisneurologiset puheen, kommunikoinnin ja nielemisen haasteet, jotka liittyvät esimerkiksi '
-              'aivoverenkiertohäiriöihin, aivovammoihin ja eteneviin neurologisiin sairauksiin, kuten Parkinsonin tautiin. '
-              'Olemme perehtyneet toiminnallisten äänihäiriöiden kuntoutukseen sekä trans- ja muunsukupuolisten ääniterapiaan. '
-              'Tarjoamme puheterapiaa puheen sujuvuuden haasteisiin ja valikoivaan puhumattomuuteen aikuisille, nuorille ja kouluikäisille. '
-              'Lisäksi toteutamme LUKI-tutkimuksia ja tarjoamme kuntoutujien läheisille tukea tilanteissa, joissa sairastuminen tai kuntoutuminen kuormittaa arkea. '
-              'Lisätietoa koulutusmahdollisuuksista osaamisalueisiimme liittyen sekä kehittämistämme sovelluksista ja tuotteista löydät alta.')  # last sentence added (Nana, 2026-10-04)
+HOME_AREAS = (('Osaamisalueitamme ovat aikuisneurologiset puheen, kommunikoinnin ja nielemisen haasteet, jotka liittyvät esimerkiksi '
+               'aivoverenkiertohäiriöihin, aivovammoihin ja eteneviin neurologisiin sairauksiin, kuten Parkinsonin tautiin. '
+               'Olemme perehtyneet toiminnallisten äänihäiriöiden kuntoutukseen sekä trans- ja muunsukupuolisten ääniterapiaan. '
+               'Tarjoamme puheterapiaa puheen sujuvuuden haasteisiin ja valikoivaan puhumattomuuteen aikuisille, nuorille ja kouluikäisille. '
+               'Lisäksi toteutamme LUKI-tutkimuksia ja tarjoamme kuntoutujien läheisille tukea tilanteissa, joissa sairastuminen tai kuntoutuminen kuormittaa arkea. '
+               # last sentence revised (Nana, 2026-10-04)
+               'Alta löydät lisätietoa myös koulutusmahdollisuuksista osaamisalueisiimme liittyen sekä kehittämistämme sovelluksista ja tuotteista.'),)
 
 # ---------------------------------------------------------------- therapists
 def parse_people(body):
