@@ -344,14 +344,12 @@ def page_fixups(slug, body, log):
         p_start('Jakso sisältää').insert_before(block.extract())
     if slug == 'lukitutkimus':
         # two columns made one; the photo moves to the bottom right next to "LUKI-tutkimus toteutetaan yhdellä…"
-        # (Nana, 2026-10-04). The toimisto email that sat under the photo stays under it (question open with Nana).
+        # (Nana, 2026-10-04). The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
         row = soup.find('div', class_='row')
         left, right = row.find_all('div', class_='col', recursive=False)
         block = soup.new_tag('div', attrs={'class': 'block float-right span-6'})
         block.append(left.find('figure').extract())
-        email = left.find('p', class_='email-link')
-        if email:
-            block.append(email.extract())
+        left.find('p', class_='email-link').decompose()
         head = left.find('h3').extract()
         assert not left.get_text(strip=True)
         left.decompose()
