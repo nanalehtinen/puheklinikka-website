@@ -140,6 +140,7 @@ strong{font-weight:600}
 .person{position:relative;background:#fff;border:2px solid var(--ob);border-radius:10px;overflow:hidden;transition:background-color .15s}
 .person:hover{background:var(--peach)}
 .person:hover .card-link{text-decoration:underline}
+.person:hover h3 a{color:var(--o-beige)}  /* darker orange on peach keeps AA contrast (Nana, 2026-10-04) */
 .person .card-link::after{content:"";position:absolute;inset:0;z-index:1}
 .person .card-link:focus-visible{outline:none}
 .person:has(.card-link:focus-visible){outline:3px solid var(--focus);outline-offset:3px}
