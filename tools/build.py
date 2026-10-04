@@ -77,7 +77,7 @@ MENU = [
         ('Our services', 'our-services'),
     ]),
 ]
-NEW_PAGES = {  # TRIAL (Nana, 2026-10-04): Palvelut pages with no text yet
+NEW_PAGES = {  # TRIAL (Nana, 2026-10-04): Palvelut pages; Nielemishäiriöt has the section moved from Aikuisneurologiset häiriöt
     'nielemishairiot': 'Nielemishäiriöt',
     'puheen-sujuvuuden-hairiot': 'Puheen sujuvuuden häiriöt',
 }
@@ -594,7 +594,8 @@ def build():
         (OUT / ps / 'index.html').write_text(page)
     # new pages with only a title until Nana supplies their text (must not go live empty at launch)
     for ns, title in NEW_PAGES.items():
-        page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, '', 1, False)
+        page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, style_a.MOVED.get(ns, ''), 1, False)
+        page = outline_headings(ns, page)
         (OUT / ns).mkdir(parents=True, exist_ok=True)
         (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
     # accessibility statement page: title only until Nana completes the statement (Nana, 2026-10-04)

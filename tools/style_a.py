@@ -342,8 +342,9 @@ def page_fixups(slug, body, log):
         figs = [f.find_parent('div', class_='block') or f for f in soup.find_all('figure')]
         assert len(figs) == 2, slug
         (h1, ps1), (h2, ps2) = AIKUISNEURO
-        out = (f'<h3>{h1}</h3>{figs[0]}' + ''.join(f'<p>{p}</p>' for p in ps1) +
-               f'<h3>{h2}</h3>{figs[1]}' + ''.join(f'<p>{p}</p>' for p in ps2))
+        out = f'<h3>{h1}</h3>{figs[0]}' + ''.join(f'<p>{p}</p>' for p in ps1)
+        # the swallowing section (heading, text, photo) moved to the Nielemishäiriöt page (Nana, 2026-10-04)
+        MOVED['nielemishairiot'] = f'<h3>{h2}</h3>{figs[1]}' + ''.join(f'<p>{p}</p>' for p in ps2)
         return out
     if slug == 'palvelut-lheisille':
         # photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04)
@@ -444,6 +445,8 @@ def side_labels_first(body):
 
 # Aikuisneurologiset häiriöt, Nana's new page text word for word (2026-10-04).
 # Short standalone lines read as subheadings; every other line break starts a new paragraph.
+MOVED = {}  # page sections moved to another page, filled by page_fixups
+
 AIKUISNEURO = [
     ('Puheen ja kommunikoinnin haasteet', [
         'Aikuisneurologinen puheterapia kohdistuu sairauden tai vamman aiheuttamiin puheen, kielen ja kommunikoinnin haasteisiin. Tyypillisiä häiriöitä ovat esimerkiksi afasia, laaja-alaiset kielellis-kognitiiviset vaikeudet sekä motoriset puhehäiriöt, kuten dysartria. Haasteita voi esiintyä myös puheen selkeydessä ja äänenkäytössä.',
