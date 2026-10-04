@@ -316,7 +316,7 @@ def mark_section_breaks(body):
 def page_fixups(slug, body, log):
     """Layout changes Nana asked for on 2026-10-04."""
     if slug not in ('toimintatavat-ja-arvot', 'about-puheklinikka', 'about-puheklinikka-2', 'our-services', 'mit-puheterapia-on-1', 'koulutukset',
-                    'mit-puheterapia-on'):
+                    'mit-puheterapia-on', 'palvelut-lheisille'):
         return body
     soup = BeautifulSoup(body, 'html.parser')
     def h(text):
@@ -335,6 +335,13 @@ def page_fixups(slug, body, log):
         out = (f'<h3>{h1}</h3>{figs[0]}' + ''.join(f'<p>{p}</p>' for p in ps1) +
                f'<h3>{h2}</h3>{figs[1]}' + ''.join(f'<p>{p}</p>' for p in ps2))
         return out
+    if slug == 'palvelut-lheisille':
+        # photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04)
+        figs = soup.find_all('figure')
+        assert len(figs) == 1, slug
+        block = figs[0].find_parent('div', class_='block')
+        block['class'] = [c if c != 'float-left' else 'float-right' for c in block['class']]
+        p_start('Jakso sisältää').insert_before(block.extract())
     if slug == 'koulutukset':
         # toimisto email left over from the old contact form (Nana, 2026-10-04)
         e = soup.find_all('p', class_='email-link')

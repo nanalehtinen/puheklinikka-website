@@ -157,3 +157,4 @@ Design only, no text changes.
   - Below it, two cards side by side (same style as the office cards on the homepage): Piirtäjät and Puhujat, each with its notes ("Syksyn 2026 ryhmää…", "Tervetuloa mukaan!") and its description. The group names are now card headings one level below the afasia heading. No text changed.
   - Then the dividing line and the other groups as before.
   - Typo fixed (Nana confirmed): "kootaan parhailaan" → "kootaan parhaillaan" in the Parkinson and dysartria groups.
+- Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
