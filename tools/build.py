@@ -59,7 +59,7 @@ MENU = [
         ('Palvelut läheisille', 'palvelut-lheisille'),
         ('Tutkimus ja konsultointi', 'arviot-ja-konsultointi'),
         ('Koulutukset', 'koulutukset'),
-        ('Sanapsis-sovellukset ja tuotteet', 'new-page'),
+        ('Sovellukset ja tuotteet', 'new-page'),  # label shortened (Nana, 2026-10-04); page title unchanged
     ]),
     # Split in two (Nana, 2026-10-03)
     ('Tapahtumat', None, [
