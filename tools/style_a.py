@@ -17,7 +17,8 @@ CUR = ' aria-current="page"'
 # One approved edit: Elina "tietoturvavastaavana" -> "tietosuojavastaavana" (Nana confirmed).
 # Empty "Asiakasryhmät:" lines are kept in EMPTY_FIELDS and not shown until Nana fills them in.
 # Placeholder under the languages for every therapist; keywords come later from Nana (Nana, 2026-10-05)
-GROUPS_TBA = '<p class="langs">Asiakasryhmät: TBA</p>'
+# Shown as a heading like the new bios, before the languages line (Nana, 2026-10-10: uniform everywhere)
+GROUPS_TBA = '<h2>Asiakasryhmät:</h2><p>TBA</p>'
 BIOS = {
     'Elina Uusi-Hakala': [
         '<p>Elina työskentelee aikuisten ja koululaisten kanssa. Aikuisneurologisen puheterapian lisäksi hän tarjoaa ohjausta ja terapiaa sitkeiden äännevirheiden kanssa kamppaileville, pureutuu puheen sujuvuuden haasteisiin, sekä työskentelee valikoivan puhumattomuuden kanssa.</p>',
@@ -67,6 +68,13 @@ EMPTY_FIELDS = {n: ['Asiakasryhmät:'] for n in BIOS if n != 'Nana Lehtinen'}
 # They replace the four entries above. Section labels become H2 headings,
 # "Asiakasryhmät" becomes a list (tab-indented lines nest under the item above).
 # One approved edit again: Elina "tietoturvavastaavana" -> "tietosuojavastaavana".
+# Nana's fixes to the new texts (2026-10-10): ® on both marks, missing comma,
+# "transsukupuolisten"; "Täydennyskoulutus:" with a colon everywhere.
+NEW_BIO_FIXES = (
+    ('SPEAK OUT! & LOUD Crowd Training', 'SPEAK OUT!® & LOUD Crowd® Training'),
+    ('and their Families A Three-Part', 'and their Families, A Three-Part'),
+    ('anssukupuolisen ääniterapia', 'anssukupuolisten ääniterapia'),
+)
 NEW_BIO_LABELS = ('Täydennyskoulutus', 'Valikoidut koulutukset ja pätevyydet', 'Asiakasryhmät')
 
 def _parse_new_bios(path):
@@ -79,6 +87,10 @@ def _parse_new_bios(path):
         if raw.strip() in names:
             name = raw.strip(); blocks[name] = []; continue
         if name and raw.strip():
+            for a, b in NEW_BIO_FIXES:
+                raw = raw.replace(a, b)
+            if raw.strip() == 'Täydennyskoulutus':
+                raw = 'Täydennyskoulutus:'
             blocks[name].append(raw.rstrip())
     for name, lines in blocks.items():
         html, in_list, items = [], False, []
@@ -112,9 +124,17 @@ def _parse_new_bios(path):
                 continue
             html.append(f'<p>{esc(ln)}</p>')
         close_list()
+        # languages line last on every profile (Nana, 2026-10-10)
+        langs = [b for b in html if b.startswith('<p class="langs">')]
+        html = [b for b in html if b not in langs] + langs
         out[name] = [''.join(html).replace('Puheklinikan tietoturvavastaavana', 'Puheklinikan tietosuojavastaavana')]
     return out
 
+for _n, _b in BIOS.items():
+    if GROUPS_TBA in _b:
+        _i = _b.index(GROUPS_TBA)
+        if _i and _b[_i - 1].startswith('<p class="langs">'):
+            _b[_i - 1], _b[_i] = _b[_i], _b[_i - 1]
 NEW_BIOS = _parse_new_bios(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bios-2026-10-10.txt'))
 BIOS.update(NEW_BIOS)
 
