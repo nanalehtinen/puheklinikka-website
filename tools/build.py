@@ -82,7 +82,7 @@ MENU = [
 PRICE_STD = '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä.<br/>Omakustannehinta: 139,10€/45min</p>'
 PRICES = {
     'ryhmmuotoinen-terapia': '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä. Joihinkin ryhmiin on mahdollista osallistua myös omakustanteisesti.<br/>Omakustannehinta: 60min ryhmä 50,00€/krt, 90min ryhmä 100,00€/krt</p>',
-    'nielemishairiot': PRICE_STD,
+    'nielemishairiot': '<p>Tutkimus toteutuu tyypillisesti maksusitoumuksella.<br/>Omakustannehinta: 139,10€/45min</p>',  # under Nielemistutkimus (Nana, 06:07)
     'puheen-sujuvuuden-hairiot': PRICE_STD,
     'niterapia': PRICE_STD,
 }
@@ -647,7 +647,7 @@ def build():
             m = re.search(r'\s*<hr/>\s*(<h([23])>Nielemistutkimus</h\2>.*?)(?=\s*<hr/>)', page, re.S)
             assert m, 'Nielemistutkimus section not found'
             page = page[:m.start()] + page[m.end():]
-            style_a.MOVED['nielemishairiot'] = style_a.MOVED.get('nielemishairiot', '') + '<hr/>' + m.group(1)
+            style_a.MOVED['nielemishairiot'] = style_a.MOVED.get('nielemishairiot', '') + PRICE_STD + '<hr/>' + m.group(1)  # price under the first section (Nana, 06:07)
             LOG.append((slug, 'layout', 'Nielemistutkimus section moved to Nielemishäiriöt'))
         page = outline_headings(slug, page)
         dest = OUT / slug / 'index.html' if slug else OUT / 'index.html'
