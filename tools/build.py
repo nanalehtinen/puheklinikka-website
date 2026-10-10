@@ -110,10 +110,11 @@ MAP_TITLE = {  # iframe titles, built from the address text on the homepage
 # ------------------------------------------------- agreed text edits
 # (slug, old, new, expected count). Applied to the final page HTML.
 EDITS = [
-    ('our-services', 'Sessions are led by <strong>Annemari Hongell</strong>, a', 'Sessions are led by Annemari Hongell, a', 1),  # bold removed (Nana, 2026-10-10)
+    ('our-services', '<p>Sessions are led by <strong>Annemari Hongell</strong>, a speech-language therapist with additional training in cognitive brief therapy techniques.</p>', '', 1),  # English-only text removed to match the Finnish page (Nana, 2026-10-10)
+    ('our-services', '(self-funded, 2025)', '(self-funded)', 1),  # English-only text removed to match the Finnish page (Nana, 2026-10-10)
+    ('our-services', '<p>For more information and bookings: <strong>toimisto@puheklinikka.net</strong><br/> Don’t hesitate to get in touch – we are here for you.</p>', '', 1),  # English-only text removed to match the Finnish page (Nana, 2026-10-10)
     ('our-services', 'The program includes <strong>4–6 sessions</strong>, with content tailored to individual needs. Sessions can take place in <strong>Turku or remotely</strong>, in <strong>Finnish or Swedish</strong>.', 'The program includes 4–6 sessions, with content tailored to individual needs. Sessions can take place in Turku or remotely, in Finnish or Swedish.', 1),  # bold removed (Nana, 2026-10-10)
     ('our-services', '<p><strong>Price:</strong> €50.00', '<p>Price: €50.00', 1),  # bold removed (Nana, 2026-10-10)
-    ('our-services', 'For more information and bookings: <strong>toimisto@puheklinikka.net</strong>', 'For more information and bookings: toimisto@puheklinikka.net', 1),  # bold removed (Nana, 2026-10-10)
     ('toimintatavat-ja-arvot', 'rakennetaan tukemaan asiakkaan kokonaistilannetta. Asiakas ja hänen lähihenkilönsä', 'rakennetaan tukemaan asiakkaan kokonaistilannetta.</p><p>Asiakas ja hänen lähihenkilönsä', 1),  # Nana, 2026-10-10
     ('toimintatavat-ja-arvot', 'jotka osallistuvat hänen hoitoonsa tai kuntoutukseensa.', 'jotka osallistuvat hoitoon tai kuntoutukseen.', 1),  # Nana, 2026-10-10
     ('about-puheklinikka-2', 'toimisto(at)puheklinikka.net</a> or visit our <a href="../asiantuntijat/" rel="noopener" target="_blank">Contact</a> page for details.</p>', 'toimisto(at)puheklinikka.net</a>.</p>', 1),  # Nana, 2026-10-10
