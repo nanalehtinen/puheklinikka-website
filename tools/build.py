@@ -127,6 +127,9 @@ MAP_TITLE = {  # iframe titles, built from the address text on the homepage
 # ------------------------------------------------- agreed text edits
 # (slug, old, new, expected count). Applied to the final page HTML.
 EDITS = [
+    ('arviot-ja-konsultointi', 'Pitkän linjan yksityisenä puheterapiapalvelujen tarjoajana tarjoamme myös konsultaatioita puheterapiapalveluiden järjestämiseen liittyvissä kysymyksissä.</p>', 'Pitkän linjan yksityisenä puheterapiapalvelujen tarjoajana tarjoamme myös konsultaatioita puheterapiapalveluiden järjestämiseen liittyvissä kysymyksissä. Konsultointi hinnoitellaan yksilöllisesti.</p>', 1),  # Nana, 2026-10-10
+    ('arviot-ja-konsultointi', 'Puheterapeuttiseen tutkimukseen voi hakeutua joko julkisen terveydenhuollon lähetteellä ja maksusitoumuksella tai omakustanteisesti. Tutkimus voidaan toteuttaa suomen- tai ruotsinkielellä.</p>', 'Puheterapeuttiseen tutkimukseen voi hakeutua joko julkisen terveydenhuollon lähetteellä ja maksusitoumuksella tai omakustanteisesti. Tutkimus voidaan toteuttaa suomen- tai ruotsinkielellä.</p><p>Omakustannehinta: 139,10€/45min tapaaminen</p>', 1),  # Nana, 2026-10-10
+    ('arviot-ja-konsultointi', 'puheen sujuvuuteen sekä kasvojen alueen sensomotoriikkaan. Tutkimuskäynneillä', 'puheen sujuvuuteen, kasvojen alueen sensomotoriikkaan sekä nielemishäiriöihin. Tutkimuskäynneillä', 1),  # Nana, 2026-10-10
     ('our-services', '<p>Changes in communication and functional abilities bring worry,', '<p>When a family member becomes ill or is injured, everyday life can change suddenly. Changes in communication and functional abilities bring worry,', 1),  # English version of the Finnish text, approved by Nana 2026-10-10
     ('our-services', '<li><p>Strengthen your ability to adapt to a changed daily life</p></li>', '<li><p>Make communication and everyday life smoother</p></li>', 1),  # English version of the Finnish text, approved by Nana 2026-10-10
     ('our-services', '<p>You do not need a referral to access the sessions. The program includes', '<p>The support is intended for all family members of adults in neurological rehabilitation, regardless of where speech therapy takes place or whether it is currently ongoing. You do not need a referral, and the person in rehabilitation does not need to be a client of Puheklinikka.</p><p>The program includes', 1),  # English version of the Finnish text, approved by Nana 2026-10-10
@@ -639,6 +642,13 @@ def build():
                 sys.exit(f'EDIT FAILED on {slug or "/"}: "{old}" found {c}x, expected {n}')
             page = page.replace(old, new)
             LOG.append((slug, 'text', f'"{old}" → "{new}" ({c}×)'))
+        if slug == 'arviot-ja-konsultointi':
+            # Nielemistutkimus section (heading, text, image) moved to Nielemishäiriöt as its 2nd section (Nana, 2026-10-10)
+            m = re.search(r'\s*<hr/>\s*(<h([23])>Nielemistutkimus</h\2>.*?)(?=\s*<hr/>)', page, re.S)
+            assert m, 'Nielemistutkimus section not found'
+            page = page[:m.start()] + page[m.end():]
+            style_a.MOVED['nielemishairiot'] = style_a.MOVED.get('nielemishairiot', '') + '<hr/>' + m.group(1)
+            LOG.append((slug, 'layout', 'Nielemistutkimus section moved to Nielemishäiriöt'))
         page = outline_headings(slug, page)
         dest = OUT / slug / 'index.html' if slug else OUT / 'index.html'
         dest.parent.mkdir(parents=True, exist_ok=True)
