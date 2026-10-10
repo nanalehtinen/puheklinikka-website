@@ -221,6 +221,7 @@ Design only, no text changes.
   - Nenälovimuki: added after the instructions link: "Mukia on saatavana kolmena erilaisena versiona:" + the three versions as a bulleted list + "Hinta on 18,00€/kpl." (Nana's text word for word; "valmitettu" → "valmistettu", Nana confirmed).
   - Sitruuna-glyseriinitikut: added "Hinta: 35,00€/ltk (75kpl)".
   - Resonaattoriputki: added "Pituudet: 26cm, 26,5cm, 27cm, 27,5cm, 28cm" and "Hinta: 11,50€/kpl" ("HInta" → "Hinta"; € sign added, Nana confirmed).
+- Homepage, Miten puheterapiaan hakeudutaan? (Nana, 2026-10-10): new first paragraph "Meille pääset nopeallakin aikataululla. Keskimääräisesti ensimmäinen tapaaminen järjestyy noin kahden viikon sisällä yhteydenotosta." (double space normalised).
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
