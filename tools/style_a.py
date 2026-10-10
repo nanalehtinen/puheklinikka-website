@@ -7,7 +7,7 @@ Page text still comes unchanged from build.py; this module only rearranges it:
 - Ajankohtaista posts as cards
 Every rearrangement is logged to CHANGES via the log() callback.
 """
-import re, html
+import re, html, os
 from bs4 import BeautifulSoup
 
 CUR = ' aria-current="page"'
@@ -63,6 +63,61 @@ BIOS = {
 }
 # "Asiakasryhmät:" was empty for these six in Nana's text; not shown until filled in
 EMPTY_FIELDS = {n: ['Asiakasryhmät:'] for n in BIOS if n != 'Nana Lehtinen'}
+# New bios from Nana (2026-10-10), kept word for word in bios-2026-10-10.txt.
+# They replace the four entries above. Section labels become H2 headings,
+# "Asiakasryhmät" becomes a list (tab-indented lines nest under the item above).
+# One approved edit again: Elina "tietoturvavastaavana" -> "tietosuojavastaavana".
+NEW_BIO_LABELS = ('Täydennyskoulutus', 'Valikoidut koulutukset ja pätevyydet', 'Asiakasryhmät')
+
+def _parse_new_bios(path):
+    import html as _h
+    esc = lambda t: _h.escape(t, quote=False)
+    out, name = {}, None
+    names = ('Elina Uusi-Hakala', 'Annemari Hongell', 'Riitta Saari', 'Jenita Mattsson')
+    blocks = {}
+    for raw in open(path, encoding='utf-8').read().split('\n'):
+        if raw.strip() in names:
+            name = raw.strip(); blocks[name] = []; continue
+        if name and raw.strip():
+            blocks[name].append(raw.rstrip())
+    for name, lines in blocks.items():
+        html, in_list, items = [], False, []
+        def close_list():
+            if items:
+                html.append('<ul>' + ''.join(
+                    f'<li>{esc(t)}' + (('<ul>' + ''.join(f'<li>{esc(c)}</li>' for c in sub) + '</ul>') if sub else '') + '</li>'
+                    for t, sub in items) + '</ul>')
+                items.clear()
+        for ln in lines:
+            label = next((l for l in NEW_BIO_LABELS if ln.startswith(l)), None)
+            if label:
+                close_list()
+                rest = ln[len(label):]
+                head = label + (':' if rest.startswith(':') else '')
+                html.append(f'<h2>{esc(head)}</h2>')
+                rest = rest[1:].strip() if rest.startswith(':') else rest.strip()
+                if rest:
+                    html.append(f'<p>{esc(rest)}</p>')
+                in_list = label == 'Asiakasryhmät'
+                continue
+            if ln.startswith('Työskentelykiel'):
+                close_list(); in_list = False
+                html.append(f'<p class="langs">{esc(ln)}</p>')
+                continue
+            if in_list:
+                if ln.startswith('\t') and items:
+                    items[-1][1].append(ln.strip())
+                else:
+                    items.append((ln.strip(), []))
+                continue
+            html.append(f'<p>{esc(ln)}</p>')
+        close_list()
+        out[name] = [''.join(html).replace('Puheklinikan tietoturvavastaavana', 'Puheklinikan tietosuojavastaavana')]
+    return out
+
+NEW_BIOS = _parse_new_bios(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bios-2026-10-10.txt'))
+BIOS.update(NEW_BIOS)
+
 # CV PDFs replaced by profile pages (Nana, 2026-10-03): no longer published
 CV_PDFS = {'Riitta-Saari.pdf', 'Elina-yynp.pdf', 'Nana-w2xz.pdf', 'Jenita.pdf',
            'Annemari-2023.pdf', 'Ida.pdf', 'Marjaana.pdf'}
@@ -252,7 +307,10 @@ def profile_body(p, log):
     bio_html = ''.join(bio) if bio else ''
     if bio:
         extra = ' ("tietoturvavastaavana" → "tietosuojavastaavana", confirmed by Nana)' if 'Elina' in p['name'] else ''
-        log(f'asiantuntijat/{p["slug"]}', 'text', f'new profile page with Nana\'s bio text for {p["name"]}, word for word{extra}')
+        if p['name'] in NEW_BIOS:
+            log(f'asiantuntijat/{p["slug"]}', 'text', f'bio replaced with Nana\'s new text (2026-10-10) for {p["name"]}, word for word; Täydennyskoulutus, Valikoidut koulutukset ja pätevyydet and Asiakasryhmät shown as H2 headings, Asiakasryhmät as a list{extra}')
+        else:
+            log(f'asiantuntijat/{p["slug"]}', 'text', f'new profile page with Nana\'s bio text for {p["name"]}, word for word{extra}')
     else:
         log(f'asiantuntijat/{p["slug"]}', 'layout', f'new profile page for {p["name"]}: photo and contact details only; bio text not yet provided')
     details = p['details'].replace('href="../', 'href="../../')

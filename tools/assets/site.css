@@ -210,3 +210,4 @@ footer.site a{color:var(--foot-a)}
 @media (max-width:420px){.tiles{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 footer.site :focus-visible{outline-color:#fff}
+.content li>ul{margin:0}
