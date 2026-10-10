@@ -276,7 +276,7 @@ SERVICE_TILES = []  # filled by build.py from MENU
 HOME_ACCESS = ('Puheterapia käynnistyy tyypillisesti lääkärin tai neurologin lähetteellä ja toteutuu Kelan, hyvinvointialueen tai '
                'vakuutusyhtiön maksusitoumuksella tai palvelusetelillä. Mikäli koet, että tarvitset puheterapiaa, ota asia puheeksi lääkärisi kanssa.',
                'Ota myös rohkeasti yhteyttä meihin. Neuvomme mielellämme puheterapiaan hakeutumisen eri vaiheissa. '
-               'Meille pääset nopeallakin aikataululla. Keskimääräisesti ensimmäinen tapaaminen järjestyy noin kahden viikon sisällä yhteydenotosta. '
+               'Meille pääset nopeallakin aikataululla ja keskimääräisesti ensimmäinen tapaaminen järjestyy noin kahden viikon sisällä yhteydenotosta. '
                'Tarjoamme palveluita myös itsemaksaville asiakkaille.')
 # Homepage "Palvelut" text, Nana's new wording word for word (2026-10-04); replaces the old "Osaamisalueitamme…" paragraph
 HOME_AREAS = (  # Nana's full new text, word for word, two paragraphs (2026-10-04)
