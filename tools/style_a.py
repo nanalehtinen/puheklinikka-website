@@ -543,6 +543,13 @@ def side_labels_first(body):
 # Aikuisneurologiset häiriöt, Nana's new page text word for word (2026-10-04).
 # Short standalone lines read as subheadings; every other line break starts a new paragraph.
 MOVED = {}  # page sections moved to another page, filled by page_fixups
+# Puheen sujuvuuden häiriöt page text (Nana, 2026-10-10), word for word
+MOVED['puheen-sujuvuuden-hairiot'] = (
+    '<h2>Puheen sujuvuuden arviointi ja kuntoutus</h2>'
+    '<p>Puheen sujuvuuden häiriöt, kuten änkytys ja sokellus, voivat vaikeuttaa puhumista ja osallistumista arjen vuorovaikutustilanteisiin. Änkytys voi ilmetä esimerkiksi äänteiden tai tavujen toistoina, äänteiden venytyksinä tai puheen pysähdyksinä. Sokelluksessa puheen rytmi voi olla epäsäännöllinen ja puhenopeus ajoittain niin suuri, että puhetta on vaikea ymmärtää.</p>'
+    '<p>Puheterapiassa arvioidaan puheen sujuvuutta sekä asiakkaan kokemuksia ja häiriön vaikutuksia arkeen. Kuntoutuksen tavoitteena on tukea vaivatonta puhumista ja vahvistaa asiakkaan luottamusta omaan kommunikointiinsa. Tavoitteet ja harjoitukset suunnitellaan yksilöllisesti asiakkaan tarpeiden ja toiveiden pohjalta.</p>'
+    '<p>Terapiassa voidaan harjoitella puheen sujuvuutta ja selkeyttä tukevia keinoja sekä käsitellä puhumiseen liittyviä tunteita ja jännitystä. Harjoittelussa tuetaan opittujen taitojen siirtymistä arjen puhetilanteisiin. Tarvittaessa kuntoutukseen kuuluu myös läheisten ohjausta.</p>'
+)
 
 AIKUISNEURO = [
     ('Puheen ja kommunikoinnin haasteet', [
