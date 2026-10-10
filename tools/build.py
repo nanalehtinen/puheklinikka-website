@@ -41,7 +41,7 @@ PAGES = {
     'new-page-2':                    ('new-page-2.html', None, 'fi'),
 }
 # Old address kept working by forwarding (decision 9: keep addresses).
-REDIRECTS = {'nanalehtinengmailcom': ''}
+REDIRECTS = {'nanalehtinengmailcom': '', 'tapahtumia-aiemmilta-vuosilta': 'tapahtumat-2025'}  # old Menneet tapahtumat URL → newest year
 
 # Menu exactly as on the live site (site-wide.md). Folder label trailing space dropped.
 MENU = [
@@ -64,7 +64,8 @@ MENU = [
     # Split in two (Nana, 2026-10-03)
     ('Tapahtumat', None, [
         ('Ajankohtaista', 'new-page-1'),
-        ('Menneet tapahtumat', 'tapahtumia-aiemmilta-vuosilta'),
+        # Menneet tapahtumat split into one page per year, years in the menu (Nana, 2026-10-10)
+        *[(str(y), f'tapahtumat-{y}') for y in range(2025, 2015, -1)],
     ]),
     ('Arvot ja toimintatavat', 'toimintatavat-ja-arvot', None),
     ('Asiakaspalaute', 'new-page-2', None),  # moved before På svenska (Nana, 2026-10-03)
@@ -93,6 +94,45 @@ def add_price(slug, page):
     end = '</div></div>\n</main>'
     assert page.count(end) == 1, f'price: page end not found on {slug}'
     return page.replace(end, PRICES[slug] + end)
+
+# ---------------------------------------------------------------- past events by year (Nana, 2026-10-10)
+EVENT_YEARS = list(range(2025, 2015, -1))
+YEAR_BODIES = {}
+# Posts whose heading has no full date: which year page they go on
+EVENT_YEAR_FIX = {'Tunnelmalista Joulua ja energistä vuotta 2024!': 2023}  # Christmas greeting between Jan 2024 and Sep 2023 posts
+
+def split_events_by_year(page):
+    soup = BeautifulSoup(page, 'html.parser')
+    content = soup.select_one('div.content')
+    years = {y: [] for y in EVENT_YEARS}
+    for row in content.find_all('div', class_='row', recursive=False):
+        cols = row.find_all('div', class_='col', recursive=False)
+        heads = [h.get_text(strip=True) for h in cols[0].find_all('h2')]
+        block_year = int(heads[0]) if len(heads) == 1 else None
+        cur = None
+        for el in list(cols[1].children):
+            if isinstance(el, NavigableString):
+                if cur is not None and el.strip():
+                    cur.append(str(el))
+                continue
+            if el.name == 'h2':
+                t = el.get_text(' ', strip=True)
+                m = re.search(r'\d{1,2}\.(\d{4})$', t) or re.search(r'\d\.(\d{4})\b', t)
+                y = EVENT_YEAR_FIX.get(t) or (int(m.group(1)) if m else block_year)
+                assert y in years, f'no year for event heading {t!r}'
+                cur = years[y]
+                cur.append(str(el))
+            elif el.name == 'hr' and el is list(cols[1].find_all(recursive=False))[-1]:
+                continue
+            else:
+                assert cur is not None, f'content before first event: {el.name}'
+                cur.append(str(el))
+    for y, parts in years.items():
+        assert parts, f'no events for {y}'
+        body = ''.join(parts)
+        body = body.replace('<h2 class="sep">', '<h2>', 1)  # no line above the first post
+        YEAR_BODIES[y] = body
+    LOG.append(('tapahtumia-aiemmilta-vuosilta', 'layout', 'Menneet tapahtumat split into one page per year (2025–2016); years listed in the Tapahtumat menu; old address forwards to 2025'))
 
 NEW_PAGES = {  # TRIAL (Nana, 2026-10-04): Palvelut pages; Nielemishäiriöt has the section moved from Aikuisneurologiset häiriöt
     'nielemishairiot': 'Nielemishäiriöt',
@@ -650,6 +690,9 @@ def build():
             style_a.MOVED['nielemishairiot'] = style_a.MOVED.get('nielemishairiot', '') + PRICE_STD + '<hr/>' + m.group(1)  # price under the first section (Nana, 06:07)
             LOG.append((slug, 'layout', 'Nielemistutkimus section moved to Nielemishäiriöt'))
         page = outline_headings(slug, page)
+        if slug == 'tapahtumia-aiemmilta-vuosilta':
+            split_events_by_year(page)
+            continue
         dest = OUT / slug / 'index.html' if slug else OUT / 'index.html'
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(page)
@@ -665,6 +708,12 @@ def build():
         page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, style_a.MOVED.get(ns, ''), 1, False)
         page = outline_headings(ns, page)
         page = add_price(ns, page)
+        (OUT / ns).mkdir(parents=True, exist_ok=True)
+        (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
+    for y in EVENT_YEARS:
+        ns = f'tapahtumat-{y}'
+        page = render(ns, 'fi', f'Tapahtumat {y} — Puheklinikka', f'Tapahtumat {y}', None, YEAR_BODIES[y], 1, False)
+        page = outline_headings(ns, page)
         (OUT / ns).mkdir(parents=True, exist_ok=True)
         (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
     # accessibility statement page: title only until Nana completes the statement (Nana, 2026-10-04)
