@@ -171,6 +171,11 @@ def nav_html(menu, folder_lang, page_href, depth, current):
         if children is None:
             cur = CUR if slug == current or (slug and current.startswith(slug + '/')) else ''
             items.append(f'<li><a href="{page_href(depth, slug)}"{cur}>{label}</a></li>')
+        elif slug:
+            # direct link, no dropdown; its pages are in the side menu (Tapahtumat, Nana 2026-10-10)
+            active = any(s == current for _, s in children)
+            cur = CUR if slug == current else (' class="active"' if active else '')
+            items.append(f'<li><a href="{page_href(depth, slug)}"{cur}>{label}</a></li>')
         else:
             lang = folder_lang.get(label)
             la = f' lang="{lang}"' if lang else ''

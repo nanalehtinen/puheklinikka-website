@@ -39,7 +39,7 @@ nav.main>ul{list-style:none;margin:0;padding:0;display:flex;gap:6px 22px;flex-wr
 nav.main li{position:relative}
 nav.main a,nav.main button{display:block;padding:8px 0;color:var(--h);text-decoration:none;font:inherit;background:none;border:0;cursor:pointer;line-height:1.4}
 nav.main a:hover,nav.main button:hover{text-decoration:underline}
-nav.main [aria-current="page"],nav.main .folder.active>button{color:var(--o);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.3em}
+nav.main [aria-current="page"],nav.main a.active,nav.main .folder.active>button{color:var(--o);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.3em}
 nav.main button::after{content:"";display:inline-block;margin-left:.4em;border:4px solid transparent;border-top-color:currentColor;transform:translateY(25%)}
 nav.main .sub{display:none;list-style:none;margin:0;padding:6px 0;position:absolute;right:0;top:100%;min-width:260px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--ob);box-shadow:0 8px 24px rgba(0,0,0,.08);font-weight:400}
 nav.main .sub a{padding:9px 18px}

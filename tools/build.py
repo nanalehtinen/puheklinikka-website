@@ -62,7 +62,7 @@ MENU = [
         ('Sovellukset ja tuotteet', 'new-page'),  # label shortened (Nana, 2026-10-04); page title unchanged
     ]),
     # Split in two (Nana, 2026-10-03)
-    ('Tapahtumat', None, [
+    ('Tapahtumat', 'new-page-1', [  # direct link to Ajankohtaista, no dropdown (Nana, 2026-10-10)
         ('Ajankohtaista', 'new-page-1'),
         # Menneet tapahtumat split into one page per year, years in the menu (Nana, 2026-10-10)
         *[(str(y), f'tapahtumat-{y}') for y in range(2025, 2015, -1)],
@@ -509,6 +509,11 @@ def nav_html(depth, current):
     for i, (label, slug, children) in enumerate(MENU):
         if children is None:
             cur = ' aria-current="page"' if slug == current else ''
+            items.append(f'<li><a href="{page_href(depth, slug)}"{cur}>{label}</a></li>')
+        elif slug is not None:
+            # direct link, no dropdown; its pages are listed in the side menu (Tapahtumat, Nana 2026-10-10)
+            active = any(s == current for _, s in children)
+            cur = ' aria-current="page"' if slug == current else (' class="active"' if active else '')
             items.append(f'<li><a href="{page_href(depth, slug)}"{cur}>{label}</a></li>')
         else:
             lang = FOLDER_LANG.get(label)
