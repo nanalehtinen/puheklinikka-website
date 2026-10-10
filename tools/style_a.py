@@ -83,7 +83,7 @@ def _parse_new_bios(*paths):
     out, name = {}, None
     names = ('Elina Uusi-Hakala', 'Annemari Hongell', 'Riitta Saari', 'Jenita Mattsson',
              'Marjaana Raukola-Lindblom', 'Ida Luotonen', 'Nana Lehtinen')
-    link = lambda t: re.sub(r'\[([^\]]+)\]\((https?://[^)\s]+)\)', r'<a href="\2">\1</a>', t)
+    link = lambda t: re.sub(r'\[([^\]]+)\]\(((?:https?://|\.\./)[^)\s]+)\)', r'<a href="\2">\1</a>', t)
     blocks = {}
     text = '\n'.join(open(p, encoding='utf-8').read() for p in paths)
     for raw in text.split('\n'):
@@ -206,7 +206,7 @@ def demote_headings(body):
 
 # ---------------------------------------------------------------- homepage
 LIGHT_ATTR = ' class="light"'
-LIGHT_TILES = 0  # all tiles orange (Nana, 2026-10-10); was 5 = first row white; upper row of homepage service tiles shown white (comparison, Nana 2026-10-04)
+LIGHT_TILES = 10  # all tiles white, orange on hover (Nana, 2026-10-10 04:42); was 0 = all orange
 
 
 def home_body(body, rel, page_href, log):

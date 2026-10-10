@@ -116,7 +116,7 @@ strong{font-weight:600}
 .tiles a:focus-visible{outline:3px solid var(--h);outline-offset:3px}
 /* white tiles, same look and hover as the therapist cards (comparison, Nana 2026-10-04) */
 .tiles a.light{background:#fff;color:var(--o);border-color:var(--ob)}
-.tiles a.light:hover,.tiles a.light:focus-visible{background:var(--peach);color:var(--o-beige);text-decoration:underline}  /* darker orange on peach keeps AA contrast */
+.tiles a.light:hover,.tiles a.light:focus-visible{background:var(--brand-t);color:#fff;border-color:var(--brand-t)}  /* orange on hover (Nana, 2026-10-10) */
 .places{display:grid;grid-template-columns:1fr 1fr;gap:32px}
 .place{background:#fff;border:2px solid var(--ob);border-radius:10px;overflow:hidden}
 .place .txt{padding:24px}
