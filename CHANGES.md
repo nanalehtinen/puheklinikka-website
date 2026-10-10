@@ -241,6 +241,7 @@ Design only, no text changes.
 - Sovellukset ja tuotteet, Nenälovimuki (Nana, 2026-10-10 06:11): the three cup descriptions shortened to "Pieni, 0,5 dl (vaaleanpunainen)", "Keskikokoinen, 1dl (sininen)", "Suuri 2dl, suunniteltu erityisesti itsenäiseen juomiseen (vihreä)"; "Hinta on 18,00€/kpl." → "Hinta: 18,00€/kpl". Word for word (one double space normalised).
 - Homepage (Nana, 2026-10-10 06:12): "Meille pääset nopeallakin aikataululla. Keskimääräisesti ensimmäinen tapaaminen…" → "Meille pääset nopeallakin aikataululla ja keskimääräisesti ensimmäinen tapaaminen…".
 - Nenälovimuki (Nana, 2026-10-10 06:14): cup sizes made uniform: "1dl" → "1 dl"; "Suuri 2dl," → "Suuri, 2 dl,".
+- Nenälovimuki (Nana, 2026-10-10 06:16): "Mukia on saatavana kolmena erilaisena versiona:" → "Mukia on saatavana kolmena versiona:".
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
