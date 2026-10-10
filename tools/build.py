@@ -110,6 +110,8 @@ MAP_TITLE = {  # iframe titles, built from the address text on the homepage
 # ------------------------------------------------- agreed text edits
 # (slug, old, new, expected count). Applied to the final page HTML.
 EDITS = [
+    ('arviot-ja-konsultointi', 'Tutkimuskokonaisuus koostuu 1–2 käynnistä, ja se voidaan toteuttaa joko laitoksessa (esimerkiksi terveyskeskuksen vuodeosastolla) tai vastaanotolla. Tarvittaessa tutkimus toteutetaan yhteistyössä hoitavan puheterapeutin kanssa. Tutkimuksesta laaditaan kirjallinen yhteenveto, johon sisältyvät suositukset jatkotoimenpiteistä.',
+     'Tutkimuskokonaisuus koostuu 1–2 käynnistä, ja käynnit voidaan toteuttaa laitoksessa (esimerkiksi vuodeosastolla), kotikäynnillä tai vastaanotolla. Tutkimuksesta laaditaan kirjallinen yhteenveto, johon sisältyy suositus jatkotoimenpiteistä.', 1),  # Nana, 2026-10-10
     ('palvelut-lheisille', '<p>Ota rohkeasti yhteyttä, olemme täällä sinua varten.\xa0</p>', '', 1),  # removed (Nana, 2026-10-10)
     ('', 'Yhteyenotto', 'Yhteydenotto', 1),                                   # B1
     ('lukitutkimus', 'tarvittatessa', 'tarvittaessa', 1),                     # B1
