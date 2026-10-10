@@ -77,13 +77,16 @@ NEW_BIO_FIXES = (
 )
 NEW_BIO_LABELS = ('Täydennyskoulutus', 'Valikoidut koulutukset ja pätevyydet', 'Asiakasryhmät')
 
-def _parse_new_bios(path):
+def _parse_new_bios(*paths):
     import html as _h
     esc = lambda t: _h.escape(t, quote=False)
     out, name = {}, None
-    names = ('Elina Uusi-Hakala', 'Annemari Hongell', 'Riitta Saari', 'Jenita Mattsson')
+    names = ('Elina Uusi-Hakala', 'Annemari Hongell', 'Riitta Saari', 'Jenita Mattsson',
+             'Marjaana Raukola-Lindblom', 'Ida Luotonen', 'Nana Lehtinen')
+    link = lambda t: re.sub(r'\[([^\]]+)\]\((https?://[^)\s]+)\)', r'<a href="\2">\1</a>', t)
     blocks = {}
-    for raw in open(path, encoding='utf-8').read().split('\n'):
+    text = '\n'.join(open(p, encoding='utf-8').read() for p in paths)
+    for raw in text.split('\n'):
         if raw.strip() in names:
             name = raw.strip(); blocks[name] = []; continue
         if name and raw.strip():
@@ -93,13 +96,16 @@ def _parse_new_bios(path):
                 raw = 'Täydennyskoulutus:'
             blocks[name].append(raw.rstrip())
     for name, lines in blocks.items():
-        html, in_list, items = [], False, []
+        html, in_list, items, bullets = [], False, [], []
         def close_list():
             if items:
                 html.append('<ul>' + ''.join(
                     f'<li>{esc(t)}' + (('<ul>' + ''.join(f'<li>{esc(c)}</li>' for c in sub) + '</ul>') if sub else '') + '</li>'
                     for t, sub in items) + '</ul>')
                 items.clear()
+            if bullets:
+                html.append('<ul>' + ''.join(f'<li>{esc(b)}</li>' for b in bullets) + '</ul>')
+                bullets.clear()
         for ln in lines:
             label = next((l for l in NEW_BIO_LABELS if ln.startswith(l)), None)
             if label:
@@ -122,8 +128,14 @@ def _parse_new_bios(path):
                 else:
                     items.append((ln.strip(), []))
                 continue
-            html.append(f'<p>{esc(ln)}</p>')
+            if ln.startswith('* '):
+                bullets.append(ln[2:].strip()); continue
+            close_list()
+            html.append(f'<p>{link(esc(ln))}</p>')
         close_list()
+        # no Asiakasryhmät in the text yet: keep the TBA placeholder (Nana, 2026-10-05)
+        if '<h2>Asiakasryhmät:</h2>' not in html:
+            html.append(GROUPS_TBA)
         # languages line last on every profile (Nana, 2026-10-10)
         langs = [b for b in html if b.startswith('<p class="langs">')]
         html = [b for b in html if b not in langs] + langs
@@ -135,7 +147,8 @@ for _n, _b in BIOS.items():
         _i = _b.index(GROUPS_TBA)
         if _i and _b[_i - 1].startswith('<p class="langs">'):
             _b[_i - 1], _b[_i] = _b[_i], _b[_i - 1]
-NEW_BIOS = _parse_new_bios(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bios-2026-10-10.txt'))
+_here = os.path.dirname(os.path.abspath(__file__))
+NEW_BIOS = _parse_new_bios(os.path.join(_here, 'bios-2026-10-10.txt'), os.path.join(_here, 'bios-2026-10-10b.txt'))
 BIOS.update(NEW_BIOS)
 
 # CV PDFs replaced by profile pages (Nana, 2026-10-03): no longer published
