@@ -79,9 +79,9 @@ MENU = [
 ]
 # Price paragraph at the end of service pages (Nana, 2026-10-10), word for word.
 # Aikuisneurologiset häiriöt has the same text inside style_a's page text.
-PRICE_STD = '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä. Omakustannehinta: 139,10€/45min</p>'
+PRICE_STD = '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä.<br/>Omakustannehinta: 139,10€/45min</p>'
 PRICES = {
-    'ryhmmuotoinen-terapia': '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä. Joihinkin ryhmiin on mahdollista osallistua myös omakustanteisesti. Omakustannehinta:<br/>60min ryhmä 50,00€/krt<br/>90min ryhmä 100,00€/krt</p>',
+    'ryhmmuotoinen-terapia': '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä. Joihinkin ryhmiin on mahdollista osallistua myös omakustanteisesti.<br/>Omakustannehinta: 60min ryhmä 50,00€/krt, 90min ryhmä 100,00€/krt</p>',
     'nielemishairiot': PRICE_STD,
     'puheen-sujuvuuden-hairiot': PRICE_STD,
     'niterapia': PRICE_STD,
