@@ -110,6 +110,9 @@ MAP_TITLE = {  # iframe titles, built from the address text on the homepage
 # ------------------------------------------------- agreed text edits
 # (slug, old, new, expected count). Applied to the final page HTML.
 EDITS = [
+    ('our-services', '<p>Changes in communication and functional abilities bring worry,', '<p>When a family member becomes ill or is injured, everyday life can change suddenly. Changes in communication and functional abilities bring worry,', 1),  # English version of the Finnish text, approved by Nana 2026-10-10
+    ('our-services', '<li><p>Strengthen your ability to adapt to a changed daily life</p></li>', '<li><p>Make communication and everyday life smoother</p></li>', 1),  # English version of the Finnish text, approved by Nana 2026-10-10
+    ('our-services', '<p>You do not need a referral to access the sessions. The program includes', '<p>The support is intended for all family members of adults in neurological rehabilitation, regardless of where speech therapy takes place or whether it is currently ongoing. You do not need a referral, and the person in rehabilitation does not need to be a client of Puheklinikka.</p><p>The program includes', 1),  # English version of the Finnish text, approved by Nana 2026-10-10
     ('our-services', '<p>Sessions are led by <strong>Annemari Hongell</strong>, a speech-language therapist with additional training in cognitive brief therapy techniques.</p>', '', 1),  # English-only text removed to match the Finnish page (Nana, 2026-10-10)
     ('our-services', '(self-funded, 2025)', '(self-funded)', 1),  # English-only text removed to match the Finnish page (Nana, 2026-10-10)
     ('our-services', '<p>For more information and bookings: <strong>toimisto@puheklinikka.net</strong><br/> Don’t hesitate to get in touch – we are here for you.</p>', '', 1),  # English-only text removed to match the Finnish page (Nana, 2026-10-10)
