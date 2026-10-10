@@ -551,9 +551,9 @@ AIKUISNEURO = [
         'Puheterapia toteutuu oman puheterapeutin vastaanotolla toimitiloissamme, etäterapiana tai tarvittaessa kotikäyntinä. Terapiakäyntien määrä, tapaamisten pituus ja kuntoutuksen aikataulu määräytyvät kuntoutussuunnitelman ja maksusitoumuksen mukaisesti.',
     ]),
     ('Nielemistoimintojen arviointi ja kuntoutus', [
-        'Puheterapiaan voi kuulua myös nielemiseen ja syömiseen liittyvien vaikeuksien eli dysfagian arviointi ja kuntoutus. Nielemistoimintoja voidaan tukea eriasteisissa nielemisvaikeuksissa. Terapeuttimme ovat kouluttautuneet arvioimaan ja kuntouttamaan aikuisneurologisiin sairauksiin ja vammoihin liittyviä nielemisvaikeuksia muun muassa DPNS-menetelmällä (Deep Pharyngeal Neuromuscular Stimulation).',
+        'Puheterapiaan voi kuulua myös nielemiseen ja syömiseen liittyvien vaikeuksien eli dysfagian arviointi ja kuntoutus. Nielemistoimintoja voidaan tukea eriasteisissa nielemisvaikeuksissa. Terapeuttimme ovat kouluttautuneet arvioimaan ja kuntouttamaan aikuisneurologisiin sairauksiin ja vammoihin liittyviä nielemisvaikeuksia.',
         'Nielemiskuntoutukseen kuuluu olennaisena osana asiakkaan ja hänen lähiympäristönsä ohjaus ja neuvonta. Kuntoutuksen aikana arvioidaan ja valitaan turvallisia ja tarkoituksenmukaisia toimintatapoja ruokailutilanteisiin. Puheterapeutti voi ohjata esimerkiksi ruoan koostumukseen, ruokailuasentoon ja apuvälineiden käyttöön liittyvissä kysymyksissä.',
-        'Toteutamme nielemisen arviointeja ja intensiivisiä DPNS-kuntoutusjaksoja myös laitoshoidossa oleville asiakkaille.',
+        'Toteutamme nielemisen arviointeja ja intensiivisiä kuntoutusjaksoja myös laitoshoidossa oleville asiakkaille.',  # "DPNS-" and the DPNS clause above removed (Nana, 2026-10-10)
     ]),
 ]
 
