@@ -77,6 +77,23 @@ MENU = [
         ('Our services', 'our-services'),
     ]),
 ]
+# Price paragraph at the end of service pages (Nana, 2026-10-10), word for word.
+# Aikuisneurologiset häiriöt has the same text inside style_a's page text.
+PRICE_STD = '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä. Omakustannehinta: 139,10€/45min</p>'
+PRICES = {
+    'ryhmmuotoinen-terapia': '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä. Joihinkin ryhmiin on mahdollista osallistua myös omakustanteisesti. Omakustannehinta:<br/>60min ryhmä 50,00€/krt<br/>90min ryhmä 100,00€/krt</p>',
+    'nielemishairiot': PRICE_STD,
+    'puheen-sujuvuuden-hairiot': PRICE_STD,
+    'niterapia': PRICE_STD,
+}
+
+def add_price(slug, page):
+    if slug not in PRICES:
+        return page
+    end = '</div></div>\n</main>'
+    assert page.count(end) == 1, f'price: page end not found on {slug}'
+    return page.replace(end, PRICES[slug] + end)
+
 NEW_PAGES = {  # TRIAL (Nana, 2026-10-04): Palvelut pages; Nielemishäiriöt has the section moved from Aikuisneurologiset häiriöt
     'nielemishairiot': 'Nielemishäiriöt',
     'puheen-sujuvuuden-hairiot': 'Puheen sujuvuuden häiriöt',
@@ -125,7 +142,7 @@ EDITS = [
     ('new-page', '<p><strong>Sanapsis+</strong>-sovelluksen avulla voit kohentaa ja aktivoida kommunikaatiotaitoja sanatasolla neljällä osa-alueella: <strong>puhuminen, kuuntelu, lukeminen ja kirjoittaminen</strong>.<strong> </strong></p>', '<p>Sanapsis+-sovelluksen avulla voit kohentaa ja aktivoida kommunikaatiotaitoja sanatasolla neljällä osa-alueella: puhuminen, kuuntelu, lukeminen ja kirjoittaminen.</p>', 1),  # Nana, 2026-10-10
     ('new-page', '<p>Kaikki Sanapsis+-sovelluksen tehtävät perustuvat arkisanastoon seuraavista kategorioista: koti, esineet, ruoka ja juoma, vaatteet, ympäristö, matkustaminen, vapaa-aika sekä verbit. Harjoitukset ja materiaalit ovat käytettävissä suomeksi, ruotsiksi ja englanniksi.</p>', '', 1),  # Nana, 2026-10-10
     ('new-page', 'Kaikki tuotteet ovat käytössä toteuttamassamme kuntoutuksessa, joten ne ovat huolellisesti valittuja sekä terapiakäytössä toimiviksi ja laadukkaiksi todettuja.', 'Kaikki tuotteet ovat huolellisesti valittuja ja terapiakäytössä toimiviksi ja laadukkaiksi todettuja.', 1),  # Nana, 2026-10-10
-    ('new-page', '<p>Tuotteita voi tilata suoraan terapeuteiltamme tai sähköpostitse osoitteesta <strong>toimisto@puheklinikka.net</strong>. Tuotteet toimitetaan postitse, ja laskun saat halutessasi joko sähköpostitse tai postitse (saat ohjeet sähköpostitse tilauksen tehtyäsi). Tuotteet voi myös noutaa Turun toimipisteeltämme ennalta sovittuna ajankohtana.</p>', '<p>Tuotteita voi tilata suoraan terapeuteiltamme tai sähköpostitse osoitteesta toimisto@puheklinikka.net. Tuotteet voi noutaa Turun toimipisteeltämme ennalta sovittuna ajankohtana. Toimitamme tuotteita myös postitse. Tee tilaus sähköpostitse, ja saat laskun joko sähköpostitse tai postitse. Postitettaviin tuotteisiin lisätään toimituskulu toteutuneen mukaan sekä toimistomaksu 11,50€.</p>', 1),  # bold removed, then paragraph replaced (Nana, 2026-10-10)
+    ('new-page', '<p>Tuotteita voi tilata suoraan terapeuteiltamme tai sähköpostitse osoitteesta <strong>toimisto@puheklinikka.net</strong>. Tuotteet toimitetaan postitse, ja laskun saat halutessasi joko sähköpostitse tai postitse (saat ohjeet sähköpostitse tilauksen tehtyäsi). Tuotteet voi myös noutaa Turun toimipisteeltämme ennalta sovittuna ajankohtana.</p>', '<p>Tuotteita voi tilata suoraan terapeuteiltamme tai sähköpostitse osoitteesta toimisto@puheklinikka.net. Tuotteet voi noutaa Turun toimipisteeltämme ennalta sovittuna ajankohtana. Toimitamme tuotteita myös postitse. Tee tilaus sähköpostitse, ja saat laskun joko sähköpostitse tai postitse. Postitettaviin tuotteisiin lisätään toimituskulu toteutuneen mukaan sekä toimistomaksu 15,50€.</p>', 1),  # bold removed, then paragraph replaced (Nana, 2026-10-10)
     ('new-page', '<p>Vastaamme mielellämme kaikkiin kysymyksiin – otathan rohkeasti yhteyttä!</p>', '', 1),  # Nana, 2026-10-10
     ('new-page', 'löydät <a href="../s/Nenalovimuki.pdf" rel="noopener" target="_blank">tästä linkistä</a>.</p>', 'löydät <a href="../s/Nenalovimuki.pdf" rel="noopener" target="_blank">tästä linkistä</a>.</p><p>Mukia on saatavana kolmena erilaisena versiona:</p><ul><li>Pienin muki (0,5dl) on valmistettu helposti muokattavasta materiaalista ja on pehmein (vaal. pun.)</li><li>Keskikokoinen (1dl) muki on hieman kovempaa materiaalia, mutta helposti muokattavissa (sin.)</li><li>Suuri muki (2dl) on muokattavissa, mutta materiaali on jäykempää, suunniteltu erityisesti itsenäiseen juomiseen (vihr.)</li></ul><p>Hinta on 18,00€/kpl.</p>', 1),  # Nana, 2026-10-10
     ('new-page', 'että suun hygienian ylläpitämiseen kotioloissa.</p>', 'että suun hygienian ylläpitämiseen kotioloissa.</p><p>Hinta: 35,00€/ltk (75kpl)</p>', 1),  # Nana, 2026-10-10
@@ -613,6 +630,7 @@ def build():
         # empty headings left over from the old site (screen readers announce them): removed
         page = re.sub(r'<h([1-6])[^>]*>(?:\s|\xa0|&nbsp;)*</h\1>', '', page)
         # agreed text edits
+        page = add_price(slug, page)
         for s, old, new, n in EDITS:
             if s != slug:
                 continue
@@ -636,6 +654,7 @@ def build():
     for ns, title in NEW_PAGES.items():
         page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, style_a.MOVED.get(ns, ''), 1, False)
         page = outline_headings(ns, page)
+        page = add_price(ns, page)
         (OUT / ns).mkdir(parents=True, exist_ok=True)
         (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
     # accessibility statement page: title only until Nana completes the statement (Nana, 2026-10-04)
