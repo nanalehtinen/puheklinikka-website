@@ -213,6 +213,13 @@ Design only, no text changes.
   - Nielemisvaikeudet: second paragraph replaced with Nana's new text.
   - New last section after a line: "Koulutukset hinnoitellaan aina yksilöllisesti. Ota yhteyttä niin teemme tarjouksen!"
   - Empty heading left over from the old site at the bottom of the page removed (no visible change; screen readers announced it). The build now removes empty headings on every page.
+- Sovellukset ja tuotteet (Nana, 2026-10-10):
+  - Bold removed from "Sanapsis+-sovelluksen avulla voit kohentaa… puhuminen, kuuntelu, lukeminen ja kirjoittaminen." and from "toimisto@puheklinikka.net".
+  - Removed: "Kaikki Sanapsis+-sovelluksen tehtävät perustuvat arkisanastoon… suomeksi, ruotsiksi ja englanniksi." and "Vastaamme mielellämme kaikkiin kysymyksiin – otathan rohkeasti yhteyttä!"
+  - "Kaikki tuotteet ovat käytössä toteuttamassamme kuntoutuksessa, joten ne ovat huolellisesti valittuja sekä terapiakäytössä…" → "Kaikki tuotteet ovat huolellisesti valittuja ja terapiakäytössä…"
+  - Nenälovimuki: added after the instructions link: "Mukia on saatavana kolmena erilaisena versiona:" + the three versions as a bulleted list + "Hinta on 18,00€/kpl." (Nana's text word for word; "valmitettu" kept, flagged).
+  - Sitruuna-glyseriinitikut: added "Hinta: 35,00€/ltk (75kpl)".
+  - Resonaattoriputki: added "Pituudet: 26cm, 26,5cm, 27cm, 27,5cm, 28cm" and "Hinta: 11,50/kpl" ("HInta" → "Hinta"; no € sign, flagged).
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
