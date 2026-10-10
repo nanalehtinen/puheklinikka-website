@@ -136,7 +136,8 @@ def _parse_new_bios(*paths):
             html.append(f'<p>{link(esc(ln))}</p>')
         close_list()
         # no Asiakasryhmät in the text yet: keep the TBA placeholder (Nana, 2026-10-05)
-        if '<h2>Asiakasryhmät:</h2>' not in html:
+        # Nana's own page has no Asiakasryhmät section (Nana, 2026-10-10)
+        if '<h2>Asiakasryhmät:</h2>' not in html and name != 'Nana Lehtinen':
             html.append(GROUPS_TBA)
         # languages line last on every profile (Nana, 2026-10-10)
         langs = [b for b in html if b.startswith('<p class="langs">')]

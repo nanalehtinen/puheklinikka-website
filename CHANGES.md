@@ -198,6 +198,7 @@ Design only, no text changes.
   - Marjaana: Asiakasryhmät filled in. The four lines "Yksilö- ja ryhmämuotoinen kuntoutus" … "Ohjaavat puheterapiajaksot" are nested under "Nuoret, työikäiset ja iäkkäät asiakkaat" as on the other profiles; the message showed no indentation, so this is assumed, flagged to Nana.
   - Ida and Nana: no Asiakasryhmät in the new text, so "Asiakasryhmät: TBA" stays, flagged to Nana.
 - Therapist profiles, all seven: languages line in one format, "Työskentelykielet: xx, xx." (Nana, 2026-10-10). Elina and Riitta: full stop added; Marjaana, Ida and Nana: "suomi ja englanti." → "suomi, englanti.".
+- Ida Luotonen: Asiakasryhmät filled in with Nana's list (2026-10-10), word for word; replaces "TBA". Nana Lehtinen: Asiakasryhmät section removed from her own page (Nana, 2026-10-10). No TBA placeholders remain on the profiles.
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
