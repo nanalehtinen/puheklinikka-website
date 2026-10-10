@@ -110,6 +110,7 @@ MAP_TITLE = {  # iframe titles, built from the address text on the homepage
 # ------------------------------------------------- agreed text edits
 # (slug, old, new, expected count). Applied to the final page HTML.
 EDITS = [
+    ('palvelut-lheisille', '<p>Ota rohkeasti yhteyttä, olemme täällä sinua varten.\xa0</p>', '', 1),  # removed (Nana, 2026-10-10)
     ('', 'Yhteyenotto', 'Yhteydenotto', 1),                                   # B1
     ('lukitutkimus', 'tarvittatessa', 'tarvittaessa', 1),                     # B1
     ('new-page-1', 'korvaavata tahosta', 'korvaavasta tahosta', 1),           # B1
