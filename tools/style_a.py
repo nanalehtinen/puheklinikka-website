@@ -115,7 +115,7 @@ def demote_headings(body):
 
 # ---------------------------------------------------------------- homepage
 LIGHT_ATTR = ' class="light"'
-LIGHT_TILES = 5  # = first row of five; upper row of homepage service tiles shown white (comparison, Nana 2026-10-04)
+LIGHT_TILES = 0  # all tiles orange (Nana, 2026-10-10); was 5 = first row white; upper row of homepage service tiles shown white (comparison, Nana 2026-10-04)
 
 
 def home_body(body, rel, page_href, log):
@@ -193,8 +193,9 @@ HOME_AREAS = (  # Nana's full new text, word for word, two paragraphs (2026-10-0
     'Tarjoamme puheterapiaa puheen sujuvuuden haasteisiin ja valikoivaan puhumattomuuteen aikuisille, nuorille ja kouluikäisille. '
     'Olemme perehtyneet toiminnallisten äänihäiriöiden kuntoutukseen sekä trans- ja muunsukupuolisten ääniterapiaan.',
     'Toteutamme LUKI-tutkimuksia nuorille ja aikuisille. Lisäksi tarjoamme kuntoutujien läheisille tukea tilanteissa, joissa '
-    'sairastuminen tai kuntoutuminen kuormittaa arkea. Lisätietoa palveluistamme sekä koulutusmahdollisuuksista osaamisalueisiimme '
-    'liittyen ja puheterapian tueksi kehittämistämme sovelluksista ja tuotteista löydät alta.')
+    'sairastuminen tai kuntoutuminen kuormittaa arkea. '
+    # last sentence revised (Nana, 2026-10-10)
+    'Lisätietoa palveluista, koulutuksista, tuotteista ja puheterapian tueksi kehittämistämme sovelluksista löydät alta.')
 
 # ---------------------------------------------------------------- therapists
 def parse_people(body):
