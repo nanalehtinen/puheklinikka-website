@@ -120,6 +120,8 @@ def _parse_new_bios(*paths):
                 continue
             if ln.startswith('Työskentelykiel'):
                 close_list(); in_list = False
+                # one convention everywhere (Nana, 2026-10-10): "Työskentelykielet: xx, xx."
+                ln = ln.strip().replace(' ja ', ', ').rstrip('.') + '.'
                 html.append(f'<p class="langs">{esc(ln)}</p>')
                 continue
             if in_list:
