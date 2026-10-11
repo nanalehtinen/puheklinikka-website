@@ -644,6 +644,40 @@ def outline_headings(slug, page):
     out.append(main[pos:])
     return page[:a] + ''.join(out) + page[b:]
 
+
+NEW_WINDOW = {'fi': '(avautuu uuteen ikkunaan)', 'sv': '(öppnas i ett nytt fönster)', 'en': '(opens in a new window)'}
+
+def finalize_links():
+    # old events: links removed, text kept; only Ajankohtaista keeps live links (Nana, 2026-10-11)
+    for y in EVENT_YEARS:
+        f = OUT / f'tapahtumat-{y}' / 'index.html'
+        s = f.read_text()
+        a, b = s.index('<div class="content">'), s.index('</main>')
+        n = len(re.findall(r'<a\b', s[a:b]))
+        f.write_text(s[:a] + re.sub(r'<a\b[^>]*>(.*?)</a>', r'\1', s[a:b], flags=re.S) + s[b:])
+        LOG.append((f'tapahtumat-{y}', 'link', f'{n} links in old event posts turned into plain text'))
+    # links that open a new window say so (Nana, 2026-10-11)
+    for f in sorted(OUT.rglob('index.html')):
+        s = f.read_text()
+        lang = re.search(r'<html lang="(\w+)"', s).group(1)
+        note = NEW_WINDOW[lang]
+        def rep(m):
+            attrs, inner = m.group(1), m.group(2)
+            href = re.search(r'href="([^"]*)"', attrs).group(1)
+            if not re.match(r'(https?:|mailto:)', href) and not href.endswith('.pdf'):
+                # a page of this site: opens in the same window, no notice needed
+                return '<a ' + re.sub(r'\s*rel="noopener"|\s*target="_blank"', '', attrs).strip() + '>' + inner + '</a>'
+            if '<img' in inner:
+                inner = re.sub(r'alt="([^"]*)"', lambda a: f'alt="{a.group(1)} {note}"', inner, count=1)
+            elif s[m.end():m.end() + 1] == '-':
+                inner = inner + f' <span class="sr-only">{note}</span>'  # link is part of a word (e.g. Sanapsis-vastaava)
+            else:
+                inner = inner.rstrip() + ' ' + note + inner[len(inner.rstrip()):]
+            return f'<a {attrs}>{inner}</a>'
+        new = re.sub(r'<a ([^>]*target="_blank"[^>]*)>(.*?)</a>', rep, s, flags=re.S)
+        if new != s:
+            f.write_text(new)
+
 # ---------------------------------------------------------------- main
 def build():
     if OUT.exists():
@@ -735,6 +769,7 @@ def build():
         c = sum(1 for x in LOG if x[0] == s and x[1] == 'link')
         if c == 0 or (n is not None and c != n):
             sys.exit(f'YHTEYSTIEDOT CHECK FAILED on {s}: {c}')
+    finalize_links()
     copy_assets()
     make_card_photos()
     (OUT / '.nojekyll').write_text('')
