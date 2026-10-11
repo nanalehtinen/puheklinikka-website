@@ -82,7 +82,7 @@ MENU = [
 # Aikuisneurologiset häiriöt has the same text inside style_a's page text.
 PRICE_STD = '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä.<br/>Omakustannehinta: 139,10€/45min</p>'
 PRICES = {
-    'ryhmmuotoinen-terapia': '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä. Joihinkin ryhmiin on mahdollista osallistua myös omakustanteisesti.<br/>Omakustannehinta: 60min ryhmä 50,00€/krt, 90min ryhmä 100,00€/krt</p>',
+    'ryhmmuotoinen-terapia': '<p>Puheterapia toteutuu tyypillisesti maksusitoumuksella tai palvelusetelillä. Joihinkin ryhmiin on mahdollista osallistua myös omakustanteisesti: 60min ryhmä 50,00€/krt, 90min ryhmä 100,00€/krt</p>',  # Nana's wording, 2026-10-11 07:05
     'nielemishairiot': '<p>Tutkimus toteutuu tyypillisesti maksusitoumuksella.<br/>Omakustannehinta: 139,10€/45min</p>',  # under Nielemistutkimus (Nana, 06:07)
     'puheen-sujuvuuden-hairiot': PRICE_STD,
     'niterapia': PRICE_STD,
