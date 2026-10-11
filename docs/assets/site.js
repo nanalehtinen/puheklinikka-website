@@ -43,7 +43,11 @@
   document.querySelectorAll('iframe[src*="docs.google.com/forms"]').forEach(function (f) {
     f.addEventListener('load', function () {
       // only when the visitor has scrolled down past the top of the form (e.g. to the submit button)
-      if (f.getBoundingClientRect().top < 0) f.scrollIntoView({ block: 'start' });
+      if (f.getBoundingClientRect().top < 0) {
+        var done = document.querySelector('.form-done');
+        if (done) { done.hidden = false; done.scrollIntoView({ block: 'start' }); }
+        else f.scrollIntoView({ block: 'start' });
+      }
     });
   });
 })();

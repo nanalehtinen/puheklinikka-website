@@ -260,6 +260,7 @@ Design only, no text changes.
 - Ryhmä brochure web version ("Esite verkkosivuna") removed again (Nana 07:09: the brochure says the same as the Ryhmämuotoinen kuntoutus page); only the "Lataa esite (pdf)" button stays.
 - Ryhmä brochure PDF replaced with Nana's new export (korttiesite 2026.pdf, 2026-10-11), same address. Text unchanged; second export (07:22) has ligatures off everywhere, so screen readers get whole words.
 - Asiakaspalaute (2026-10-11, Nana): after sending the Google form, the page scrolls back up to the form so the thank-you text is visible (it showed only white space before).
+- Asiakaspalaute (Nana 07:23): after sending, a "← Takaisin etusivulle" link (same style as "← Terapeutit" on the profile pages) appears above the form's thank-you text.
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
