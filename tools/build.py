@@ -665,18 +665,10 @@ def doc_pages():
         (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
         (OUT / 's' / pdf).unlink()
         LOG.append((ns, 'page', f'{pdf} turned into a web page (not in the menu)'))
-    # brochure stays a PDF for printing, plus an accessible web version linked under the button (Nana, 2026-10-11)
-    ns, title = 'ryhmamuotoinen-kuntoutus-esite', 'Ryhmämuotoinen kuntoutus Puheklinikalla'
-    body = (ROOT / 'docs' / f'{ns}.html').read_text()
-    page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, '<div class="doc">' + body + '</div>', 1, False, sidebar=False)
-    (OUT / ns).mkdir(parents=True, exist_ok=True)
-    (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
+    # brochure stays a PDF for printing; the web version was dropped because the Ryhmä page has the same information (Nana, 2026-10-11 07:09)
     f = OUT / 'ryhmmuotoinen-terapia' / 'index.html'
     t = f.read_text()
-    m = re.search(r'<a class="btn" href="\.\./s/Puheklinikka-ryhmamuotoinen-kuntoutus-2026\.pdf"[^>]*>.*?</a>(.*?</p>)', t, re.S)
-    assert m, 'brochure button not found'
-    # web-version link centred under the button (Nana); price paragraph moved above the picture (Nana, 2026-10-11 06:10)
-    t = t[:m.end()] + f'<p class="btn-wrap center"><a href="../{ns}/">Esite verkkosivuna</a></p>' + t[m.end():]
+    # price paragraph moved above the picture (Nana, 2026-10-11 06:10)
     price = PRICES['ryhmmuotoinen-terapia']
     assert t.count(price) == 1, 'Ryhmä price not found'
     t = t.replace(price, '')

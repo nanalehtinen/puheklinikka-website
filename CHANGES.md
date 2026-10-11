@@ -256,6 +256,8 @@ Design only, no text changes.
 - Ryhmämuotoinen kuntoutus (2026-10-11, Nana 06:10): price paragraph moved above the photo (was under the Lataa esite button). It had briefly disappeared in the 06:08 push (a build mistake, also cut that page's footer); restored.
 - Ryhmämuotoinen kuntoutus (2026-10-11, Nana 07:05): price lines replaced with "Joihinkin ryhmiin on mahdollista osallistua myös omakustanteisesti: 60min ryhmä 50,00€/krt, 90min ryhmä 100,00€/krt" (no separate Omakustannehinta line).
 - Nenälovimuki web page (2026-10-11, Nana 07:08): sentence "Nenälovimukin yksikköhinta on 18,00€/kpl." removed (the PDF it came from is no longer published).
+- Nenälovimuki web page (Nana 07:08): "Lisätietoja: www.puheklinikka.net" removed.
+- Ryhmä brochure web version ("Esite verkkosivuna") removed again (Nana 07:09: the brochure says the same as the Ryhmämuotoinen kuntoutus page); only the "Lataa esite (pdf)" button stays.
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
