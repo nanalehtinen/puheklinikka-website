@@ -495,6 +495,9 @@ def copy_assets():
         if pdf.name in style_a.CV_PDFS:
             continue  # CVs replaced by profile pages (Nana, 2026-10-03)
         shutil.copy2(pdf, OUT / 's' / pdf.name)
+    # PDFs Nana supplied later replace the captured ones, same address (brochure re-export, 2026-10-11)
+    for pdf in (ASSETS / 'pdf').glob('*.pdf'):
+        shutil.copy2(pdf, OUT / 's' / pdf.name)
     (OUT / 'assets' / 'fonts').mkdir(parents=True, exist_ok=True)
     for f in (ASSETS / 'fonts').iterdir():
         shutil.copy2(f, OUT / 'assets' / 'fonts' / f.name)
