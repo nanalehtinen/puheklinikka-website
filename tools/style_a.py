@@ -308,13 +308,14 @@ def parse_people(body):
         people.append({'name': name, 'img': img, 'details': details, 'slug': slugify(name)})
     return people
 
-# Contact details on the cards and profile pages (Nana, 2026-10-04)
+# Contact details on the cards and profile pages (Nana, 2026-10-04; title + location alone on line 1, 2026-10-11)
 DETAIL_EDITS = {
     'Elina Uusi-Hakala': [('(Helsinki ja Turku) yleiset asiat', '(Helsinki ja Turku)<br/>yleiset asiat')],
     'Nana Lehtinen': [('Hallinnolliset asiat 040 593 0015', 'Hallinnolliset asiat<br/>040 593 0015')],
-    'Annemari Hongell': [('kognitiivinen lyhyterapia ', 'kognitiivinen lyhytterapeutti')],
-    'Ida Luotonen': [('puheterapeutti (Turku) ', 'puheterapeutti (Turku) kognitiivinen lyhytterapeutti')],
-    'Marjaana Raukola-Lindblom': [('työnohjaaja <a ', 'työnohjaaja<br/>Lisätietoja: <a '),
+    'Annemari Hongell': [('Åbo) kognitiivinen lyhyterapia ', 'Åbo)<br/>kognitiivinen lyhytterapeutti')],
+    'Ida Luotonen': [('puheterapeutti (Turku) ', 'puheterapeutti (Turku)<br/>kognitiivinen lyhytterapeutti')],
+    'Marjaana Raukola-Lindblom': [('(Turku) työnohjaaja <a ', '(Turku)<br/>työnohjaaja <a '),
+                                  ('työnohjaaja <a ', 'työnohjaaja<br/>Lisätietoja: <a '),
                                   ('>Skillfull Interaction</a>', '>Skillful interaction</a>')],
 }
 # Card order on the Terapeutit page (Nana, 2026-10-04)
