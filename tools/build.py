@@ -654,7 +654,8 @@ DOC_PAGES = {
 }
 # no longer linked anywhere after the old event links were removed (Nana, 2026-10-11)
 PDFS_UNLINKED = {'Ryhma-SpeakOut.pdf', 'Tyopaikkailmoitus-2752021.pdf'}
-PDF_TITLES = {'Tietosuojaseloste-Puheterapiapalvelut-Ida-Luotonen.pdf': 'Tietosuojaseloste, Puheterapiapalvelut Ida Luotonen'}
+PDF_TITLES = {'Tietosuojaseloste-Puheterapiapalvelut-Ida-Luotonen.pdf': 'Tietosuojaseloste, Puheterapiapalvelut Ida Luotonen',
+              'Puheklinikka-ryhmamuotoinen-kuntoutus-2026.pdf': 'Ryhmämuotoinen kuntoutus Puheklinikalla'}
 
 def doc_pages():
     for pdf, (ns, title) in DOC_PAGES.items():
@@ -683,6 +684,7 @@ def doc_pages():
         with pikepdf.open(OUT / 's' / pdf, allow_overwriting_input=True) as d:
             d.docinfo['/Title'] = title
             d.Root.ViewerPreferences = pikepdf.Dictionary(DisplayDocTitle=True)
+            d.Root.Lang = pikepdf.String('fi-FI')
             d.save(OUT / 's' / pdf)
 
 NEW_WINDOW = {'fi': '(pdf)', 'sv': '(pdf)', 'en': '(pdf)'}  # file type on PDF links (Nana, 2026-10-11; was 'avautuu uuteen ikkunaan')
@@ -817,9 +819,9 @@ def build():
         c = sum(1 for x in LOG if x[0] == s and x[1] == 'link')
         if c == 0 or (n is not None and c != n):
             sys.exit(f'YHTEYSTIEDOT CHECK FAILED on {s}: {c}')
+    copy_assets()
     doc_pages()
     finalize_links()
-    copy_assets()
     make_card_photos()
     (OUT / '.nojekyll').write_text('')
     # CNAME (www.puheklinikka.net) is added only at the domain switch-over step, with Nana's approval
