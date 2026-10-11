@@ -675,7 +675,7 @@ def doc_pages():
     t = f.read_text()
     m = re.search(r'<a class="btn" href="\.\./s/Puheklinikka-ryhmamuotoinen-kuntoutus-2026\.pdf"[^>]*>.*?</a>(.*?</p>)', t, re.S)
     assert m, 'brochure button not found'
-    t = t[:m.end()] + f'<p><a href="../{ns}/">Esite verkkosivuna</a></p>' + t[m.end():]
+    t = t[:m.end()] + f'<p class="btn-wrap center"><a href="../{ns}/">Esite verkkosivuna</a></p>'  # centred under the button (Nana) + t[m.end():]
     f.write_text(t)
     for pdf in PDFS_UNLINKED:
         (OUT / 's' / pdf).unlink()
@@ -717,8 +717,6 @@ def finalize_links():
                 return m.group(0)  # notice only on links that open a PDF (Nana, 2026-10-11)
             if '<img' in inner:
                 inner = re.sub(r'alt="([^"]*)"', lambda a: f'alt="{a.group(1)} {note}"', inner, count=1)
-            elif 'class="btn"' in attrs:
-                inner = inner.rstrip() + '<br/>' + note  # on its own row in buttons (Nana, 2026-10-11)
             elif s[m.end():m.end() + 1] == '-':
                 inner = inner + f' <span class="sr-only">{note}</span>'  # link is part of a word (e.g. Sanapsis-vastaava)
             else:
