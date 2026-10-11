@@ -204,10 +204,14 @@ footer.site a{color:var(--foot-a)}
   .row{display:block}
   .pair{grid-template-columns:1fr;gap:0}
   .pair figure{margin-bottom:1.2em}
-  .people{grid-template-columns:1fr}
+  /* phones: contact details only, stacked like the homepage tiles (Nana, 2026-10-11) */
+  .content .people{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .content .person img{display:none}
+  .person .txt{padding:14px 16px 16px}
+  .person p{overflow-wrap:anywhere}
   .profile{grid-template-columns:1fr;gap:24px}
 }
-@media (max-width:420px){.tiles{grid-template-columns:1fr}}
+@media (max-width:420px){.tiles,.content .people{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 footer.site :focus-visible{outline-color:#fff}
 .content li>ul{margin:0}
