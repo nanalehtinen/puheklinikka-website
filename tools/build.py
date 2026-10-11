@@ -656,7 +656,7 @@ def finalize_links():
         n = len(re.findall(r'<a\b', s[a:b]))
         f.write_text(s[:a] + re.sub(r'<a\b[^>]*>(.*?)</a>', r'\1', s[a:b], flags=re.S) + s[b:])
         LOG.append((f'tapahtumat-{y}', 'link', f'{n} links in old event posts turned into plain text'))
-    # links that open a new window say so (Nana, 2026-10-11)
+    # links that open a PDF in a new window say so (Nana, 2026-10-11)
     for f in sorted(OUT.rglob('index.html')):
         s = f.read_text()
         lang = re.search(r'<html lang="(\w+)"', s).group(1)
@@ -667,8 +667,12 @@ def finalize_links():
             if not re.match(r'(https?:|mailto:)', href) and not href.endswith('.pdf'):
                 # a page of this site: opens in the same window, no notice needed
                 return '<a ' + re.sub(r'\s*rel="noopener"|\s*target="_blank"', '', attrs).strip() + '>' + inner + '</a>'
+            if not href.endswith('.pdf'):
+                return m.group(0)  # notice only on links that open a PDF (Nana, 2026-10-11)
             if '<img' in inner:
                 inner = re.sub(r'alt="([^"]*)"', lambda a: f'alt="{a.group(1)} {note}"', inner, count=1)
+            elif 'class="btn"' in attrs:
+                inner = inner.rstrip() + '<br/>' + note  # on its own row in buttons (Nana, 2026-10-11)
             elif s[m.end():m.end() + 1] == '-':
                 inner = inner + f' <span class="sr-only">{note}</span>'  # link is part of a word (e.g. Sanapsis-vastaava)
             else:
