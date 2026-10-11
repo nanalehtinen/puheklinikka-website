@@ -258,7 +258,7 @@ Design only, no text changes.
 - Nenälovimuki web page (2026-10-11, Nana 07:08): sentence "Nenälovimukin yksikköhinta on 18,00€/kpl." removed (the PDF it came from is no longer published).
 - Nenälovimuki web page (Nana 07:08): "Lisätietoja: www.puheklinikka.net" removed.
 - Ryhmä brochure web version ("Esite verkkosivuna") removed again (Nana 07:09: the brochure says the same as the Ryhmämuotoinen kuntoutus page); only the "Lataa esite (pdf)" button stays.
-- Ryhmä brochure PDF replaced with Nana's new export (korttiesite 2026.pdf, 2026-10-11), same address. Text unchanged; the first section now reads as whole words for screen readers, the other sections still have the ti/tt ligature gaps.
+- Ryhmä brochure PDF replaced with Nana's new export (korttiesite 2026.pdf, 2026-10-11), same address. Text unchanged; second export (07:22) has ligatures off everywhere, so screen readers get whole words.
 - Asiakaspalaute (2026-10-11, Nana): after sending the Google form, the page scrolls back up to the form so the thank-you text is visible (it showed only white space before).
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
