@@ -178,6 +178,14 @@ footer.site a{color:var(--foot-a)}
 .social svg{width:20px;height:20px;fill:#fff}
 
 /* phone */
+/* former PDFs as web pages: label/content tables (Nana, 2026-10-11) */
+.content table.doc{border-collapse:collapse;width:100%;margin:0 0 1.5em;font-size:.95rem}
+.content table.doc th,.content table.doc td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.content table.doc th[scope=row]{width:32%;font-weight:600}
+.content table.doc th[scope=col]{background:var(--peach)}
+.content table.doc p{margin:0 0 .6em}
+.content table.doc p:last-child{margin:0}
+.content p.doc-sub{font-weight:600}
 @media (max-width:860px){
   .wrap{padding:0 18px}
   .head{flex-wrap:wrap}
@@ -211,6 +219,9 @@ footer.site a{color:var(--foot-a)}
   .person .txt{padding:14px 16px 16px}
   .person p{overflow-wrap:anywhere}
   .profile{grid-template-columns:1fr;gap:24px}
+  .content table.doc th[scope=row],.content table.doc td{display:block;width:auto}
+  .content table.doc th[scope=row]{border-bottom:0;background:var(--peach)}
+  .content table.doc tr{display:block;margin-bottom:12px}
 }
 @media (max-width:420px){.tiles,.content .people{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}

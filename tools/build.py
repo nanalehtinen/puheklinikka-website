@@ -645,6 +645,46 @@ def outline_headings(slug, page):
     return page[:a] + ''.join(out) + page[b:]
 
 
+# PDFs turned into web pages, not in the menu (Nana, 2026-10-11); text word for word, fragments in tools/docs/
+DOC_PAGES = {
+    'Nenalovimuki.pdf': ('nenalovimuki', 'Nenälovimuki Flexi Cut'),
+    'TIETOSUOJASELOSTE-PUHEKLINIKKA-NET-2022pages.pdf': ('tietosuojaseloste-puheklinikka-net', 'Tietosuojaseloste Puheklinikka NET Oy'),
+    '2025-Yksityisen-terveydenhuollon-omavalvontasuunnitelma-Turku.pdf': ('omavalvontasuunnitelma-turku', '2025 Yksityisen terveydenhuollon omavalvontasuunnitelma, Turku'),
+    '2025-Yksityisen-terveydenhuollon-omavalvontasuunnitelma-Helsinki.pdf': ('omavalvontasuunnitelma-helsinki', '2025 Yksityisen terveydenhuollon omavalvontasuunnitelma, Helsinki'),
+}
+# no longer linked anywhere after the old event links were removed (Nana, 2026-10-11)
+PDFS_UNLINKED = {'Ryhma-SpeakOut.pdf', 'Tyopaikkailmoitus-2752021.pdf'}
+PDF_TITLES = {'Tietosuojaseloste-Puheterapiapalvelut-Ida-Luotonen.pdf': 'Tietosuojaseloste, Puheterapiapalvelut Ida Luotonen'}
+
+def doc_pages():
+    for pdf, (ns, title) in DOC_PAGES.items():
+        body = (ROOT / 'docs' / f'{ns}.html').read_text()
+        page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, '<div class="doc">' + body + '</div>', 1, False, sidebar=False)
+        (OUT / ns).mkdir(parents=True, exist_ok=True)
+        (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
+        (OUT / 's' / pdf).unlink()
+        LOG.append((ns, 'page', f'{pdf} turned into a web page (not in the menu)'))
+    # brochure stays a PDF for printing, plus an accessible web version linked under the button (Nana, 2026-10-11)
+    ns, title = 'ryhmamuotoinen-kuntoutus-esite', 'Ryhmämuotoinen kuntoutus Puheklinikalla'
+    body = (ROOT / 'docs' / f'{ns}.html').read_text()
+    page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, '<div class="doc">' + body + '</div>', 1, False, sidebar=False)
+    (OUT / ns).mkdir(parents=True, exist_ok=True)
+    (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
+    f = OUT / 'ryhmmuotoinen-terapia' / 'index.html'
+    t = f.read_text()
+    m = re.search(r'<a class="btn" href="\.\./s/Puheklinikka-ryhmamuotoinen-kuntoutus-2026\.pdf"[^>]*>.*?</a>(.*?</p>)', t, re.S)
+    assert m, 'brochure button not found'
+    t = t[:m.end()] + f'<p><a href="../{ns}/">Esite verkkosivuna</a></p>' + t[m.end():]
+    f.write_text(t)
+    for pdf in PDFS_UNLINKED:
+        (OUT / 's' / pdf).unlink()
+    import pikepdf
+    for pdf, title in PDF_TITLES.items():
+        with pikepdf.open(OUT / 's' / pdf, allow_overwriting_input=True) as d:
+            d.docinfo['/Title'] = title
+            d.Root.ViewerPreferences = pikepdf.Dictionary(DisplayDocTitle=True)
+            d.save(OUT / 's' / pdf)
+
 NEW_WINDOW = {'fi': '(pdf)', 'sv': '(pdf)', 'en': '(pdf)'}  # file type on PDF links (Nana, 2026-10-11; was 'avautuu uuteen ikkunaan')
 
 def finalize_links():
@@ -659,6 +699,10 @@ def finalize_links():
     # links that open a PDF in a new window say so (Nana, 2026-10-11)
     for f in sorted(OUT.rglob('index.html')):
         s = f.read_text()
+        for pdf, (ns, _) in DOC_PAGES.items():
+            s = re.sub(r'<a ([^>]*?)href="([./]*)s/' + re.escape(pdf) + r'"([^>]*)>',
+                       lambda m: '<a ' + re.sub(r'\s*rel="noopener"|\s*target="_blank"', '', f'{m.group(1)}href="{m.group(2)}{ns}/"{m.group(3)}').strip() + '>', s)
+        f.write_text(s)
         lang = re.search(r'<html lang="(\w+)"', s).group(1)
         note = NEW_WINDOW[lang]
         def rep(m):
@@ -773,6 +817,7 @@ def build():
         c = sum(1 for x in LOG if x[0] == s and x[1] == 'link')
         if c == 0 or (n is not None and c != n):
             sys.exit(f'YHTEYSTIEDOT CHECK FAILED on {s}: {c}')
+    doc_pages()
     finalize_links()
     copy_assets()
     make_card_photos()
