@@ -675,7 +675,14 @@ def doc_pages():
     t = f.read_text()
     m = re.search(r'<a class="btn" href="\.\./s/Puheklinikka-ryhmamuotoinen-kuntoutus-2026\.pdf"[^>]*>.*?</a>(.*?</p>)', t, re.S)
     assert m, 'brochure button not found'
-    t = t[:m.end()] + f'<p class="btn-wrap center"><a href="../{ns}/">Esite verkkosivuna</a></p>'  # centred under the button (Nana) + t[m.end():]
+    # web-version link centred under the button (Nana); price paragraph moved above the picture (Nana, 2026-10-11 06:10)
+    t = t[:m.end()] + f'<p class="btn-wrap center"><a href="../{ns}/">Esite verkkosivuna</a></p>' + t[m.end():]
+    price = PRICES['ryhmmuotoinen-terapia']
+    assert t.count(price) == 1, 'Ryhmä price not found'
+    t = t.replace(price, '')
+    fig = t.rfind('<figure', 0, t.index('<a class="btn"'))
+    assert fig > 0
+    t = t[:fig] + price + '\n' + t[fig:]
     f.write_text(t)
     for pdf in PDFS_UNLINKED:
         (OUT / 's' / pdf).unlink()
