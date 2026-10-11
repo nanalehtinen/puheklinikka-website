@@ -645,7 +645,7 @@ def outline_headings(slug, page):
     return page[:a] + ''.join(out) + page[b:]
 
 
-NEW_WINDOW = {'fi': '(avautuu uuteen ikkunaan)', 'sv': '(öppnas i ett nytt fönster)', 'en': '(opens in a new window)'}
+NEW_WINDOW = {'fi': '(pdf)', 'sv': '(pdf)', 'en': '(pdf)'}  # file type on PDF links (Nana, 2026-10-11; was 'avautuu uuteen ikkunaan')
 
 def finalize_links():
     # old events: links removed, text kept; only Ajankohtaista keeps live links (Nana, 2026-10-11)
