@@ -805,9 +805,9 @@ def build():
         page = outline_headings(ns, page)
         (OUT / ns).mkdir(parents=True, exist_ok=True)
         (OUT / ns / 'index.html').write_text(unicodedata.normalize('NFC', page))
-    # accessibility statement page: title only until Nana completes the statement (Nana, 2026-10-04)
+    # accessibility statement: Nana's answers in Traficom's seloste tool, 2026-10-11 (tools/docs/saavutettavuusseloste.html)
     page = render('saavutettavuusseloste', 'fi', 'Saavutettavuusseloste — Puheklinikka', 'Saavutettavuusseloste', None,
-                  '', 1, False, sidebar=False)
+                  (ROOT / 'docs' / 'saavutettavuusseloste.html').read_text(), 1, False, sidebar=False)
     (OUT / 'saavutettavuusseloste').mkdir(parents=True, exist_ok=True)
     (OUT / 'saavutettavuusseloste' / 'index.html').write_text(unicodedata.normalize('NFC', page))
     for old, target in REDIRECTS.items():
