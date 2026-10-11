@@ -36,3 +36,14 @@
     if (!e.target.closest('#mainnav .folder')) closeAll();
   });
 })();
+
+// Embedded Google Form: after sending, the short thank-you page shows at the top of the tall frame,
+// so scroll back up to it instead of leaving the visitor looking at white space (Nana, 2026-10-11).
+(function () {
+  document.querySelectorAll('iframe[src*="docs.google.com/forms"]').forEach(function (f) {
+    f.addEventListener('load', function () {
+      // only when the visitor has scrolled down past the top of the form (e.g. to the submit button)
+      if (f.getBoundingClientRect().top < 0) f.scrollIntoView({ block: 'start' });
+    });
+  });
+})();
