@@ -702,12 +702,12 @@ def finalize_links():
         f.write_text(s[:a] + re.sub(r'<a\b[^>]*>(.*?)</a>', r'\1', s[a:b], flags=re.S) + s[b:])
         LOG.append((f'tapahtumat-{y}', 'link', f'{n} links in old event posts turned into plain text'))
     # email links get the subject "Yhteydenotto nettisivuilta" (Nana, 2026-10-12): toimisto + therapists;
-    # Riitta's older subject unified; links with their own subject (SpeakOut registration) and Varha's address untouched
+    # only @puheklinikka.net addresses; Riitta's older subject unified; other addresses (Varha, Marjaana's gmail as potilasasiamies) and links with their own subject untouched
     SUBJ = '?subject=Yhteydenotto%20nettisivuilta'
     for f in sorted(OUT.rglob('index.html')):
         s = f.read_text()
         new = s.replace('?subject=Yhteydenotto%20nettisivujen%20kautta', SUBJ)
-        new = re.sub(r'href="mailto:([^"?]+)"', lambda m: m.group(0) if m.group(1).endswith('@varha.fi') else f'href="mailto:{m.group(1)}{SUBJ}"', new)
+        new = re.sub(r'href="mailto:([^"?]+)"', lambda m: m.group(0) if not m.group(1).endswith('@puheklinikka.net') else f'href="mailto:{m.group(1)}{SUBJ}"', new)
         if new != s:
             f.write_text(new)
     # links that open a PDF in a new window say so (Nana, 2026-10-11)
