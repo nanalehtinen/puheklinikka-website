@@ -168,7 +168,7 @@ MAP_TITLE = {  # iframe titles, built from the address text on the homepage
 # (slug, old, new, expected count). Applied to the final page HTML.
 EDITS = [
     ('about-puheklinikka-2', '<p>We welcome opportunities for collaboration and are happy to share our expertise or explore joint initiatives. We look forward to hearing from you at <a href="mailto:toimisto@puheklinikka.net">toimisto(at)puheklinikka.net</a>. </p>',
-     '<p>We welcome opportunities for collaboration and are happy to explore joint initiatives. We look forward to hearing from you!</p>', 1),  # Nana, 2026-10-12
+     '', 1),  # reworded and moved above the Sanapsis sentence (Nana, 2026-10-12; see end of EDITS)
     ('new-page-2', '<div class="embed"><iframe', '<p class="form-done" hidden><a class="back" href="../">← Takaisin etusivulle</a></p><div class="embed"><iframe', 1),  # shown after the form is sent (Nana, 2026-10-11)
     ('arviot-ja-konsultointi', 'Pitkän linjan yksityisenä puheterapiapalvelujen tarjoajana tarjoamme myös konsultaatioita puheterapiapalveluiden järjestämiseen liittyvissä kysymyksissä.</p>', 'Pitkän linjan yksityisenä puheterapiapalvelujen tarjoajana tarjoamme myös konsultaatioita puheterapiapalveluiden järjestämiseen liittyvissä kysymyksissä. Konsultointi hinnoitellaan yksilöllisesti.</p>', 1),  # Nana, 2026-10-10
     ('arviot-ja-konsultointi', 'Puheterapeuttiseen tutkimukseen voi hakeutua joko julkisen terveydenhuollon lähetteellä ja maksusitoumuksella tai omakustanteisesti. Tutkimus voidaan toteuttaa suomen- tai ruotsinkielellä.</p>', 'Puheterapeuttiseen tutkimukseen voi hakeutua joko julkisen terveydenhuollon lähetteellä ja maksusitoumuksella tai omakustanteisesti. Tutkimus voidaan toteuttaa suomen- tai ruotsinkielellä.</p><p>Omakustannehinta: 139,10€/45min tapaaminen</p>', 1),  # Nana, 2026-10-10
@@ -232,6 +232,7 @@ EDITS = [
     ('ryhmmuotoinen-terapia', '<p>Seuraava tapaaminen on 3.12.2026 klo 11-12.</p>', '<p><strong>Seuraava tapaaminen on 3.12.2026 klo 11-12.</strong></p>', 1),  # bold (Nana, 2026-10-04)
     ('ryhmmuotoinen-terapia', '<p><strong>Huom. Vuonna 2026 kuntoutusryhmät kokoontuvat poikkeuksellisesti vain syyskaudella. Taustalla on Kelan päätös olla myöntämättä ryhmäkäyntejä vuodelle 2026. Kela jatkaa ryhmämuotoisen kuntoutuksen korvaamista vuoden 2027 alusta.</strong> <em>Mikäli sinulle on suositeltu ryhmämuotoista kuntoutusta ja se jää toteutumatta Kelan linjanvedon vuoksi, ota yhteyttä niin mietitään ratkaisuvaihtoehtoja.</em> </p>', '', 1),  # Huom. paragraph removed (Nana, 2026-10-04)
     ('asiantuntijat', 'Voit tutustua osaamiseemme tarkemmin kuvaa napauttamalla.', 'Saat lisätietoja napauttamalla.', 1),  # Nana 2026-10-03; full stop added (flagged)
+    ('about-puheklinikka-2', '<p>To learn about our apps', '<p>We welcome opportunities for collaboration and are happy to explore joint initiatives. We look forward to hearing from you!</p><p>To learn about our apps', 1),  # Nana, 2026-10-12
 ]
 # Broken /yhteystiedot links -> Terapeutit (B2). Count checked per page.
 YHTEYS_EXPECTED = {'': 1, 'about-puheklinikka': 1, 'about-puheklinikka-2': 1,
