@@ -550,7 +550,7 @@ def social_html():
         ('Facebook', 'http://www.facebook.com/puheklinikka', ICONS['facebook']),
         ('LinkedIn', 'https://www.linkedin.com/company/puheklinikka/', li),
         ('Instagram', 'https://www.instagram.com/puheklinikka/', ICONS['instagram']),
-        (OFFICE_EMAIL, f'mailto:{OFFICE_EMAIL}', mail),
+        # mail icon removed; the toimisto@ link under the footer heading stays (Nana, 2026-10-12)
     ]
     out = []
     for name, href, d in links:
@@ -588,7 +588,7 @@ def page_shell(slug, lang, title, page_title, body, depth):
 <footer class="site-footer" lang="fi">
   <div class="contact">
     <h2 lang="en">Contact Us</h2>
-    <p>Ota yhteyttä!</p>
+    <p>Pidetään yhteyttä!</p>
     <p><a href="mailto:{OFFICE_EMAIL}">{OFFICE_EMAIL}</a></p>
   </div>
   {social_html()}

@@ -401,7 +401,7 @@ def shell(*, lang, title, page_title, crumb, body, depth, rel, page_href, nav, s
 {main}
 </main>
 <footer class="site" lang="fi"><div class="wrap foot">
-  <div><p><strong>Ota yhteyttä!</strong><br><a href="mailto:{office_email}">{office_email}</a></p></div>
+  <div><p><strong>Pidetään yhteyttä!</strong><br><a href="mailto:{office_email}">{office_email}</a></p></div>
   {social}
 </div></footer>
 <script src="{js}"></script>
