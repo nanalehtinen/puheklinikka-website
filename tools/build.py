@@ -695,6 +695,28 @@ def doc_pages():
 
 NEW_WINDOW = {'fi': '(pdf)', 'sv': '(pdf)', 'en': '(pdf)'}  # file type on PDF links (Nana, 2026-10-11; was 'avautuu uuteen ikkunaan')
 
+# last text edits, applied to the finished pages (pattern, old, new, expected count)
+FINAL_EDITS = [
+    # Swedish reviewer feedback via Nana (2026-10-14)
+    ('mit-puheterapia-on-1', '<p>Talterapi är medicinsk rehabilitering, som ges av en tal- språk- och kommunikationsspecialist, en legitimerad talterapeut. Vuxenneurologisk talterapi är inriktad på kommunikations- och/ellersväljningssvårigheter som orsakats av sjukdom eller skada. Syftet med talterapi är att främja individens färdigheter och förmåga till ömsesidig och givande kommunikation. I talterapi fokuserar man därför på omfattande rehabilitering och utveckling av kommunikationsfärdigheterna, inte endast på talet. Talterapi är målinriktat och klientens anhöriga samt kommunikationsomgivningen har en stor betydelse för uppnåendet av målen. På grund av detta sätter vi upp målen för terapin tillsammans med klienten och de anhöriga och de tillvägagångssätt som vi använder oss av i terapin är övergripande och klientorienterade.</p>',
+     '<p>Talterapi är medicinsk rehabilitering som ges av en legitimerad talterapeut; en specialist på tal, språk och kommunikation. Vuxenneurologisk talterapi är inriktad på kommunikations- och/eller sväljningssvårigheter som orsakats av sjukdom eller skada. Syftet med talterapi är att främja individens färdigheter och förmåga till ömsesidig och givande kommunikation. I talterapi fokuserar man därför på en omfattande rehabilitering och utveckling av kommunikationsfärdigheterna, inte endast på talet. Talterapi är målinriktat, och klientens anhöriga samt kommunikationsomgivningen har stor betydelse för att målen ska uppnås. Därför sätter vi upp målen för terapin tillsammans med klienten och de anhöriga, och våra arbetssätt är övergripande och klientorienterade.</p>', 1),
+    ('mit-puheterapia-on-1', '<p>Till talterapi kommer man med rekommendation av en läkare. Oftast kommer rekommendationen av en talterapeut som gjort en klinisk bedömning, varefter den behandlande neurologen skriver en remiss till talterapi. Remissen kan skrivas av en hälsovårdscentralläkare eller annan husläkare. Talterapi är medicinsk rehabilitering och man kommer oftast till terapin med FPA:s, välfärdsområdets eller möjligtvis försäkringsbolagets betalningsförbindelse. Ifall du upplever dig vara i behov av talterapi, tveka inte att diskutera saken med din läkare.</p>',
+     '<p>Till talterapi kommer man på rekommendation av en läkare. Oftast görs först en klinisk bedömning av en talterapeut, varefter den behandlande neurologen skriver en remiss till talterapi. Remissen kan också skrivas av en hälsovårdscentralläkare eller annan läkare. Talterapi är medicinsk rehabilitering, och vanligtvis bekostas terapin genom en betalningsförbindelse från FPA, välfärdsområdet eller eventuellt ett försäkringsbolag. Om du upplever att du är i behov av talterapi, tveka inte att ta upp saken med din läkare.</p>', 1),
+    ('mit-puheterapia-on-1', 'framtiden känns osäker och att ta hand om sitt eget välmående kan kännas utmanande.', 'framtiden känns osäker och det kan kännas utmanande att ta hand om sitt eget välmående.', 1),
+    ('mit-puheterapia-on-1', 'förstärker resurser', 'förstärker dina resurser', 1),
+    ('mit-puheterapia-on-1', 'oberoende av var den insjuknades rehabilitering genomförs eller om den pågår just nu.', 'oberoende var den insjuknades rehabilitering genomförs eller om rehabiliteringen pågår för tillfället.', 1),
+]
+
+def final_edits():
+    for slug, old, new, n in FINAL_EDITS:
+        f = OUT / slug / 'index.html'
+        t = f.read_text()
+        c = t.count(old)
+        if c != n:
+            sys.exit(f'FINAL EDIT FAILED on {slug}: "{old[:60]}" found {c}x, expected {n}')
+        f.write_text(t.replace(old, new))
+        LOG.append((slug, 'text', f'"{old[:60]}…" → "{new[:60]}…"'))
+
 def finalize_links():
     # old events: links removed, text kept; only Ajankohtaista keeps live links (Nana, 2026-10-11)
     for y in EVENT_YEARS:
@@ -835,6 +857,7 @@ def build():
     copy_assets()
     doc_pages()
     finalize_links()
+    final_edits()
     make_card_photos()
     (OUT / '.nojekyll').write_text('')
     # CNAME (www.puheklinikka.net) is added only at the domain switch-over step, with Nana's approval
