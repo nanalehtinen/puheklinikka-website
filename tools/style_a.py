@@ -295,6 +295,20 @@ HOME_AREAS = (  # Nana's full new text, word for word, two paragraphs (2026-10-0
     'Lisätietoa palveluista, koulutuksista, tuotteista ja puheterapian tueksi kehittämistämme sovelluksista löydät alta.')
 
 # ---------------------------------------------------------------- therapists
+# Working languages on every therapist card, below the phone number, same on every page (Nana, 2026-10-14)
+CARD_LANGS = {
+    'Annemari Hongell': ['fi', 'sv', 'en'], 'Elina Uusi-Hakala': ['fi', 'en'], 'Ida Luotonen': ['fi', 'en'],
+    'Marjaana Raukola-Lindblom': ['fi', 'en'], 'Nana Lehtinen': ['fi', 'en'], 'Riitta Saari': ['fi', 'en', 'fr'],
+    'Jenita Mattsson': ['fi'],
+}
+LANG_NAMES = {'fi': 'suomi', 'sv': 'svenska', 'en': 'english', 'fr': 'français'}
+
+def add_card_langs(name, lines):
+    phone = [i for i, l in enumerate(lines) if re.search(r'\b0\d{2} \d{3} \d{4}\b', l)]
+    assert len(phone) == 1, (name, lines)
+    langs = ', '.join(f'<span lang="{l}">{LANG_NAMES[l]}</span>' for l in CARD_LANGS[name])
+    return lines[:phone[0] + 1] + [langs] + lines[phone[0] + 1:]
+
 def parse_people(body):
     pairs = re.findall(r'<figure class="img">(?:<a [^>]*>)?(<img [^>]*>)(?:</a>)?</figure>\s*<p>(.*?)</p>', body, re.S)
     people = []
@@ -305,6 +319,7 @@ def parse_people(body):
         for old, new in DETAIL_EDITS.get(name, []):
             assert details.count(old) == 1, (name, old)
             details = details.replace(old, new)
+        details = '<br/>'.join(add_card_langs(name, details.split('<br/>')))
         people.append({'name': name, 'img': img, 'details': details, 'slug': slugify(name)})
     return people
 
@@ -419,7 +434,7 @@ def profile_body_lang(p, lang, log):
     img = re.sub(r' alt="[^"]*"', ' alt=""', p['img']).replace('src="../', 'src="../../../')
     bio = d['bio'].replace('href="../../', 'href="../../../')  # bio links are written for the Finnish page, one level up
     log(f'asiantuntijat/{p["slug"]}/{lang}', 'text', f'{lang} profile page for {p["name"]}')
-    return (f'<div class="profile"><div class="pcol">{img}<div class="card"><p>{"<br/>".join(d["card"])}</p></div></div>'
+    return (f'<div class="profile"><div class="pcol">{img}<div class="card"><p>{"<br/>".join(add_card_langs(p["name"], d["card"]))}</p></div></div>'
             f'<div class="content" lang="{lang}">{lang_links(p["name"], lang)}{bio}'
             f'<p><a class="back" href="../../" lang="fi">← Terapeutit</a></p></div></div>')
 
