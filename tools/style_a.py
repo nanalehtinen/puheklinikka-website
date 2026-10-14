@@ -320,6 +320,10 @@ def parse_people(body):
         for old, new in DETAIL_EDITS.get(name, []):
             assert details.count(old) == 1, (name, old)
             details = details.replace(old, new)
+        if name == 'Marjaana Raukola-Lindblom':
+            # "Lisätietoja: Skillful interaction" line removed from her card; her bio links to www.skillful.fi (Nana, 2026-10-14)
+            details, n = re.subn(r'<br/>Lisätietoja: <a [^>]*>Skillful interaction</a>', '', details)
+            assert n == 1, details
         people.append({'name': name, 'img': img, 'details': details, 'slug': slugify(name)})
     return people
 
