@@ -295,7 +295,7 @@ HOME_AREAS = (  # Nana's full new text, word for word, two paragraphs (2026-10-0
     'Lisätietoa palveluista, koulutuksista, tuotteista ja puheterapian tueksi kehittämistämme sovelluksista löydät alta.')
 
 # ---------------------------------------------------------------- therapists
-# Working languages on every therapist card, below the phone number, same on every page (Nana, 2026-10-14)
+# Working languages on every therapist card, directly above the phone number, same on every page (Nana, 2026-10-14)
 CARD_LANGS = {
     'Annemari Hongell': ['fi', 'sv', 'en'], 'Elina Uusi-Hakala': ['fi', 'en'], 'Ida Luotonen': ['fi', 'en'],
     'Marjaana Raukola-Lindblom': ['fi', 'en'], 'Nana Lehtinen': ['fi', 'en'], 'Riitta Saari': ['fi', 'en', 'fr'],
@@ -307,7 +307,7 @@ def add_card_langs(name, lines):
     phone = [i for i, l in enumerate(lines) if re.search(r'\b0\d{2} \d{3} \d{4}\b', l)]
     assert len(phone) == 1, (name, lines)
     langs = ', '.join(f'<span lang="{l}">{LANG_NAMES[l]}</span>' for l in CARD_LANGS[name])
-    return lines[:phone[0] + 1] + [langs] + lines[phone[0] + 1:]
+    return lines[:phone[0]] + [langs] + lines[phone[0]:]  # above the phone number (Nana, 03:03)
 
 def parse_people(body):
     pairs = re.findall(r'<figure class="img">(?:<a [^>]*>)?(<img [^>]*>)(?:</a>)?</figure>\s*<p>(.*?)</p>', body, re.S)
