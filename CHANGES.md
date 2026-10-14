@@ -281,6 +281,7 @@ Design only, no text changes.
 - English therapist pages (2026-10-14, Nana): "Master’s Thesis" capitalised on all pages; card titles "Speech Therapist" / "Specialist Speech Therapist".
 - Annemari's English page (2026-10-14, Nana): first paragraph replaced with Nana's text (verbatim; typographic apostrophe in Master’s).
 - English therapist pages (2026-10-14, Nana): "doctoral thesis" capitalised as "Doctoral Thesis".
+- Marjaana's English page (2026-10-14, Nana, from Marjaana's own description): card "Professional and clinical supervisor"; sentence added after "…animal-assisted rehabilitation.": "Marjaana also works as a professional and clinical supervisor for employees working with people who have neurological disorders."
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
