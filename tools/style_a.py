@@ -505,6 +505,9 @@ def en_cards(people):
         for c in d['card_raw']:
             if c == 'email':
                 assert mail, p['name']; c = mail.group(0)
+            elif re.search(r'\[[^\]]+\]\(https?://', c) and '[Sanapsis]' not in c:
+                # own link in the English card line (e.g. Marjaana's English site), opened like the Finnish card's link
+                c = _inline(c).replace('">', '" rel="noopener" target="_blank">', 1)
             elif 'Skillful interaction' in c:
                 a = re.search(r'<a [^>]*>Skillful interaction</a>', fi).group(0)
                 c = _inline(c.replace('Skillful interaction', '\0')).replace('\0', a)
