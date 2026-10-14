@@ -337,8 +337,8 @@ DETAIL_EDITS = {
                                   ('>Skillfull Interaction</a>', '>Skillful interaction</a>')],
 }
 # Card order on the Terapeutit page (Nana, 2026-10-04)
-PEOPLE_ORDER = ['Elina Uusi-Hakala', 'Riitta Saari', 'Jenita Mattsson',
-                'Annemari Hongell', 'Marjaana Raukola-Lindblom', 'Nana Lehtinen', 'Ida Luotonen']
+PEOPLE_ORDER = ['Elina Uusi-Hakala', 'Annemari Hongell', 'Jenita Mattsson',  # Annemari and Riitta swapped (Nana, 2026-10-14)
+                'Riitta Saari', 'Marjaana Raukola-Lindblom', 'Nana Lehtinen', 'Ida Luotonen']
 
 def terapeutit_body(body, log):
     intro = re.search(r'<h2>Asiantuntijat</h2>(<p>.*?</p>)', body, re.S)

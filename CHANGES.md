@@ -289,6 +289,7 @@ Design only, no text changes.
 - Marjaana (2026-10-14 03:25, Nana): "Lisätietoja: Skillful interaction" / "More information: Skillful Interaction" line removed from her card (Terapeutit list, Finnish and English profiles); her bio still links to www.skillful.fi.
 - Terapeutit list cards (2026-10-14 03:27, Nana): languages line moved to the last line of the card, in brackets, e.g. "(suomi, english)".
 - Elina's English card (2026-10-14 03:29, Nana): "General matters, Data protection officer".
+- Terapeutit list (2026-10-14 03:31, Nana): Annemari and Riitta swapped; order Elina, Annemari, Jenita / Riitta, Marjaana, Nana / Ida.
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
