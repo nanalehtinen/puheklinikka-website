@@ -725,6 +725,8 @@ FINAL_EDITS = [
     ('arviot-ja-konsultointi', 'Omakustannehinta: 139,10€/45min tapaaminen</p>', 'Omakustannehinta: 139,10€/45min tapaaminen. Hinta voi vaihdella palvelun mukaan.</p>', 1),
     ('mit-puheterapia-on-1', '<p>Pris: 139,10 €/45 min (självfinansierad)</p>', '<p>Pris: vanligtvis 139,10 €/45 min (självfinansierad). Priset kan variera beroende på tjänsten.</p>', 1),
     ('our-services', '<p>Price: €139.10 / 45 minutes (self-funded)</p>', '<p>Price: typically €139.10 / 45 minutes (self-funded). Prices may vary depending on the service.</p>', 1),
+    # Nana 2026-10-14 03:18: Marjaana is Puheklinikka's supervisor
+    ('asiantuntijat/marjaana-raukola-lindblom', 'Hän on perehtynyt myös eläinavusteiseen kuntoutukseen.</p>', 'Hän on perehtynyt myös eläinavusteiseen kuntoutukseen. Marjaana toimii Puheklinikan työnohjaajana.</p>', 1),
 ]
 
 def final_edits():
