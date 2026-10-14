@@ -295,7 +295,8 @@ HOME_AREAS = (  # Nana's full new text, word for word, two paragraphs (2026-10-0
     'Lisätietoa palveluista, koulutuksista, tuotteista ja puheterapian tueksi kehittämistämme sovelluksista löydät alta.')
 
 # ---------------------------------------------------------------- therapists
-# Working languages on every therapist card, directly above the phone number, same on every page (Nana, 2026-10-14)
+# Working languages on the Terapeutit list cards, directly above the phone number (Nana, 2026-10-14);
+# not on profile pages, which end with the working languages line (Nana, 03:23)
 CARD_LANGS = {
     'Annemari Hongell': ['fi', 'sv', 'en'], 'Elina Uusi-Hakala': ['fi', 'en'], 'Ida Luotonen': ['fi', 'en'],
     'Marjaana Raukola-Lindblom': ['fi', 'en'], 'Nana Lehtinen': ['fi', 'en'], 'Riitta Saari': ['fi', 'en', 'fr'],
@@ -319,7 +320,6 @@ def parse_people(body):
         for old, new in DETAIL_EDITS.get(name, []):
             assert details.count(old) == 1, (name, old)
             details = details.replace(old, new)
-        details = '<br/>'.join(add_card_langs(name, details.split('<br/>')))
         people.append({'name': name, 'img': img, 'details': details, 'slug': slugify(name)})
     return people
 
@@ -351,7 +351,7 @@ def terapeutit_body(body, log):
         # card copy of the photo with the top corners filled orange (Nana, 2026-10-04); made in build.py
         img = re.sub(r'src="\.\./images/[^"]+"', f'src="../images/card-{p["slug"]}.jpg"', img)
         cards += (f'<li class="person">{img}'
-                  f'<div class="txt"><h3><a class="card-link" href="{p["slug"]}/">{p["name"]}</a></h3><p>{p["details"]}</p></div></li>')
+                  f'<div class="txt"><h3><a class="card-link" href="{p["slug"]}/">{p["name"]}</a></h3><p>{"<br/>".join(add_card_langs(p["name"], p["details"].split("<br/>")))}</p></div></li>')
     # the line and toimisto email after the cards (left over from the old contact form) are removed (Nana, 2026-10-04)
     tail = body[body.rfind('<hr>'):]
     assert 'email-link' in tail and tail.count('<p') == 1, tail
@@ -434,7 +434,7 @@ def profile_body_lang(p, lang, log):
     img = re.sub(r' alt="[^"]*"', ' alt=""', p['img']).replace('src="../', 'src="../../../')
     bio = d['bio'].replace('href="../../', 'href="../../../')  # bio links are written for the Finnish page, one level up
     log(f'asiantuntijat/{p["slug"]}/{lang}', 'text', f'{lang} profile page for {p["name"]}')
-    return (f'<div class="profile"><div class="pcol">{img}<div class="card"><p>{"<br/>".join(add_card_langs(p["name"], d["card"]))}</p></div></div>'
+    return (f'<div class="profile"><div class="pcol">{img}<div class="card"><p>{"<br/>".join(d["card"])}</p></div></div>'
             f'<div class="content" lang="{lang}">{lang_links(p["name"], lang)}{bio}'
             f'<p><a class="back" href="../../" lang="fi">← Terapeutit</a></p></div></div>')
 
