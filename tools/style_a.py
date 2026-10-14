@@ -312,9 +312,8 @@ def parse_people(body):
 DETAIL_EDITS = {
     'Elina Uusi-Hakala': [('(Helsinki ja Turku) yleiset asiat', '(Helsinki ja Turku)<br/>yleiset asiat')],
     'Nana Lehtinen': [('Hallinnolliset asiat 040 593 0015', 'Hallinnolliset asiat<br/>040 593 0015')],
-    # title line "puheterapeutti, talterapeut (Turku)" (Nana, 2026-10-14)
-    'Annemari Hongell': [('(Turku, Åbo) kognitiivinen lyhyterapia ', '(Turku)<br/>kognitiivinen lyhytterapeutti'),
-                         ('puheterapeutti (Turku)', 'puheterapeutti, talterapeut (Turku)')],
+    # title line follows the page language: "puheterapeutti (Turku)" on Finnish pages (Nana, 2026-10-14)
+    'Annemari Hongell': [('(Turku, Åbo) kognitiivinen lyhyterapia ', '(Turku)<br/>kognitiivinen lyhytterapeutti')],
     'Ida Luotonen': [('puheterapeutti (Turku) ', 'puheterapeutti (Turku)<br/>kognitiivinen lyhytterapeutti')],
     'Marjaana Raukola-Lindblom': [('(Turku) työnohjaaja <a ', '(Turku)<br/>työnohjaaja <a '),
                                   ('työnohjaaja <a ', 'työnohjaaja<br/>Lisätietoja: <a '),
@@ -347,13 +346,14 @@ def terapeutit_body(body, log):
     return f'{intro.group(1)}<ul class="people">{cards}</ul>{tail}', people
 
 
-# Swedish versions of profile pages, at asiantuntijat/<slug>/sv/ (Nana, 2026-10-14). To add one for another
-# therapist: add an entry here; the Finnish page then gets a "På svenska" link and the Swedish page "Suomeksi".
-# 'card': (Finnish text, Swedish text) swaps on the contact card; 'bio': Nana's Swedish text, word for word
-# (subheadings with colons as on the Finnish pages).
+# Profile pages in other languages, at asiantuntijat/<slug>/<lang>/ (Nana, 2026-10-14). Not in any menu.
+# To add one: add an entry to SV_PROFILES (or EN_PROFILES via tools/bios-en-*.md); every version of that
+# therapist's profile then links to the others. 'card': the lines under the photo, in the page's language;
+# 'bio': the text, written for depth 2 (one level up from the language folder).
 SV_PROFILES = {
     'Annemari Hongell': {
-        'card': [('kognitiivinen lyhytterapeutti', 'kognitiv korttidsterapeut')],
+        'card': ['talterapeut (Turku)', 'kognitiv korttidsterapeut', '040 779 6733',
+                 '<a href="mailto:annemari.hongell@puheklinikka.net">annemari.hongell@puheklinikka.net</a>'],
         'bio': ''.join([
             '<p>Annemari arbetar med vuxna klienter med neurologiska tillstånd och erbjuder individuell talterapi och talterapi i grupp. Hon erbjuder även handledning, terapi och utbildning kring röststörningar och röstbesvär samt hjälper vid svårigheter med sväljning och ätande. Annemari utexaminerades som talterapeut från Åbo Akademi år 2015. I sitt examensarbete samlade hon in svenskspråkigt normmaterial för bedömningsverktyget Test i Snabb Seriell Benämning.</p>',
             '<p>Vid sidan av sitt arbete som talterapeut erbjuder Annemari <a href="../../palvelut-lheisille/">stödtjänster för rehabiliteringsklienters närstående i form av kognitiv korttidsterapi</a>.</p>',
@@ -393,23 +393,113 @@ def profile_body(p, log):
     else:
         log(f'asiantuntijat/{p["slug"]}', 'layout', f'new profile page for {p["name"]}: photo and contact details only; bio text not yet provided')
     details = p['details'].replace('href="../', 'href="../../')
-    if p['name'] in SV_PROFILES:
-        bio_html = '<p><a href="sv/" lang="sv">På svenska</a></p>' + bio_html
+    bio_html = lang_links(p['name'], 'fi') + bio_html
     return (f'<div class="profile"><div class="pcol">{img}<div class="card"><p>{details}</p></div></div>'
             f'<div class="content">{bio_html}<p><a class="back" href="../">← Terapeutit</a></p></div></div>')
 
-def profile_body_sv(p, log):
-    sv = SV_PROFILES[p['name']]
+LANG_LINK = {'fi': 'Suomeksi', 'sv': 'På svenska', 'en': 'In English'}
+
+def profile_langs(name):
+    return [l for l, d in (('sv', SV_PROFILES), ('en', EN_PROFILES)) if name in d]
+
+def lang_links(name, here):
+    """Links at the top of the text column to the other language versions of a profile (order fi, sv, en)."""
+    others = [l for l in ['fi'] + profile_langs(name) if l != here]
+    if len(others) == 0 or here not in ['fi'] + profile_langs(name):
+        return ''
+    def href(l):
+        if here == 'fi':
+            return f'{l}/'
+        return '../' if l == 'fi' else f'../{l}/'
+    links = ' <span aria-hidden="true">|</span> '.join(f'<a href="{href(l)}" lang="{l}">{LANG_LINK[l]}</a>' for l in others)
+    return f'<p>{links}</p>'
+
+def profile_body_lang(p, lang, log):
+    d = (SV_PROFILES if lang == 'sv' else EN_PROFILES)[p['name']]
     img = re.sub(r' alt="[^"]*"', ' alt=""', p['img']).replace('src="../', 'src="../../../')
-    details = p['details'].replace('href="../', 'href="../../../')
-    for old, new in sv['card']:
-        assert details.count(old) == 1, (p['name'], old)
-        details = details.replace(old, new)
-    bio = sv['bio'].replace('href="../../', 'href="../../../')  # bio links are written for the Finnish page, one level up
-    log(f'asiantuntijat/{p["slug"]}/sv', 'text', f'Swedish profile page for {p["name"]} (Nana\'s Swedish text, word for word)')
-    return (f'<div class="profile"><div class="pcol">{img}<div class="card"><p>{details}</p></div></div>'
-            f'<div class="content" lang="sv"><p><a href="../" lang="fi">Suomeksi</a></p>{bio}'
+    bio = d['bio'].replace('href="../../', 'href="../../../')  # bio links are written for the Finnish page, one level up
+    log(f'asiantuntijat/{p["slug"]}/{lang}', 'text', f'{lang} profile page for {p["name"]}')
+    return (f'<div class="profile"><div class="pcol">{img}<div class="card"><p>{"<br/>".join(d["card"])}</p></div></div>'
+            f'<div class="content" lang="{lang}">{lang_links(p["name"], lang)}{bio}'
             f'<p><a class="back" href="../../" lang="fi">← Terapeutit</a></p></div></div>')
+
+# English profiles: Claude's translations, published at Nana's request (2026-10-14); source tools/bios-en-2026-10-14.md.
+# Review notes (⚠) in that file are dropped.
+EMAILS = {}  # filled from the Finnish cards by the build, so the English cards use the same addresses
+
+def _inline(t):
+    t = t.replace(' ⚠', '').replace('⚠', '')
+    t = html.escape(t, quote=False).replace('&amp;', '&amp;')
+    return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', lambda m: f'<a href="{m.group(2)}">{m.group(1)}</a>', t)
+
+def _parse_en(path):
+    out = {}
+    txt = open(path, encoding='utf-8').read()
+    for sec in re.split(r'\n## ', txt)[1:]:
+        name, _, rest = sec.partition('\n')
+        name = name.strip()
+        if not re.match(r'[A-Z][a-z]+ [A-Z]', name) or '**Card:**' not in rest:
+            continue
+        rest = rest.split('\n---')[0]
+        card_line, _, body = rest.strip().partition('\n')
+        card = [c.strip() for c in card_line.replace('**Card:**', '').split(' / ')]
+        card = [re.sub(r'\s*\(same link[^)]*\)', '', c) for c in card]  # review note, not card text
+        bio, lst = [], []
+        def flush():
+            if not lst:
+                return
+            h = '<ul>'
+            for i, (lvl, item) in enumerate(lst):
+                nxt = lst[i + 1][0] if i + 1 < len(lst) else 0
+                h += f'<li>{_inline(item)}'
+                if nxt > lvl:
+                    h += '<ul>'
+                elif lvl == 1 and nxt == 0:
+                    h += '</li></ul></li>'
+                else:
+                    h += '</li>'
+            bio.append(h + '</ul>'); lst.clear()
+        for line in body.split('\n'):
+            if not line.strip():
+                flush(); continue
+            m = re.match(r'( *)- (.*)', line)
+            if m:
+                lst.append((1 if m.group(1) else 0, m.group(2))); continue
+            flush()
+            if line.startswith('**') and line.rstrip().endswith(':**'):
+                bio.append(f'<h2>{_inline(line.strip()[2:-2])}</h2>')
+            elif line.startswith('Working languages:'):
+                bio.append(f'<p class="langs">{_inline(line.strip())}</p>')
+            else:
+                bio.append(f'<p>{_inline(line.strip())}</p>')
+        flush()
+        out[name] = {'card_raw': card, 'bio': ''.join(bio).replace('href="../../../', 'href="../../')}
+    return out
+
+EN_PROFILES = _parse_en(os.path.join(_here, 'bios-en-2026-10-14.md'))
+
+def en_cards(people):
+    """Card lines for the English pages: the file's lines, with the Finnish card's email link, Sanapsis and Skillful links."""
+    for p in people:
+        d = EN_PROFILES.get(p['name'])
+        if not d:
+            continue
+        fi = p['details']
+        mail = re.search(r'<a href="mailto:[^"]*">[^<]*</a>', fi)
+        lines = []
+        for c in d['card_raw']:
+            if c == 'email':
+                assert mail, p['name']; c = mail.group(0)
+            elif 'Skillful interaction' in c:
+                a = re.search(r'<a [^>]*>Skillful interaction</a>', fi).group(0)
+                c = _inline(c.replace('Skillful interaction', '\0')).replace('\0', a)
+            elif '[Sanapsis]' in c:
+                a = re.search(r'<a [^>]*>Sanapsis</a>', fi).group(0)
+                c = _inline(re.sub(r'\[Sanapsis\]\([^)]*\)', '\0', c)).replace('\0', a)
+            else:
+                c = _inline(c)
+            lines.append(c)
+        d['card'] = [l.replace('href="../', 'href="../../../') for l in lines]
 
 # ---------------------------------------------------------------- news
 def news_body(body, page_title, log):

@@ -840,6 +840,7 @@ def build():
         dest = OUT / slug / 'index.html' if slug else OUT / 'index.html'
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(page)
+    style_a.en_cards(PEOPLE)
     for p in PEOPLE:
         ps = f'asiantuntijat/{p["slug"]}'
         page = render(ps, 'fi', f'{p["name"]} — Puheklinikka', p['name'], None,
@@ -847,12 +848,12 @@ def build():
         page = unicodedata.normalize('NFC', page)
         (OUT / ps).mkdir(parents=True, exist_ok=True)
         (OUT / ps / 'index.html').write_text(page)
-        if p['name'] in style_a.SV_PROFILES:
-            # separate Swedish version of the profile (Nana, 2026-10-14); not in any menu
-            page = render(ps + '/sv', 'sv', f'{p["name"]} — Puheklinikka', p['name'], None,
-                          style_a.profile_body_sv(p, log), 3, False, sidebar=False)
-            (OUT / ps / 'sv').mkdir(parents=True, exist_ok=True)
-            (OUT / ps / 'sv' / 'index.html').write_text(unicodedata.normalize('NFC', page))
+        # the same profile in other languages (Nana, 2026-10-14); not in any menu
+        for lang in style_a.profile_langs(p['name']):
+            page = render(f'{ps}/{lang}', lang, f'{p["name"]} — Puheklinikka', p['name'], None,
+                          style_a.profile_body_lang(p, lang, log), 3, False, sidebar=False)
+            (OUT / ps / lang).mkdir(parents=True, exist_ok=True)
+            (OUT / ps / lang / 'index.html').write_text(unicodedata.normalize('NFC', page))
     # new pages with only a title until Nana supplies their text (must not go live empty at launch)
     for ns, title in NEW_PAGES.items():
         page = render(ns, 'fi', f'{title} — Puheklinikka', title, None, style_a.MOVED.get(ns, ''), 1, False)
