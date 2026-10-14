@@ -697,6 +697,10 @@ NEW_WINDOW = {'fi': '(pdf)', 'sv': '(pdf)', 'en': '(pdf)'}  # file type on PDF l
 
 # last text edits, applied to the finished pages (pattern, old, new, expected count)
 FINAL_EDITS = [
+    # Nana 2026-10-14: Swedish Introduktion follows the English About order (collaboration line before the apps)
+    ('about-puheklinikka', '<p>Vi samarbetar gärna och är öppna för nya initiativ eller kunskapsutbyte. Vi ser fram emot att höra från dig!</p>', '', 1),
+    ('about-puheklinikka', '<p>Utöver kliniska tjänster har vi utvecklat två digitala applikationer',
+     '<p>Vi samarbetar gärna och är öppna för nya initiativ eller kunskapsutbyte. Vi ser fram emot att höra från dig!</p><p>Utöver kliniska tjänster har vi utvecklat två digitala applikationer', 1),
     # Nana 2026-10-14: Annemari's title line
     ('asiantuntijat', '<p>puheterapeutti (Turku, Åbo)<br/>', '<p>puheterapeutti, talterapeut (Turku)<br/>', 1),
     ('asiantuntijat/annemari-hongell', '<p>puheterapeutti (Turku, Åbo)<br/>', '<p>puheterapeutti, talterapeut (Turku)<br/>', 1),
