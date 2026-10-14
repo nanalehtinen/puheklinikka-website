@@ -697,6 +697,9 @@ NEW_WINDOW = {'fi': '(pdf)', 'sv': '(pdf)', 'en': '(pdf)'}  # file type on PDF l
 
 # last text edits, applied to the finished pages (pattern, old, new, expected count)
 FINAL_EDITS = [
+    # Nana 2026-10-14: Annemari's title line
+    ('asiantuntijat', '<p>puheterapeutti (Turku, Åbo)<br/>', '<p>puheterapeutti, talterapeut (Turku)<br/>', 1),
+    ('asiantuntijat/annemari-hongell', '<p>puheterapeutti (Turku, Åbo)<br/>', '<p>puheterapeutti, talterapeut (Turku)<br/>', 1),
     # Nana 2026-10-14: contact sentence links to the therapists page
     ('about-puheklinikka', 'För mer information, se fliken för <a href="../asiantuntijat/">Kontaktuppgifter</a>.',
      'Du hittar också mer information <a href="../asiantuntijat/">om våra terapeuter här</a>.', 1),
