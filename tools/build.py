@@ -193,9 +193,9 @@ EDITS = [
     ('new-page', '<p>Ohjeet nenälovimukin käyttöön löydät <a href="../s/Nenalovimuki.pdf" rel="noopener" target="_blank">tästä linkistä</a>.</p>', '<p>Mukia on saatavana kolmena versiona:</p><ul><li>Pieni, 0,5 dl (vaaleanpunainen)</li><li>Keskikokoinen, 1 dl (sininen)</li><li>Suuri, 2 dl, suunniteltu erityisesti itsenäiseen juomiseen (vihreä)</li></ul><p>Ohjeet nenälovimukin käyttöön löydät <a href="../s/Nenalovimuki.pdf" rel="noopener" target="_blank">tästä linkistä</a>.</p><p>Hinta: 18,00€/kpl</p>', 1),  # versions, instructions link above the price (Nana, 2026-10-10 06:16)
     ('new-page', 'että suun hygienian ylläpitämiseen kotioloissa.</p>', 'että suun hygienian ylläpitämiseen kotioloissa.</p><p>Hinta: 35,00€/ltk (75kpl)</p>', 1),  # Nana, 2026-10-10
     ('new-page', 'joka soveltuu muun muassa ääniongelmien hoitoon.</p>', 'joka soveltuu muun muassa ääniongelmien hoitoon.</p><p>Pituudet: 26cm, 26,5cm, 27cm, 27,5cm, 28cm</p><p>Hinta: 11,50€/kpl</p>', 1),  # Nana, 2026-10-10
-    ('koulutukset', 'kuin avustettunakin.</p></div>', 'kuin avustettunakin.</p></div><hr/><p>Koulutukset hinnoitellaan aina yksilöllisesti. Ota yhteyttä niin teemme tarjouksen!</p>', 1),  # new last section (Nana, 2026-10-10)
+    # (former last section "Koulutukset hinnoitellaan aina yksilöllisesti…" moved into the intro, Nana 2026-10-14 05:16)
     ('koulutukset', 'Nielemisen ja ruokailun häiriöihin keskittyvissä koulutuksissa käsitellään nielemistoimintoihin ja ruokailuun liittyviä peruslainalaisuuksia, joiden ymmärtäminen helpottaa myös häiriöiden tunnistamista ja tukemista arjessa. Koulutuksissa käydään läpi tyypillisiä ja toimiviksi koettuja käytäntöjä miellyttävän – ja ennen kaikkea turvallisen – ruokailun tukemiseksi, niin itsenäisesti kuin avustettunakin.', 'Nielemisen ja ruokailun häiriöihin keskittyvissä koulutuksissa käsitellään nielemistoimintoihin ja ruokailuun liittyviä peruslainalaisuuksia. Näiden ymmärtäminen helpottaa häiriöiden tunnistamista ja syömistilanteiden ohjausta ja tukemista arjessa. Koulutuksissa käydään läpi tyypillisiä ja toimiviksi koettuja käytäntöjä miellyttävän ja ennen kaikkea turvallisen ruokailun tukemiseksi, niin itsenäisesti kuin avustettunakin.', 1),  # Nana, 2026-10-10
-    ('koulutukset', 'Ota yhteyttä – suunnitellaan yhdessä juuri teidän tarpeisiinne sopiva kokonaisuus!', 'Suunnittelemme mielellämme myös juuri teidän tarpeisiinne sopivan kokonaisuuden. Ota yhteyttä!', 1),  # Nana, 2026-10-10
+    ('koulutukset', 'Ota yhteyttä – suunnitellaan yhdessä juuri teidän tarpeisiinne sopiva kokonaisuus!', 'Suunnittelemme mielellämme myös juuri teidän tarpeisiinne sopivan kokonaisuuden. Koulutukset hinnoitellaan aina yksilöllisesti. Ota yhteyttä niin teemme tarjouksen!', 1),  # price sentences moved up (Nana, 2026-10-14 05:16)  # Nana, 2026-10-10
     ('koulutukset', 'Aivoverenkiertohäiriöihin liittyy hyvin monenlaisia kommunikoinnin häiriöitä. Erilaisia kielellisiä (afasia) ja kielellis-kognitiivisia häiriöitä on useita, ja ne voivat ilmetä esimerkiksi puheen tuottamisen tai ymmärtämisen vaikeuksina.', 'Aivoverenkiertohäiriöihin voi liittyä monenlaisia kommunikoinnin haasteita. Erilaisia kielellisiä (afasia) ja kielellis-kognitiivisia häiriöitä on useita, ja ne voivat ilmetä eri-asteisina puheen tuottamisen tai ymmärtämisen vaikeuksina.', 1),  # Nana, 2026-10-10
     ('koulutukset', 'jotta kommunikointi olisi sujuvaa ja vastavuoroista, ongelmista huolimatta?', 'jotta kommunikointi olisi sujuvaa ja vastavuoroista haasteista huolimatta?', 1),  # Nana, 2026-10-10
     ('koulutukset', 'ovat avain yhteisen toimintamallin löytämiseen ja onnistuneen vuorovaikutustilanteen syntymiseen.', 'ovat avain onnistuneen vuorovaikutustilanteen syntymiseen.', 1),  # Nana, 2026-10-10
@@ -675,13 +675,14 @@ def doc_pages():
     # brochure stays a PDF for printing; the web version was dropped because the Ryhmä page has the same information (Nana, 2026-10-11 07:09)
     f = OUT / 'ryhmmuotoinen-terapia' / 'index.html'
     t = f.read_text()
-    # price paragraph moved above the picture (Nana, 2026-10-11 06:10)
+    # price paragraph moved to the end of the intro, before the first group heading (Nana, 2026-10-14 05:14;
+    # was above the picture, 2026-10-11)
     price = PRICES['ryhmmuotoinen-terapia']
     assert t.count(price) == 1, 'Ryhmä price not found'
     t = t.replace(price, '')
-    fig = t.rfind('<figure', 0, t.index('<a class="btn"'))
-    assert fig > 0
-    t = t[:fig] + price + '\n' + t[fig:]
+    intro_end = 'vetäjänä toimii aina laillistettu puheterapeutti.</p>'
+    assert t.count(intro_end) == 1, 'Ryhmä intro end not found'
+    t = t.replace(intro_end, intro_end + price)
     f.write_text(t)
     for pdf in PDFS_UNLINKED:
         (OUT / 's' / pdf).unlink()
