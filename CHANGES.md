@@ -279,6 +279,7 @@ Design only, no text changes.
 - Therapist cards (2026-10-14, Nana): working languages line directly above the phone number (first placed below, moved at Nana's correction) on every card (Terapeutit list, Finnish, Swedish and English profiles), e.g. "suomi, svenska, english"; Riitta "suomi, english, français"; Jenita "suomi". Each word marked with its language for screen readers.
 - Elina's English page (2026-10-14, Nana): first two paragraphs replaced with Nana's text (verbatim; typographic apostrophe in "Master’s"); "Feel free to get in touch!" removed.
 - English therapist pages (2026-10-14, Nana): "Master’s Thesis" capitalised on all pages; card titles "Speech Therapist" / "Specialist Speech Therapist".
+- Annemari's English page (2026-10-14, Nana): first paragraph replaced with Nana's text (verbatim; typographic apostrophe in Master’s).
 - Palvelut läheisille: the photo moved to the bottom right, next to "Jakso sisältää 3-5 käyntiä…" (Nana, 2026-10-04). No text change.
   - Then (Nana, 2026-10-04): the photo's bottom edge lines up with the last line of text ("Ota rohkeasti yhteyttä…"). To do that, the last four paragraphs (from "Tuki on tarkoitettu…") now sit in a column beside the photo, so "Tuki on tarkoitettu…" is narrower than before. On phones the photo comes below the text. No text change.
 - LUKI-tutkimus: the two columns are now one; the photo moved to the bottom right, next to "LUKI-tutkimus toteutetaan yhdellä…" (Nana, 2026-10-04). No text change. The toimisto email left over from the old contact form is removed (Nana, 2026-10-04).
