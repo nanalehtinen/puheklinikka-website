@@ -42,7 +42,7 @@ Needed for accessibility (WCAG 2.1) or because something had no text before:
 - The header "Info" and "Email" pop-up panels are not reproduced. The contact text ("Contact Us / Ota yhteyttä!" and the email) is now in the footer on every page.
 - Some two-column sections (e.g. Ryhmämuotoinen kuntoutus, Koulutukset) are rebuilt from the Squarespace column data. I could not see the live layout (screenshots of the live site were blocked), so please compare these.
 - Large photos were resized to max 1500 px wide (Squarespace did the same); image file names are now plain ASCII. PDFs keep their old addresses (/s/…pdf).
-- /nanalehtinengmailcom (an accidental copy of the homepage) now forwards to the homepage.
+- An old accidental copy of the homepage was removed from the site (Nana, 2026-10-18).
 
 ## 5. Accessibility check (WCAG 2.1 A and AA)
 Automated: axe-core 4.13 with all WCAG 2.0/2.1 A and AA rules, on all 18 pages at desktop and phone width. Result: 0 violations.
@@ -122,7 +122,7 @@ Design only, no text changes.
 
 ## 12. Lower footer (Nana, 2026-10-03)
 - The footer is less tall: about 80px on a wide screen (was about 130px). The text is slightly smaller (.92rem). The social media buttons stay 44px so they are easy to tap.
-- Checked: every page has the dark grey footer. The only page without one is the old address /nanalehtinengmailcom, which immediately forwards to the homepage.
+- Checked: every page has the dark grey footer.
 
 ## 13. Nana's answers (2026-10-03)
 - Button hover kept on all buttons, including the homepage's Terapeutit and email buttons.

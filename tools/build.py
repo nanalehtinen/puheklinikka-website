@@ -41,7 +41,7 @@ PAGES = {
     'new-page-2':                    ('new-page-2.html', None, 'fi'),
 }
 # Old address kept working by forwarding (decision 9: keep addresses).
-REDIRECTS = {'nanalehtinengmailcom': '', 'tapahtumia-aiemmilta-vuosilta': 'tapahtumat-2025'}  # old Menneet tapahtumat URL → newest year
+REDIRECTS = {'tapahtumia-aiemmilta-vuosilta': 'tapahtumat-2025'}  # old Menneet tapahtumat URL → newest year
 
 # Menu exactly as on the live site (site-wide.md). Folder label trailing space dropped.
 MENU = [

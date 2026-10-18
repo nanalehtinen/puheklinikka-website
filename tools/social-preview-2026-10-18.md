@@ -46,4 +46,4 @@ og:title = the page's existing <title> (unchanged). Picture: page's own first ph
 | about-puheklinikka-2/ | en | og-puheklinikka.jpg | [page] Puheklinikka (Speech Clinic) is a private healthcare provider dedicated to supporting adults with acquired communication difficulties. Our clinics are located in Turku and Helsinki, Finland. |
 | our-services/ | en | page photo | [page] Speech and language therapy is a form of medical rehabilitation provided by licensed experts in speech, language, and communication. |
 
-Redirect-only pages (nanalehtinengmailcom/, tapahtumia-aiemmilta-vuosilta/) get no tags.
+Redirect-only page (tapahtumia-aiemmilta-vuosilta/) gets no tags.
