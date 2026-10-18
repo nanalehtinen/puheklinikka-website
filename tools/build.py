@@ -786,6 +786,79 @@ def finalize_links():
         if new != s:
             f.write_text(new)
 
+# ---------------------------------------------------------------- social share previews
+# Open Graph / description tags on every page except redirects (Nana, 2026-10-18). Texts and pictures from
+# tools/social-preview-2026-10-18.md (copy of site-plan/social-preview/descriptions.md, owned by the hosting thread).
+SITE_URL = 'https://www.puheklinikka.net/'
+OG_LOCALE = {'fi': 'fi_FI', 'sv': 'sv_SE', 'en': 'en_GB'}
+OG_LOGO = 'og-puheklinikka.jpg'
+OG_LOGO_ALT = {'fi': 'Puheklinikan logo', 'sv': 'Puheklinikkas logotyp', 'en': 'Puheklinikka logo'}
+
+def social_specs():
+    specs = {}
+    for line in (ROOT / 'social-preview-2026-10-18.md').read_text().split('\n'):
+        cells = [c.strip() for c in line.strip().strip('|').split('|')]
+        if len(cells) != 4 or cells[0] in ('Page', '---') or set(cells[0]) <= set('-'):
+            continue
+        page, lang, pic, desc = cells
+        desc = re.sub(r'^\[[^\]]*\]\s*', '', desc)
+        page = page.split(' (')[0].strip()
+        if page.startswith('tapahtumat-2016/'):
+            for y in range(2016, 2026):
+                specs[f'tapahtumat-{y}/'] = (lang, pic, desc.replace(' (YYYY = the page\'s year)', '').replace('YYYY', str(y)))
+            continue
+        specs[page.lstrip('/')] = (lang, pic, desc)
+    return specs
+
+def social_tags():
+    shutil.copy(ROOT / 'assets' / OG_LOGO, OUT / 'images' / OG_LOGO)
+    specs = social_specs()
+    seen = set()
+    for f in sorted(OUT.rglob('index.html')):
+        t = f.read_text()
+        if 'http-equiv="refresh"' in t:
+            continue  # redirect pages get no tags
+        rel_dir = f.parent.relative_to(OUT).as_posix()
+        key = '' if rel_dir == '.' else rel_dir + '/'
+        if key not in specs:
+            sys.exit(f'SOCIAL: no description for {key or "/"}')
+        seen.add(key)
+        lang, pic, desc = specs[key]
+        html_lang = re.search(r'<html lang="(\w+)"', t).group(1)
+        assert html_lang == lang, (key, html_lang, lang)
+        title = re.search(r'<title>(.*?)</title>', t, re.S).group(1)
+        h1 = re.sub(r'<[^>]+>', '', re.search(r'<h1>(.*?)</h1>', t, re.S).group(1)) if '<h1>' in t else ''
+        if pic == 'page photo':
+            main = t[t.index('<main'):t.index('</main>')]
+            content = main[main.index('<div class="content">'):]
+            m = re.search(r'<img [^>]*src="(?:\.\./)*images/([^"]+)"', content)
+            assert m, f'SOCIAL: no photo on {key}'
+            pic, alt = m.group(1), html.unescape(h1)
+        elif pic == OG_LOGO:
+            alt = OG_LOGO_ALT[lang]
+        else:
+            alt = html.unescape(h1)  # therapist photo: the person's name
+        assert (OUT / 'images' / pic).exists(), (key, pic)
+        e = lambda v: html.escape(v, quote=True)
+        tags = (f'<meta name="description" content="{e(desc)}">\n'
+                f'<meta property="og:type" content="website">\n'
+                f'<meta property="og:site_name" content="Puheklinikka">\n'
+                f'<meta property="og:title" content="{title}">\n'
+                f'<meta property="og:description" content="{e(desc)}">\n'
+                f'<meta property="og:url" content="{SITE_URL}{key}">\n'
+                f'<meta property="og:locale" content="{OG_LOCALE[lang]}">\n'
+                f'<meta property="og:image" content="{SITE_URL}images/{pic}">\n'
+                f'<meta property="og:image:alt" content="{e(alt)}">\n'
+                f'<meta name="twitter:card" content="summary_large_image">')
+        old = re.search(r'<meta property="og:image" content="[^"]*">', t)
+        assert old, key
+        t = t[:old.start()] + tags + t[old.end():]
+        f.write_text(t)
+    missing = set(specs) - seen
+    if missing:
+        sys.exit(f'SOCIAL: descriptions for pages that do not exist: {sorted(missing)}')
+    LOG.append(('', 'tech', f'social share preview tags on {len(seen)} pages'))
+
 # ---------------------------------------------------------------- main
 def build():
     if OUT.exists():
@@ -888,6 +961,7 @@ def build():
     doc_pages()
     finalize_links()
     final_edits()
+    social_tags()
     make_card_photos()
     (OUT / '.nojekyll').write_text('')
     # CNAME (www.puheklinikka.net) is added only at the domain switch-over step, with Nana's approval
