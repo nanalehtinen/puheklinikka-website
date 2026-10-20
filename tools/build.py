@@ -728,6 +728,8 @@ FINAL_EDITS = [
     ('our-services', '<p>Price: €139.10 / 45 minutes (self-funded)</p>', '<p>Price: typically €139.10 / 45 minutes (self-funded). Prices may vary depending on the service.</p>', 1),
     # Nana 2026-10-14 03:18: Marjaana is Puheklinikka's supervisor
     ('asiantuntijat/marjaana-raukola-lindblom', 'Hän on perehtynyt myös eläinavusteiseen kuntoutukseen.</p>', 'Hän on perehtynyt myös eläinavusteiseen kuntoutukseen. Marjaana on koulutukseltaan myös työnohjaaja ja toimii Puheklinikan terapeuttien työnohjaajana.</p>', 1),
+    # Nana 2026-10-20: new news post at the top of Ajankohtaista (Puheklinikka 20 vuotta)
+    ('new-page-1', '<div class="news"><article>', '<div class="news">' + '<article><h2><strong>21.10.2026</strong></h2>\n<div class="block float-right span-6"><figure class="img"><img src="../images/puheklinikka-20-vuotta.jpg" alt="Puheklinikka 20 vuotta. Oransseja ilmapalloja, joissa Puheklinikan logo." width="875" height="1241" loading="lazy" decoding="async"></figure></div>\n<p><strong>Puheklinikalla juhlitaan! Tervetuloa mukaan juhlahumuun - </strong></p><ul><li><p><strong>Kuntoutujille on pannu lämpimänä kello 11-13</strong></p></li><li><p><strong>Kollegat ja yhteistyökumppanit toivotetaan tervetulleeksi kello 15-17.</strong></p></li><li><p><strong>Hyppää mukaan!</strong></p></li></ul></article>' + '<article>', 1),
 ]
 
 def final_edits():
@@ -960,6 +962,8 @@ def build():
     copy_assets()
     doc_pages()
     finalize_links()
+    for img in (ROOT / 'assets' / 'news').glob('*.jpg'):  # pictures for news posts added after the move
+        shutil.copy(img, OUT / 'images' / img.name)
     final_edits()
     social_tags()
     make_card_photos()
